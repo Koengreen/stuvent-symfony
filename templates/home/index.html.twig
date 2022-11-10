@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+
+{% block body %}
+
+    {% for events in evt %}
+
+    <h1>de titel is {{ events.title }} </h1>
+
+    {% endfor %}
+
+{% endblock %}
