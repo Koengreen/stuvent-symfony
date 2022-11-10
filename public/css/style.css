@@ -1,7 +1,37 @@
 @font-face {
   font-family: BoldMondriaan;
-  src: url(/fonts/FilsonPro-Bold.woff2);
+  src: url(fonts/FilsonPro-Bold.woff2);
 
+}
+body {margin: 0;}
+
+ul.topnav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+
+ul.topnav li a.active {background-color: #04AA6D;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px) {
+  ul.topnav li.right,
+  ul.topnav li {float: none;}
 }
 
 hr{
@@ -43,17 +73,7 @@ body{
     color: #1a191a;
     font-family: BoldMondriaan;
 }
-ul{
-  margin-left: 2vw;
 
-}
-li{
-  list-style: none;
-  font-size: larger;
-  display: inline-block;
-  margin-left: 30px;
-  margin-right: 30px;
-}
 label{
   text-decoration: underline;
 }
@@ -72,10 +92,6 @@ label{
   margin-left:9vw;
   margin-right: 9vw;
   border: 3vw solid #ecb352;
-}
-
-.navbar-dark{
-  box-shadow: 4px 4px 4px ;
 }
 
 
