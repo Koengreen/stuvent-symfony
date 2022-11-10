@@ -1,0 +1,200 @@
+@font-face {
+  font-family: BoldMondriaan;
+  src: url(/fonts/FilsonPro-Bold.woff2);
+
+}
+
+hr{
+  color: #1a191a;
+}
+.login-forum{
+  min-height: 10vh;
+}
+.active{
+  text-decoration: underline;
+  color: rgb(33, 37, 41);
+
+}
+
+.carrousel{
+  display: none;
+}
+
+
+.mySlides {
+    display:none;
+    position: static;
+    max-height: 400px;
+    object-fit: cover;
+}  
+.hyperlink{
+  color: #1a191a;
+  font-size: small;
+}
+.hyperlink:hover{
+  text-decoration: underline;
+  color: #1a191a ;
+}
+body{
+    background: linear-gradient(to right, #ac1424 50%, #2d3584 50%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: #1a191a;
+    font-family: BoldMondriaan;
+}
+ul{
+  margin-left: 2vw;
+
+}
+li{
+  list-style: none;
+  font-size: larger;
+  display: inline-block;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+label{
+  text-decoration: underline;
+}
+
+.card-img-top{
+  box-shadow: 4px 4px 2px black;
+}
+#grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(17vw, 1fr));
+  grid-gap: 2vw;
+  background-color: #ecb352;
+  width: 80vw;
+  justify-content: center;
+  align-self: center;
+  margin-left:9vw;
+  margin-right: 9vw;
+  border: 3vw solid #ecb352;
+}
+
+.navbar-dark{
+  box-shadow: 4px 4px 4px ;
+}
+
+
+#grid>div {
+  font-size: 30px;
+  padding: .5em;
+  color: #ffffff;
+  background: #b9dcff;
+  text-align: center;
+  box-shadow: 2px 2px 2px #1a191a;
+}
+.event-img{
+  width: 80vh;
+  height: auto;
+  box-shadow: 8px 12px 8px rgb(82, 80, 80);
+}
+.form-group{
+  background-color: #ecb352;
+  margin-left: 15vw;
+  margin-right: 15vw;
+  text-align: center
+}
+
+#grid>div:hover{
+  transform: scale(1.1);
+}
+
+.enroll-button{
+  box-shadow: 4px 2px px ;
+
+}
+.enroll-button:hover{
+  color: #ac1424;
+}
+
+a:hover{
+  color: white
+}
+
+.login{
+  margin: 7vh;
+  
+}
+
+.card-body{
+  block-size: max-content;
+  
+}
+h1{
+  color: #1a191a;
+  font-size: xx-large;
+}
+h3{
+  font-size: large;
+  color:#1a191a
+}
+
+h5{
+  color: #8c8c91;
+}
+.login-label{
+  font-size: larger;
+}
+.enroll-button{
+  color: black;
+  padding: 5px;
+  border: 3px solid black;
+}
+
+
+.about-text{
+  background-color: #ecb352;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  text-align: center;
+  border: 2vw solid #ecb352;
+
+}
+a{
+  color: white;
+  text-decoration: none;
+}
+
+::content
+
+.Login{
+  margin-left: -70px;
+}
+.image-border{
+  height: 20vh;
+  background: #b9dcff;
+}
+p{
+  font-size: large;
+  color: #1a191a;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  #grid { grid-template-columns: repeat(1, 1fr); }
+}
+
+@media (min-width:481px) and (max-width:768px) 
+{
+  #grid { grid-template-columns: repeat(2, 1fr);}
+
+}
+@media(max-width: 800px) {
+  .image-border{
+    height: 20vh;
+  }
+  .form-group{
+    background-color: #ecb352;
+    margin-left: 0vw;
+    margin-right: 0vw;
+    text-align: center;
+    margin-bottom: 0vw;
+  }
+  .btn{
+    margin: 10%;
+  }
+}
+  

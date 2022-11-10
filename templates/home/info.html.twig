@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+
+{% block body %}
+<div class="about" xmlns="http://www.w3.org/1999/html">
+        <div class="about-text">
+                <br>
+                <img class="event-img img-fluid" src="{{ evt.image }}">
+                <hr>
+                <h1> {{ evt.title }}</h1>
+                <h1>Over het evenement</h1> <br>
+                <p>{{ evt.description }}</p>
+                <hr>
+                <h1>{{ evt.date }}</h1>
+                <h3>{{ evt.time }}</h3>
+                <hr>
+                <h1>Inschrijven</h1>
+                <a class="enroll-button" href="">Klik hier om je in te schrijven</a>
+
+
+
+
+
+        {% endblock %}
