@@ -1,6 +1,6 @@
 @font-face {
-  font-family: BoldMondriaan;
-  src: url(fonts/FilsonPro-Bold.woff2);
+  font-family: ceria-lebaran;
+  src: url('fonts/FilsonPro-Bold.woff2');
 
 }
 body {margin: 0;}
@@ -120,7 +120,7 @@ label{
 }
 
 .enroll-button{
-  box-shadow: 4px 2px px ;
+  box-shadow: 4px 2px 2px ;
 
 }
 .enroll-button:hover{

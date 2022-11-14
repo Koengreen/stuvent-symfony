@@ -14,32 +14,41 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'blog_list')]
-
-    public function show(EventRepository $eventRepository){
-        $evt =$eventRepository->findAll();
+    public function show(EventRepository $eventRepository)
+    {
+        $evt = $eventRepository->findAll();
         return $this->render('home/index.html.twig', [
             'evt' => $evt,
         ]);
     }
 
-    #[Route('/{id}', name: 'more_info')]
-public function showInfo(ManagerRegistry $doctrine, int $id): Response
-{
-    $evt = $doctrine->getRepository(Event::class)->find($id);
 
-    if(!$evt) {
-        throw $this->createNotFoundException(
+    #[Route('/register')]
+    public function number(): Response
+    {
+        $number = random_int(0, 100);
 
-            'no information found for id ' .$id
-        );
+        return $this->render('home/register.html.twig', [
+            'number' => $number,
+        ]);
     }
-    return $this->render('home/info.html.twig', [
-        'evt' => $evt,
-    ]);
-
-}
 
 
+    #[Route('/{id}', name: 'more_info')]
+    public function showInfo(ManagerRegistry $doctrine, int $id): Response
+    {
+        $evt = $doctrine->getRepository(Event::class)->find($id);
 
+        if (!$evt) {
+            throw $this->createNotFoundException(
+
+                'no information found for id ' . $id
+            );
+        }
+        return $this->render('home/info.html.twig', [
+            'evt' => $evt,
+        ]);
+
+    }
 }
 
