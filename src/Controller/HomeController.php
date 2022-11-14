@@ -42,7 +42,6 @@ class HomeController extends AbstractController
         return $this->render('home/info.html.twig', [
             'evt' => $evt,
        ]);
-
     }
 }
 
