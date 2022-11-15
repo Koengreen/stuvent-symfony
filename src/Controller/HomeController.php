@@ -26,6 +26,19 @@ class HomeController extends AbstractController
             'evt' => $evt,
         ]);
     }
+    #[Route('/login', name: 'login')]
+    public function login():Response {
+        return $this->render("home/login.html.twig");
+    }
+
+
+    #[Route('/register', name: 'register')]
+    public function register():Response {
+        return $this->render("home/register.html.twig");
+    }
+
+
+
 
 
 
