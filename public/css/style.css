@@ -1,6 +1,6 @@
 @font-face {
-  font-family: ceria-lebaran;
-  src: url('fonts/FilsonPro-Bold.woff2');
+  font-family: BoldMondriaan;
+  src: url(/fonts/FilsonPro-Bold.woff2);
 
 }
 body {margin: 0;}
@@ -46,17 +46,12 @@ hr{
 
 }
 
-.carrousel{
-  display: none;
+.jumbotron{
+  position: static;
+  max-height: 400px;
+  object-fit: cover;
+  width: 100vw;
 }
-
-
-.mySlides {
-    display:none;
-    position: static;
-    max-height: 400px;
-    object-fit: cover;
-}  
 .hyperlink{
   color: #1a191a;
   font-size: small;
