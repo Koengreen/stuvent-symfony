@@ -103,11 +103,15 @@ label{
   height: auto;
   box-shadow: 8px 12px 8px rgb(82, 80, 80);
 }
+.submitButton{
+  background-color: #1a191a;
+}
 .form-group{
   background-color: #ecb352;
   margin-left: 15vw;
   margin-right: 15vw;
-  text-align: center
+  text-align: center;
+
 }
 
 #grid>div:hover{
