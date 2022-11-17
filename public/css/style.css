@@ -12,6 +12,7 @@ ul.topnav {
   overflow: hidden;
   background-color: #333;
 }
+.mySlides {display:none;}
 
 ul.topnav li {float: left;}
 
