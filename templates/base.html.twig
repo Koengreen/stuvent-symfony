@@ -22,11 +22,11 @@
                 <div class="bg-dark p-4">
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <li> <a href="/{{ app.user ? 'logout' : 'login' }}"
-                                @click="isOpen = false">
-                                    {{ app.user ? 'Logout' : 'Login' }}</a></li>
                         <li><a href="/register">Registreren</a></li>
                         <li><a href="/about">Over Stuvent</a></li>
+                        <li> <a href="/{{ app.user ? 'logout' : 'login' }}"
+                                @click="isOpen = false">
+                                {{ app.user ? 'Logout' : 'Login' }}</a></li>
 
                     </ul>
                 </div>
