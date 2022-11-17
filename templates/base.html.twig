@@ -23,7 +23,8 @@
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li> <a href="/{{ app.user ? 'logout' : 'login' }}"
-                                    {{ app.user ? 'Logout' : 'Login' }}>login/logout</a></li>
+                                @click="isOpen = false">
+                                    {{ app.user ? 'Logout' : 'Login' }}</a></li>
                         <li><a href="/register">Registreren</a></li>
                         <li><a href="/about">Over Stuvent</a></li>
 
