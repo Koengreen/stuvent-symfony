@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+
+{% block body %}
+    <div class="about" xmlns="http://www.w3.org/1999/html">
+    <div class="about-text">
+    <hr>
+    <h1> {{ app.user.id }} </h1>
+    <h1> {{ app.user.firstName }} {{ app.user.lastName }}></h1>
+    <h1>{{ app.user.studentNumber }}<h1>
+    <h1> {{ app.user.email }}</h1>
+{% endblock %}
