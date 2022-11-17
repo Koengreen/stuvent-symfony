@@ -48,16 +48,11 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Save',
+                'label' => 'Account aanmaken',
                 'attr'  => [
                     'class' => 'btn btn-success'
                 ]
-            ])
-        ;
-
-
-
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
