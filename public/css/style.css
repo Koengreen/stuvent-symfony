@@ -197,7 +197,14 @@ p{
   color: #1a191a;
 }
 button.addeventsbtn{
-  width: 1000px;
+  width: 80vw;
+  margin-left: -3vw;
+  background-color: #b9dcff;
+  font-size: xx-large;
+}
+button.addeventsbtn:hover{
+  text-decoration: underline;
+  transform: scale(1.05);
 }
 
 @media (min-width: 320px) and (max-width: 480px) {

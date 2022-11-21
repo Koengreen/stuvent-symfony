@@ -32,7 +32,7 @@ class AdminController extends AbstractController
     public function Addevents(EventRepository $eventRepository)
     {
         $evt = $eventRepository->findAll();
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/addevents.html.twig', [
             'evt' => $evt,
         ]);
     }
