@@ -145,6 +145,7 @@ class HomeController extends AbstractController
             'eventform' => $form->createView(),
         ]);
     }
+    
     #[Route('/admin/{id}/remove/', name: 'event_delete')]
     public function Remove(ManagerRegistry $doctrine, int $id): Response
     {
