@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+
+{% block body %}
+
+
+
+<!--Hier beginnen de events-->
+<div id="grid">
+<form action="/admin/add">
+         <button type="submit" class="addeventsbtn">Info</button>
+</div>
+        <div id="grid">
+        
+
+            {% for events in evt %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="image-border">
+                        <img class="card-img-top" src="{{ events.image }}">
+                    </div>
+                    <h1>{{ events.title }}</h1>
+                    <h3>{{ events.date }}</h3>
+                    <h5>{{ events.time }}</h5>
+                    <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }} >Meer informatie en inschrijven</a>
+                </div>
+            </div>
+    {% endfor %}
+
+{% endblock %}

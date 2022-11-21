@@ -3,6 +3,10 @@
   src: url(/fonts/FilsonPro-Bold.woff2);
 
 }
+
+
+
+
 body {margin: 0;}
 
 ul.topnav {
@@ -191,6 +195,9 @@ a{
 p{
   font-size: large;
   color: #1a191a;
+}
+button.addeventsbtn{
+  width: 1000px;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
