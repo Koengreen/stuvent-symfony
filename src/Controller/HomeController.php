@@ -67,6 +67,8 @@ class HomeController extends AbstractController
     }
 
 
+
+
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
@@ -143,5 +145,20 @@ class HomeController extends AbstractController
             'eventform' => $form->createView(),
         ]);
     }
+    #[Route('/admin/{id}/remove/', name: 'event_delete')]
+    public function Remove(ManagerRegistry $doctrine, int $id): Response
+    {
+        $entityManager = $doctrine->getManager();
+        $event = $entityManager->getRepository(Event::class)->find($id);
+        $entityManager->remove($event);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_admin', [
+            'id' => $event->getId()
+        ]);
+    }
+
+
+    
 }
 
