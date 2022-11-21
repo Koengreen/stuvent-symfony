@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!{% endblock %}
+
+
+{% block body %}
+    <div class="form-group">
+    <h1>Events toevoegen</h1>
+    <hr>
+
+        {% form_theme eventform 'bootstrap_5_layout.html.twig' %}
+
+    {{ form_start(eventform) }}
+    {{form_row(eventform.title)}}
+   {{form_row(eventform.description)}}
+    {{ form_end(eventform) }}
+    <br>
+
+
+    </div>
+{% endblock %}

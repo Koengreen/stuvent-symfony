@@ -51,6 +51,15 @@ hr{
 
 }
 
+.eventdesc{
+  background-color: #ac1424;
+}
+
+textarea#event_form_description.form-control{
+  height: 30vh;
+}
+
+
 .jumbotron{
   position: static;
   max-height: 400px;
