@@ -59,6 +59,29 @@ textarea#event_form_description.form-control{
   height: 30vh;
 }
 
+.gg-remove {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs,1));
+  width: 30px;
+  height: 30px;
+  border: 2px solid;
+  border-radius: 30px;
+  background-color:  red;
+}
+.gg-remove::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 5px;
+  top: 12px;
+  left: 7.5px
+}
 
 .jumbotron{
   position: static;
