@@ -67,7 +67,7 @@ td{
   border: 3px solid black;
 }
 th{
-  background-color: #2d3584;
+  background-color: #373d87;
   color: black;
 }
 
@@ -211,6 +211,7 @@ h5{
 
 .moreinfolinks{
   color: black;
+
 
 }
 .moreinfolinks:hover {
