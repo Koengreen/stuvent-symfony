@@ -30,7 +30,7 @@ class HomeController extends AbstractController
         ]);
     }
     #[Route('/myprofile/{id}', name: 'myProfile')]
-    public function myProfile(ManagerRegistry $doctrine, int $id): Response
+    public function myProfile(ManagerRegistry $doctrine, int $id, EventRepository $eventRepository): Response
     {
         $profile = $doctrine->getRepository(User::class)->find($id);
 #
@@ -39,9 +39,12 @@ class HomeController extends AbstractController
                 'Nog niet ingelogd '
             );
         }
+        $evt = $eventRepository->findAll();
         return $this->render('home/myprofile.html.twig', [
-            'profile' => $profile,
+            'profile' => $profile, 'evt' => $evt
         ]);
+
+
     }
 
 
@@ -80,7 +83,7 @@ class HomeController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $user->setRoles(["ROLE_USER"]);
+        $user->setRoles(["ROLE_ADMIN"]);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

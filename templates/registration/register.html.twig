@@ -5,6 +5,7 @@
 {% block body %}
 
     <div class="form-group">
+        <br>
     <h1>Register</h1>
 
         {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
@@ -15,7 +16,8 @@
             label: 'Password'
         }) }}
     {{ form_end(registrationForm) }}
+        <br>
+        <br>
 
-    <button type="submitButton" class="btn">Register</button>
     </div>
 {% endblock %}
