@@ -2,17 +2,23 @@
 
 namespace App\Controller;
 
-use App\Entity\Event;
-use App\Repository\EventRepository;
+
+use App\Entity\Article;
+use App\Form\ArticleFormType;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\ManagerRegistry;
+use Gedmo\Sluggable\Util\Urlizer;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Event;
+use App\Repository\EventRepository;
 use App\Entity\User;
 use App\Form\EventFormType;
 use App\Form\RegistrationFormType;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -135,13 +141,21 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-
+            ($form['image']->getData());
+            $uploadedFile = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/img/event-img';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = "img/event-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $event->setImage($newFilename);
             $entityManager->persist($event);
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('blog_list');
+            return $this->redirectToRoute('app_admin');
         }
 
         return $this->render('admin/addevents.html.twig', [

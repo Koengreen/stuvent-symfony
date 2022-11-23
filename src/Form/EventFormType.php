@@ -19,7 +19,9 @@ use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Form\RegistrationFormType;
+
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\ORM\Query\AST\OrderByItem;
 use Symfony\Component\Console\Style\StyleInterface;
@@ -43,7 +45,9 @@ class EventFormType extends AbstractType
             ->add('eventtype')
             ->add('date')
             ->add('time')
-            ->add('image')
+            ->add('image', FileType::class, [
+                'mapped' => false
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Event toevoegen',
                 'attr'  => [
