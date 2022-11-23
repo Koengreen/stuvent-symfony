@@ -2,10 +2,9 @@
 
 namespace App\Controller;
 
-
-use App\Entity\Article;
-use App\Form\ArticleFormType;
-use App\Repository\ArticleRepository;
+use App\Form\EventFormType;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Sluggable\Util\Urlizer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -17,7 +16,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Entity\User;
-use App\Form\EventFormType;
 use App\Form\RegistrationFormType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

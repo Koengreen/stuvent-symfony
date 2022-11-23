@@ -124,6 +124,14 @@ label{
 
 .card-img-top{
   box-shadow: 4px 4px 2px black;
+
+}
+
+.card-img-top:hover{
+  box-shadow: 4px 4px 2px black;
+  transition-delay: revert;
+  transform: rotateY(180deg);
+
 }
 #grid {
   display: grid;
