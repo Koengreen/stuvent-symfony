@@ -75,7 +75,7 @@ th{
   box-sizing: border-box;
   position: relative;
   display: block;
-  transform: scale(var(--ggs,1));
+  transform: scale(1.7);
   width: 30px;
   height: 30px;
   border: 2px solid;
@@ -268,14 +268,13 @@ button.addeventsbtn:hover{
   transform: scale(1.05);
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
-  #grid{
-    grid-template-columns: repeat(1, minmax(17vw, 1fr));
-  }
 
+@media (min-width: 320px) and (max-width: 480px) {
+  #grid {
+    grid-template-columns: repeat(1, 1fr); }
 }
 
-@media (min-width:481px) and (max-width:768px) 
+@media (min-width:481px) and (max-width:768px)
 {
   #grid { grid-template-columns: repeat(2, 1fr);}
 
@@ -286,8 +285,10 @@ button.addeventsbtn:hover{
   }
   .form-group{
     background-color: #ecb352;
+    margin-left: 0vw;
+    margin-right: 0vw;
     text-align: center;
-    height: 1000px;
+    margin-bottom: 0vw;
   }
   .btn{
     margin: 10%;
