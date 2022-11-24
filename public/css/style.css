@@ -131,10 +131,12 @@ label{
 
 .card-img-top{
   border-radius: inherit;
+  margin-top: -9px;
 
 }
 .card-img-top:hover{
   transform: scale(1.249);
+  transform-style: revert;
   transition: 2.0s;
   max-width: 300px;
 }
