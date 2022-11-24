@@ -4,10 +4,17 @@
 
 }
 
-
+input#registration_form_agreeTerms.form-check-input{
+  position: relative;
+  left: 45vw;
+  transform: scale(1.45);
+}
 
 
 body {margin: 0;}
+ul{
+  list-style-type: none;
+}
 
 ul.topnav {
   list-style-type: none;
@@ -124,6 +131,7 @@ label{
 
 .card-img-top{
   box-shadow: 4px 4px 2px black;
+  border-radius: inherit;
 
 }
 
@@ -154,7 +162,10 @@ label{
   background: #b9dcff;
   text-align: center;
   box-shadow: 2px 2px 2px #1a191a;
+  border-radius: inherit;
 }
+
+
 .event-img{
   width: 80vh;
   height: auto;
