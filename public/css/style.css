@@ -130,17 +130,15 @@ label{
 }
 
 .card-img-top{
-  box-shadow: 4px 4px 2px black;
   border-radius: inherit;
 
 }
-
 .card-img-top:hover{
-  box-shadow: 4px 4px 2px black;
-  transition-delay: revert;
-  transform: rotateY(180deg);
-
+  transform: scale(1.249);
+  transition: 2.0s;
+  max-width: 300px;
 }
+
 #grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -163,6 +161,8 @@ label{
   text-align: center;
   box-shadow: 2px 2px 2px #1a191a;
   border-radius: inherit;
+
+
 }
 
 
@@ -183,7 +183,10 @@ label{
 }
 
 #grid>div:hover{
-  transform: scale(1.1);
+  transform-origin:center;
+  transform:scale(1.1);
+  transition:1.5s;
+
 }
 
 .enroll-button{
