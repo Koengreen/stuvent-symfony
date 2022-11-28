@@ -25,6 +25,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class HomeController extends AbstractController
 {
+
+
     #[Route('/', name: 'blog_list')]
     public function show(EventRepository $eventRepository)
     {
@@ -36,16 +38,17 @@ class HomeController extends AbstractController
     #[Route('/myprofile/{id}', name: 'myProfile')]
     public function myProfile(ManagerRegistry $doctrine, int $id, EventRepository $eventRepository): Response
     {
+        $i = 0;
         $profile = $doctrine->getRepository(User::class)->find($id);
 #
         if (!$profile) {
-            throw $this->createNotFoundException(
-                'Nog niet ingelogd '
-            );
+            return $this->redirectToRoute('app_login');
+            ;
         }
         $evt = $eventRepository->findAll();
         return $this->render('home/myprofile.html.twig', [
-            'profile' => $profile, 'evt' => $evt
+            'profile' => $profile, 'evt' => $evt,
+            'i' => $i,
         ]);
 
 
@@ -175,6 +178,6 @@ class HomeController extends AbstractController
     }
 
 
-    
+
 }
 

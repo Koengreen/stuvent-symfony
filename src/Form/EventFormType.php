@@ -45,6 +45,7 @@ class EventFormType extends AbstractType
             ->add('eventtype')
             ->add('date')
             ->add('time')
+            ->add('aantalUur')
             ->add('image', FileType::class, [
                 'mapped' => false
             ])

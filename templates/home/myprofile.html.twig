@@ -66,32 +66,48 @@
     </div>
     <br>
     <br>
-    <table class = 'event-table' style="width:100%">
+    <h1>inschrijvingen :</h1>
+    <table id="eventtable" class = 'event-table' style="width:100%">
 
       <tr class="myprofile">
         <th>Naam</th>
         <th>bedrijf</th>
         <th>Uurtype</th>
-        <th>Eventtype</th>
+        <th>aantal uur</th>
         <th>datum</th>
         <th>tijd</th>
         <th>meer info</th>
       </tr>
+
       {% for events in evt %}
+
         <tr>
           <td>{{ events.title }}</td>
           <td>{{ events.company }}</td>
           <td>{{ events.hourstype }}</td>
-          <td>{{ events.eventtype }}</td>
+          <td class="aantalUur">{{ events.aantalUur }}</td>
           <td>{{ events.date }}</td>
           <td>{{ events.time }}</td>
           <td id=""><a class="moreinfolinks" href="/{{ events.id }}">info</td>
         </tr>
+
+
       {% endfor %}
+
+      <tr>
+
+      </tr>
     </table>
+    <br>
+    <button onclick="totalsum()">bereken</button> <h1 id="result">.</h1>
   </div>
   </div>
 
 
 </div>
+  {% block javascripts %}
+    <script src={{ asset('js/script.js') }} ></script>
+
+    {{ encore_entry_script_tags('app') }}
+  {% endblock %}
 {% endblock %}

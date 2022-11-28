@@ -38,6 +38,9 @@ class Event
     #[ORM\Column(length: 255)]
     private ?string $image = null;
 
+    #[ORM\Column]
+    private ?int $aantalUur = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +138,18 @@ class Event
     public function setImage(string $image): self
     {
         $this->image = $image;
+
+        return $this;
+    }
+
+    public function getAantalUur(): ?int
+    {
+        return $this->aantalUur;
+    }
+
+    public function setAantalUur(int $aantalUur): self
+    {
+        $this->aantalUur = $aantalUur;
 
         return $this;
     }
