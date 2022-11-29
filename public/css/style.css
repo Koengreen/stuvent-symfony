@@ -181,14 +181,10 @@ label{
 .card-img-top{
   border-radius: inherit;
   margin-top: -20px;
+  object-fit: scale-down;
+  max-height: 200px;
+}
 
-}
-.card-img-top:hover{
-  transform: scale(1.249);
-  transform-style: revert;
-  transition: 2.0s;
-  max-width: 300px;
-}
 
 #grid {
   display: grid;
