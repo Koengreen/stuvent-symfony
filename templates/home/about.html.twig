@@ -24,27 +24,25 @@
                 consectetur adipisicing elit. Aut, doloribus. Asperiores, repellat, officia unde impedit laborum quasi labore
                 aliquam eos, sequi quam molestias fugit rem harum nemo esse in assumenda.</p>
             <hr>
-            <h2 class="w3-center">Fotos</h2>
-            <div class="w3-content w3-display-container">
-                <img class="mySlides" src="img/img1.png" style="width:100%">
-                <img class="mySlides" src="img/img2.jpg" style="width:100%">
-                <img class="mySlides" src="img/opbouwen2.jpg" style="width:100%">
-                <img class="mySlides" src="img/opbouwen4.jpg" style="width:100%">
-
-                <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
-                <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
-
-
+            <div class="slider">
+                <span id="slide-1"></span>
+                <span id="slide-2"></span>
+                <span id="slide-3"></span>
+                <div class="image-container">
+                    <img src="img/opbouwen4.jpg" class="slide" width="500" height="300" />
+                    <img src="img/opbouwen3.jpg" class="slide" width="500" height="300" />
+                    <img src="img/opbouwen2.jpg" class="slide" width="500" height="300" />
+                </div>
+                <div class="buttons">
+                    <a href="#slide-1"></a>
+                    <a href="#slide-2"></a>
+                    <a href="#slide-3"></a>
+                </div>
             </div>
 
+
+
         </div>
-
-
-
-
-
-    </section>
-
 
     {% block javascripts %}
         <script src={{ asset('js/script.js') }} ></script>
