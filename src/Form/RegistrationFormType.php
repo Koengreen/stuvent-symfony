@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Opleiding;
 use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -18,6 +20,16 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('opleiding', EntityType::class, [
+                'class' => Opleiding::class,
+                'choice_label'  => function(Opleiding $opleiding){
+                    return $opleiding->getName();
+                }
+
+//                    'Maybe' => null,
+//                    'Yes' => true,
+//                    'No' => false,
+                ])
             ->add('email')
             ->add('studentNumber')
             ->add('firstName')
