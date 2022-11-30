@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,6 +42,14 @@ class Event
 
     #[ORM\Column]
     private ?int $aantalUur = null;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: UserEvents::class)]
+    private Collection $UserEvents;
+
+    public function __construct()
+    {
+        $this->UserEvents = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -150,6 +160,36 @@ class Event
     public function setAantalUur(int $aantalUur): self
     {
         $this->aantalUur = $aantalUur;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserEvents>
+     */
+    public function getUserEvents(): Collection
+    {
+        return $this->UserEvents;
+    }
+
+    public function addUserEvent(UserEvents $userEvent): self
+    {
+        if (!$this->UserEvents->contains($userEvent)) {
+            $this->UserEvents->add($userEvent);
+            $userEvent->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEvent(UserEvents $userEvent): self
+    {
+        if ($this->UserEvents->removeElement($userEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($userEvent->getEvent() === $this) {
+                $userEvent->setEvent(null);
+            }
+        }
 
         return $this;
     }

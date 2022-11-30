@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -37,6 +39,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $lastName = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserEvents::class)]
+    private Collection $UserEvents;
+
+    #[ORM\ManyToOne(inversedBy: 'users')]
+    private ?Opleiding $opleiding = null;
+
+    public function __construct()
+    {
+        $this->UserEvents = new ArrayCollection();
+    }
 
 
 
@@ -161,6 +174,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserEvents>
+     */
+    public function getUserEvents(): Collection
+    {
+        return $this->UserEvents;
+    }
+
+    public function addUserEvent(UserEvents $userEvent): self
+    {
+        if (!$this->UserEvents->contains($userEvent)) {
+            $this->UserEvents->add($userEvent);
+            $userEvent->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserEvent(UserEvents $userEvent): self
+    {
+        if ($this->UserEvents->removeElement($userEvent)) {
+            // set the owning side to null (unless already changed)
+            if ($userEvent->getUser() === $this) {
+                $userEvent->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getOpleiding(): ?opleiding
+    {
+        return $this->opleiding;
+    }
+
+    public function setOpleiding(?opleiding $opleiding): self
+    {
+        $this->opleiding = $opleiding;
 
         return $this;
     }
