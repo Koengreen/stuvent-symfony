@@ -46,6 +46,9 @@ class Event
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: UserEvents::class)]
     private Collection $UserEvents;
 
+    #[ORM\ManyToOne(inversedBy: 'Event')]
+    private ?Opleiding $opleiding = null;
+
     public function __construct()
     {
         $this->UserEvents = new ArrayCollection();
@@ -190,6 +193,18 @@ class Event
                 $userEvent->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getOpleiding(): ?Opleiding
+    {
+        return $this->opleiding;
+    }
+
+    public function setOpleiding(?Opleiding $opleiding): self
+    {
+        $this->opleiding = $opleiding;
 
         return $this;
     }

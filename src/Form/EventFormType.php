@@ -1,8 +1,10 @@
 <?php
 
 namespace App\Form;
-
-use App\Entity\Event;
+use App\Entity\Opleiding;
+use App\Entity\User;
+use phpDocumentor\Reflection\Type;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -12,16 +14,15 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Entity\Event;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\User;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use App\Form\RegistrationFormType;
-
 use Doctrine\DBAL\Types\TextType;
 use Doctrine\ORM\Query\AST\OrderByItem;
 use Symfony\Component\Console\Style\StyleInterface;
@@ -42,7 +43,16 @@ class EventFormType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('company')
             ->add('hourstype')
-            ->add('eventtype')
+            ->add('eventtype', EntityType::class, [
+                'class' => Opleiding::class,
+                'choice_label'  =>function (Opleiding $opleiding=null){
+                    return $opleiding->getName();
+                }
+
+//                    'Maybe' => null,
+//                    'Yes' => true,
+//                    'No' => false,
+            ])
             ->add('date')
             ->add('time')
             ->add('aantalUur')

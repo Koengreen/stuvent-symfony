@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Opleiding;
 use App\Entity\User;
+use phpDocumentor\Reflection\Type;
+use phpDocumentor\Reflection\Types\String_;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -22,7 +24,7 @@ class RegistrationFormType extends AbstractType
         $builder
             ->add('opleiding', EntityType::class, [
                 'class' => Opleiding::class,
-                'choice_label'  => function(Opleiding $opleiding){
+                'choice_label'  =>function (Opleiding $opleiding){
                     return $opleiding->getName();
                 }
 

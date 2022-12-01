@@ -24,16 +24,26 @@ class Opleiding
     #[ORM\OneToMany(mappedBy: 'opleiding', targetEntity: User::class)]
     private Collection $users;
 
+    #[ORM\OneToMany(mappedBy: 'opleiding', targetEntity: Event::class)]
+    private Collection $Event;
+
     public function __construct()
     {
         $this->opleiding_id = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->Event = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getName(): ?string
     {
@@ -101,6 +111,36 @@ class Opleiding
             // set the owning side to null (unless already changed)
             if ($user->getOpleiding() === $this) {
                 $user->setOpleiding(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvent(): Collection
+    {
+        return $this->Event;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->Event->contains($event)) {
+            $this->Event->add($event);
+            $event->setOpleiding($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->Event->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getOpleiding() === $this) {
+                $event->setOpleiding(null);
             }
         }
 
