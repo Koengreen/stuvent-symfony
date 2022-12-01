@@ -30,6 +30,7 @@ class Opleiding
     public function __construct()
     {
         $this->opleiding_id = new ArrayCollection();
+        $this->name = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->Event = new ArrayCollection();
     }

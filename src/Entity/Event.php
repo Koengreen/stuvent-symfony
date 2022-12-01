@@ -49,6 +49,9 @@ class Event
     #[ORM\ManyToOne(inversedBy: 'Event')]
     private ?Opleiding $opleiding = null;
 
+    #[ORM\Column]
+    private ?int $niveau = null;
+
     public function __construct()
     {
         $this->UserEvents = new ArrayCollection();
@@ -205,6 +208,18 @@ class Event
     public function setOpleiding(?Opleiding $opleiding): self
     {
         $this->opleiding = $opleiding;
+
+        return $this;
+    }
+
+    public function getNiveau(): ?int
+    {
+        return $this->niveau;
+    }
+
+    public function setNiveau(int $niveau): self
+    {
+        $this->niveau = $niveau;
 
         return $this;
     }

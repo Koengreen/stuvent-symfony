@@ -3,10 +3,12 @@
 namespace App\Form;
 use App\Entity\Opleiding;
 use App\Entity\User;
+use Doctrine\Common\Collections\ArrayCollection;
 use phpDocumentor\Reflection\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -36,23 +38,38 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class EventFormType extends AbstractType
 {
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title')
             ->add('description', TextareaType::class)
             ->add('company')
+            ->add('niveau', ChoiceType::class, [
+                'choices' => [
+                    '1' => 1,
+                    '2' => 2,
+                    '3' => 3,
+                    '4' => 4,
+                    '5' => 5,
+                ],
+            ])
+
             ->add('hourstype')
-            ->add('eventtype', EntityType::class, [
+            ->add('eventtype', EntityType::class, array  (
                 'class' => Opleiding::class,
-                'choice_label'  =>function (Opleiding $opleiding=null){
+                'expanded' => true,
+                'multiple' => true,
+                'choice_label'  =>function (Opleiding $opleiding){
+
                     return $opleiding->getName();
                 }
 
 //                    'Maybe' => null,
 //                    'Yes' => true,
 //                    'No' => false,
-            ])
+            ))
             ->add('date')
             ->add('time')
             ->add('aantalUur')
@@ -67,10 +84,16 @@ class EventFormType extends AbstractType
             ]);
     }
 
-    public function configureOptions(OptionsResolver $resolver): void
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+        $resolver->setDefaults(array(
             'data_class' => Event::class,
-        ]);
+            [
+
+        ]));
+
+    }
+    public function getName(){
+        return 'entity_Name';
     }
 }

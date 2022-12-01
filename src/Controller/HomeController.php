@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Form\EventFormType;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Gedmo\Sluggable\Util\Urlizer;
+use phpDocumentor\Reflection\Types\Array_;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -16,6 +18,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Entity\User;
+use App\Entity\Opleiding;
+use App\Repository\OpleidingRepository;
+
 use App\Form\RegistrationFormType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -135,10 +140,16 @@ class HomeController extends AbstractController
        ]);
     }
     #[Route('/admin/add', name: 'add_events')]
-    public function addevents(Request $request , EntityManagerInterface $entityManager): Response
+    public function addevents(Request $request , EntityManagerInterface $entityManager, Opleiding $opleiding): Response
     {
         $event = new Event ();
         $form = $this->createForm(EventFormType::class, $event);
+        $collections = new ArrayCollection((array)$opleiding);
+        $opleiding ->setName($collections);
+
+
+
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
