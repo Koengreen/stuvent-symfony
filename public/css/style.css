@@ -3,6 +3,10 @@
   src: url(/fonts/FilsonPro-Bold.woff2);
 
 }
+img.profile_img{
+ width: 350px;
+  object-fit: scale-down;
+}
 .slider {
   width: 500px;
   height: 300px;
