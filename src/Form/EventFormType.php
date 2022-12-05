@@ -58,6 +58,7 @@ class EventFormType extends AbstractType
             ])
 
             ->add('hourstype')
+            ->add('attendees' )
             ->add('eventtype', EntityType::class, [
                 'class' => Opleiding::class,
                 'choice_label'  =>function (Opleiding $opleiding){

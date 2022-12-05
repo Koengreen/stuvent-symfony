@@ -98,6 +98,19 @@
 
       </tr>
     </table>
+
+    <script>
+
+      function ExportToExcel(type, fn, dl) {
+        var elt = document.getElementById('eventtable');
+        var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+        return dl ?
+                XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
+                XLSX.writeFile(wb, fn || ('urenoverzicht.' + (type || 'xlsx')));
+      }
+
+    </script>
+    <button onclick="ExportToExcel('xlsx')">Export table to excel</button>
     <br>
     <button onclick="totalsum()">bereken</button> <h1 id="result">.</h1>
   </div>

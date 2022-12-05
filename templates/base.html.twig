@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
         <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
@@ -23,7 +24,7 @@
                     <ul>
                         <li><a href="/">Home</a></li>
                         <li><a href="/register">Registreren</a></li>
-                        <li><a href="/about">Over Stuvent</a></li>
+                        <li><a href="/about#slide-1">Over Stuvent</a></li>
                         <li> <a href="/myprofile/{{ app.user.id|default('20') }}">My Profile</a></li>
                         <li> <a href="/{{ app.user ? 'logout' : 'login' }}"
                                 @click="isOpen = false">
@@ -48,6 +49,7 @@
         {% endblock %}
 
         {% block javascripts %}
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js" integrity="sha512-XmZS54be9JGMZjf+zk61JZaLZyjTRgs41JLSmx5QlIP5F+sSGIyzD2eJyxD4K6kGGr7AsVhaitzZ2WTfzpsQzg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script src={{ asset('js/script.js') }} ></script>
 
             {{ encore_entry_script_tags('app') }}

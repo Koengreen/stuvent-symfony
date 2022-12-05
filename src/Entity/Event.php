@@ -52,6 +52,9 @@ class Event
     #[ORM\Column]
     private ?int $niveau = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $attendees = null;
+
     public function __construct()
     {
         $this->UserEvents = new ArrayCollection();
@@ -220,6 +223,18 @@ class Event
     public function setNiveau(int $niveau): self
     {
         $this->niveau = $niveau;
+
+        return $this;
+    }
+
+    public function getAttendees(): ?string
+    {
+        return $this->attendees;
+    }
+
+    public function setAttendees(string $attendees): self
+    {
+        $this->attendees = $attendees;
 
         return $this;
     }

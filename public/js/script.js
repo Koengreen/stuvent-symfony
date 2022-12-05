@@ -23,3 +23,14 @@ function carousel() {
     x[myIndex-1].style.display = "block";
     setTimeout(carousel, 2000);
 }
+
+function exportReportToExcel() {
+    {
+        TableToExcel.convert(cls[0], {
+            name: `file.xlsx`,
+            sheet: {
+                name: 'Sheet 1'
+            }
+        });
+    }
+}
