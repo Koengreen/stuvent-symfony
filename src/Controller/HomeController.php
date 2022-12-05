@@ -1,26 +1,26 @@
 <?php
 
 namespace App\Controller;
-
+use App\Entity\Product;
+use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\UserEvents;
 use App\Form\EventFormType;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use Gedmo\Sluggable\Util\Urlizer;
 use phpDocumentor\Reflection\Types\Array_;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Entity\User;
 use App\Entity\Opleiding;
 use App\Repository\OpleidingRepository;
-
 use App\Form\RegistrationFormType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -146,6 +146,26 @@ class HomeController extends AbstractController
             'evt' => $evt,
        ]);
     }
+
+    #[Route('/enroll/{id}', name: 'enroll')]
+    public function enroll(ManagerRegistry $doctrine): Response
+    {
+        $entityManager = $doctrine->getManager();
+
+        $product = new UserEvents();
+        $product->setEvent(4);
+        $product->setUser(1);
+        $product->setAccepted(true);
+
+        // tell Doctrine you want to (eventually) save the Product (no queries yet)
+        $entityManager->persist($product);
+
+        // actually executes the queries (i.e. the INSERT query)
+        $entityManager->flush();
+
+        return new Response('Saved new product with id '.$product->getId());
+    }
+
     #[Route('/admin/add', name: 'add_events')]
     public function addevents(Request $request , EntityManagerInterface $entityManager): Response
     {
@@ -188,8 +208,6 @@ class HomeController extends AbstractController
             'id' => $event->getId()
         ]);
     }
-
-
-
 }
+
 
