@@ -3,6 +3,7 @@
 namespace App\Form;
 use App\Entity\Opleiding;
 use App\Entity\User;
+use App\Repository\OpleidingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use phpDocumentor\Reflection\Type;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -57,19 +58,7 @@ class EventFormType extends AbstractType
             ])
 
             ->add('hourstype')
-            ->add('eventtype', EntityType::class, array  (
-                'class' => Opleiding::class,
-                'expanded' => true,
-                'multiple' => true,
-                'choice_label'  =>function (Opleiding $opleiding){
-
-                    return $opleiding->getName();
-                }
-
-//                    'Maybe' => null,
-//                    'Yes' => true,
-//                    'No' => false,
-            ))
+            ->add('eventtype')
             ->add('date')
             ->add('time')
             ->add('aantalUur')

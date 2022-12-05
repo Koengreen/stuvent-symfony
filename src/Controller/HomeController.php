@@ -140,16 +140,10 @@ class HomeController extends AbstractController
        ]);
     }
     #[Route('/admin/add', name: 'add_events')]
-    public function addevents(Request $request , EntityManagerInterface $entityManager, Opleiding $opleiding): Response
+    public function addevents(Request $request , EntityManagerInterface $entityManager): Response
     {
         $event = new Event ();
         $form = $this->createForm(EventFormType::class, $event);
-        $collections = new ArrayCollection((array)$opleiding);
-        $opleiding ->setName($collections);
-
-
-
-
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
