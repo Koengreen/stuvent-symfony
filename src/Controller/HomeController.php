@@ -23,6 +23,7 @@ use App\Entity\Opleiding;
 use App\Repository\OpleidingRepository;
 use App\Form\RegistrationFormType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -148,8 +149,10 @@ class HomeController extends AbstractController
     }
 
     #[Route('/enroll/{id}', name: 'enroll')]
-    public function enroll(ManagerRegistry $doctrine, User $user, Event $event): Response
+    public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user): Response
     {
+
+       // dd($user);
         $entityManager = $doctrine->getManager();
 
         $userevent = new UserEvents();
