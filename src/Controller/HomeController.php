@@ -148,22 +148,18 @@ class HomeController extends AbstractController
     }
 
     #[Route('/enroll/{id}', name: 'enroll')]
-    public function enroll(ManagerRegistry $doctrine): Response
+    public function enroll(ManagerRegistry $doctrine, User $user, Event $event): Response
     {
         $entityManager = $doctrine->getManager();
 
-        $product = new UserEvents();
-        $product->setEvent(4);
-        $product->setUser(1);
-        $product->setAccepted(true);
+        $userevent = new UserEvents();
+        $userevent->setEvent($event);
+        $userevent->setUser($user);
+        $userevent->setAccepted(false);
 
-        // tell Doctrine you want to (eventually) save the Product (no queries yet)
-        $entityManager->persist($product);
-
-        // actually executes the queries (i.e. the INSERT query)
+        $entityManager->persist($userevent);
         $entityManager->flush();
-
-        return new Response('Saved new product with id '.$product->getId());
+        return $this->redirectToRoute('blog_list');
     }
 
     #[Route('/admin/add', name: 'add_events')]
