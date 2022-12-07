@@ -150,19 +150,20 @@ class HomeController extends AbstractController
 
     #[Route('/enroll/{id}', name: 'enroll')]
     public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user): Response
-    {
+    {// dd($user);
+            $entityManager = $doctrine->getManager();
+            $userevent = new UserEvents();
+            $userevent->setEvent($event);
+            $userevent->setUser($user);
+            $userevent->setAccepted(false);
+            if ($userevent == true) {
+                $entityManager->persist($userevent);
+                $entityManager->flush();
+                $this->addFlash('succes', 'inschrijving succesvol');
+                return $this->redirectToRoute('blog_list');
+            }
+            return $this->render('home/index.html.twig');
 
-       // dd($user);
-        $entityManager = $doctrine->getManager();
-
-        $userevent = new UserEvents();
-        $userevent->setEvent($event);
-        $userevent->setUser($user);
-        $userevent->setAccepted(false);
-
-        $entityManager->persist($userevent);
-        $entityManager->flush();
-        return $this->redirectToRoute('blog_list');
     }
 
     #[Route('/admin/add', name: 'add_events')]

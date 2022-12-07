@@ -9,7 +9,14 @@
 
 <!--Hier beginnen de events-->
     <section id="events">
+    {% for message in app.flashes('succes') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
         <div id="grid">
+
+
             {% for events in evt %}
             <div class="card">
                 <div class="card-body">
