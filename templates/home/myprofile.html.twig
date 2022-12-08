@@ -82,13 +82,13 @@
       {% for events in evt %}
 
         <tr>
-          <td>{{ events.title }}</td>
-          <td>{{ events.company }}</td>
-          <td>{{ events.hourstype }}</td>
-          <td class="aantalUur">{{ events.aantalUur }}</td>
-          <td>{{ events.date }}</td>
-          <td>{{ events.time }}</td>
-          <td id=""><a class="moreinfolinks" href="/{{ events.id }}">info</td>
+          <td>{{ events.event.title }}</td>
+          <td>{{ events.event.company }}</td>
+          <td>{{ events.event.hourstype }}</td>
+          <td class="aantalUur">{{ events.event.aantalUur }}</td>
+          <td>{{ events.event.date }}</td>
+          <td>{{ events.event.time }}</td>
+          <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}">info</td>
         </tr>
 
 

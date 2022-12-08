@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\Product;
+use App\Repository\UserEventsRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -42,18 +43,21 @@ class HomeController extends AbstractController
         ]);
     }
     #[Route('/myprofile/{id}', name: 'myProfile')]
-    public function myProfile(ManagerRegistry $doctrine, int $id, EventRepository $eventRepository): Response
+    public function myProfile(ManagerRegistry $doctrine, int $id, UserEventsRepository $userEventsRepository, #[CurrentUser] $user): Response
     {
         $i = 0;
         $profile = $doctrine->getRepository(User::class)->find($id);
+        $event = $doctrine->getRepository(Event::class)->findAll();
 #
         if (!$profile) {
             return $this->redirectToRoute('app_login');
             ;
         }
-        $evt = $eventRepository->findAll();
+
+        $userid = $user->getId();
+        $evt = $userEventsRepository->findBy(['user' => $userid]);
         return $this->render('home/myprofile.html.twig', [
-            'profile' => $profile, 'evt' => $evt,
+            'profile' => $profile,'event' => $event,  'evt' => $evt,
             'i' => $i,
         ]);
 
