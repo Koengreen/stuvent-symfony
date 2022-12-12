@@ -24,7 +24,7 @@
                         <img class="card-img-top" src="{{ events.image }}">
                     </div>
                     <h1>{{ events.title }}</h1>
-                    <h3>Deelnemers 0/{{ events.attendees }}</h3>
+                    <h3>Deelnemers {{ totalAttendees }}/{{ events.attendees }}</h3>
                     <h3>{{ events.date }}</h3>
                     <h5>{{ events.time }}</h5>
                     <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }} >Meer informatie en inschrijven</a>

@@ -255,13 +255,13 @@ a:hover{
 
 .login{
   margin: 7vh;
-  
+
 }
 .mySlides {display: none}
 
 .card-body{
   block-size: max-content;
-  
+
 }
 h1{
   color: #1a191a;
@@ -327,7 +327,7 @@ a{
 }
 
 .image-border{
-  height: 20vh;
+  height: 200px;
   background: #b9dcff;
 }
 p{
@@ -359,9 +359,6 @@ button.addeventsbtn:hover{
 }
 
 @media(max-width: 800px) {
-  .image-border{
-    height: 5vh;
-  }
   .form-group{
     background-color: #f09904;
     margin-left: 0vw;
@@ -373,5 +370,3 @@ button.addeventsbtn:hover{
     margin: 10%;
   }
 }
-
-/* hier de slide show */

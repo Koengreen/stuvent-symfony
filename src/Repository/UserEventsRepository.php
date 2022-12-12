@@ -16,6 +16,8 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UserEventsRepository extends ServiceEntityRepository
 {
+
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UserEvents::class);

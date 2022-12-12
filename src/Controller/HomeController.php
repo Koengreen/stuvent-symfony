@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-use App\Entity\Product;
 use App\Repository\UserEventsRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,16 +19,11 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Event;
 use App\Repository\EventRepository;
 use App\Entity\User;
-use App\Entity\Opleiding;
-use App\Repository\OpleidingRepository;
 use App\Form\RegistrationFormType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-
-
-
 class HomeController extends AbstractController
 {
 
@@ -37,9 +31,16 @@ class HomeController extends AbstractController
     #[Route('/', name: 'blog_list')]
     public function show(EventRepository $eventRepository)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $repoArticles = $em->getRepository(UserEvents::class);
+        $totalAttendees = $repoArticles->createQueryBuilder('a')
+            ->select('count(a.user)')
+            ->getQuery()
+            ->getSingleScalarResult();
         $evt = $eventRepository->findAll();
         return $this->render('home/index.html.twig', [
-            'evt' => $evt,
+            'evt' => $evt, 'totalAttendees' => $totalAttendees,
         ]);
     }
     #[Route('/myprofile/{id}', name: 'myProfile')]
