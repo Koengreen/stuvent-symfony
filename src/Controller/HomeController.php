@@ -26,13 +26,48 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class HomeController extends AbstractController
 {
+    #[Route('/beheerder/addadmin', name: 'add_admin')]
+    public function addadmin(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    {
+        $user = new User();
+        $user->setRoles(["ROLE_ADMIN"]);
+        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+            ($form['image']->getData());
+            $uploadedFile = $form['image']->getData();
+            $destination = $this->getParameter('kernel.project_dir') . '/public/img/profile-img';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = "img/profile-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $user->setImage($newFilename);
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('blog_list');
+        }
+
+        return $this->render('admin/addadmins.html.twig', [
+            'registrationForm' => $form->createView(),
+        ]);
+    }
+
 
 
     #[Route('/', name: 'blog_list')]
     public function show(EventRepository $eventRepository)
     {
         $em = $this->getDoctrine()->getManager();
-
         $repoArticles = $em->getRepository(UserEvents::class);
         $totalAttendees = $repoArticles->createQueryBuilder('a')
             ->select('count(a.user)')
@@ -101,7 +136,7 @@ class HomeController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $user->setRoles(["ROLE_ADMIN"]);
+        $user->setRoles(["ROLE_User"]);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    <div class="form-group">
+        <br>
+        <h1>Register</h1>
+
+        {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
+
+        {{ form_start(registrationForm) }}
+        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_end(registrationForm) }}
+        <br>
+        <br>
+
+    </div>
+{% endblock %}
