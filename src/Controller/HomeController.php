@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+use App\Entity\About;
+use App\Form\Aboutpageeditorform;
 use App\Repository\UserEventsRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Response;
@@ -104,6 +106,37 @@ class HomeController extends AbstractController
 #[Route('/about', name: 'about')]
     public function about():Response {
         return $this->render("home/about.html.twig");
+    }
+
+
+    #[Route('/about/edit', name: 'aboutedit')]
+    public function editabout(Request $request , EntityManagerInterface $entityManager,  ManagerRegistry $doctrine): Response
+    {
+
+        $about = new About();
+        $form = $this->createForm(Aboutpageeditorform::class, $about);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            ($form['images']->getData());
+            $uploadedFile = $form['images']->getData();
+            $destination = $this->getParameter('kernel.project_dir').'/public/img/aboutpage';
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = "img/event-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+            $about->setImages($newFilename);
+            $entityManager->flush();
+            // do anything else you need here, like send an email
+
+            return $this->redirectToRoute('about');
+        }
+
+        return $this->render('admin/editabout.html.twig', [
+            'aboutform' => $form->createView(),
+        ]);
     }
 
 

@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\AboutPage;
+use App\Entity\About;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<AboutPage>
+ * @extends ServiceEntityRepository<About>
  *
- * @method AboutPage|null find($id, $lockMode = null, $lockVersion = null)
- * @method AboutPage|null findOneBy(array $criteria, array $orderBy = null)
- * @method AboutPage[]    findAll()
- * @method AboutPage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method About|null find($id, $lockMode = null, $lockVersion = null)
+ * @method About|null findOneBy(array $criteria, array $orderBy = null)
+ * @method About[]    findAll()
+ * @method About[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AboutPageRepository extends ServiceEntityRepository
+class AboutRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, AboutPage::class);
+        parent::__construct($registry, About::class);
     }
 
-    public function save(AboutPage $entity, bool $flush = false): void
+    public function save(About $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class AboutPageRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(AboutPage $entity, bool $flush = false): void
+    public function remove(About $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class AboutPageRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return AboutPage[] Returns an array of AboutPage objects
+//     * @return About[] Returns an array of About objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class AboutPageRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?AboutPage
+//    public function findOneBySomeField($value): ?About
 //    {
 //        return $this->createQueryBuilder('a')
 //            ->andWhere('a.exampleField = :val')

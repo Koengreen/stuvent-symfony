@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stuvent{% endblock %}
+
+
+{% block body %}
+    <div class="form-group">
+        <h1>images toevoegen</h1>
+        <hr>
+
+        {% form_theme aboutform 'bootstrap_5_layout.html.twig' %}
+
+        {{ form_start(aboutform) }}
+        {{ form_row(aboutform.text) }}
+        {{ form_row(aboutform.images) }}
+        {{ form_end(aboutform) }}
+        <br>
+
+
+    </div>
+{% endblock %}
