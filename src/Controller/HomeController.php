@@ -59,7 +59,7 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('blog_list');
         }
 
-        return $this->render('admin/addadmins.html.twig', [
+        return $this->render('beheerder/addadmins.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
     }
@@ -83,8 +83,9 @@ class HomeController extends AbstractController
             $total = count($totalAttendees);
 
             array_push($eventtotal, $total);
-       }  
-
+       }
+       //     $repoArticles = $em->getRepository(UserEvents::class);
+//            $totalAttendees = $repoArticles->createQueryBuilder('a')
 //            ->select('count(a.user)')
 //            ->getQuery()
 //            ->getSingleScalarResult();
@@ -235,22 +236,27 @@ class HomeController extends AbstractController
     }
 
     #[Route('/enroll/{id}', name: 'enroll')]
-    public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user): Response
+    public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user, UserEventsRepository $userEvents, int $id): Response
     {
-        // dd($event);
+        $message = 'Evenement is vol.';
+
+            $totalAttendees = $event->getAttendees();
+            $eventId = $event->getId();
+            $inschrijvingen = $userEvents->findby(['event' => $eventId]);
+        if (count($inschrijvingen) < $totalAttendees) {
             $entityManager = $doctrine->getManager();
-            $userevent = new UserEvents();
-            $userevent->setEvent($event);
-            $userevent->setUser($user);
-            $userevent->setAccepted(false);
-            if ($userevent == true) {
+                $userevent = new UserEvents();
+                $userevent->setEvent($event);
+                $userevent->setUser($user);
+                $userevent->setAccepted(false);
                 $entityManager->persist($userevent);
                 $entityManager->flush();
                 $this->addFlash('succes', 'inschrijving succesvol');
-                return $this->redirectToRoute('blog_list');
             }
-            return $this->render('home/index.html.twig');
-
+            else {
+                dd($message);
+            }
+        return $this->redirectToRoute('blog_list');
     }
 
     #[Route('/admin/add', name: 'add_events')]

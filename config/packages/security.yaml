@@ -38,7 +38,8 @@ security:
         - { path: ^/admin, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN, ROLE_BEHEERDER] }
         - { path: '^/admin', roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
         # - { path: ^/profile, roles: ROLE_USER }
-
+# beheerder kan in /admin/blabla en in / beheerder/blablA
+# admin kan alleen in /admin/blabla en niet in /beheerder
 when@test:
     security:
         password_hashers:
