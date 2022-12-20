@@ -69,15 +69,28 @@ class HomeController extends AbstractController
     #[Route('/', name: 'blog_list')]
     public function show(EventRepository $eventRepository)
     {
+        $eventtotal = [];
         $em = $this->getDoctrine()->getManager();
         $repoArticles = $em->getRepository(UserEvents::class);
-        $totalAttendees = $repoArticles->createQueryBuilder('a')
-            ->select('count(a.user)')
-            ->getQuery()
-            ->getSingleScalarResult();
         $evt = $eventRepository->findAll();
+       foreach ($evt as $data){
+           $eventid =  $data->getId();
+           $totalAttendees = $repoArticles->createQueryBuilder('a')
+               ->andWhere('a.event = :searchTerm')
+               ->setParameter('searchTerm', $eventid)
+               ->getQuery()
+               ->execute();
+            $total = count($totalAttendees);
+
+            array_push($eventtotal, $total);
+       }  
+
+//            ->select('count(a.user)')
+//            ->getQuery()
+//            ->getSingleScalarResult();
+
         return $this->render('home/index.html.twig', [
-            'evt' => $evt, 'totalAttendees' => $totalAttendees,
+            'evt' => $evt, 'totalAttendees' => $eventtotal,
         ]);
     }
     #[Route('/myprofile/{id}', name: 'myProfile')]
@@ -169,7 +182,7 @@ class HomeController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $user->setRoles(["ROLE_User"]);
+        $user->setRoles(["ROLE_USER"]);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
@@ -223,7 +236,8 @@ class HomeController extends AbstractController
 
     #[Route('/enroll/{id}', name: 'enroll')]
     public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user): Response
-    {// dd($user);
+    {
+        // dd($event);
             $entityManager = $doctrine->getManager();
             $userevent = new UserEvents();
             $userevent->setEvent($event);
