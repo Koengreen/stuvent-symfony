@@ -238,8 +238,7 @@ class HomeController extends AbstractController
     #[Route('/enroll/{id}', name: 'enroll')]
     public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user, UserEventsRepository $userEvents, int $id): Response
     {
-        $message = 'Evenement is vol.';
-
+            $message = 'Evenement is vol.';
             $totalAttendees = $event->getAttendees();
             $eventId = $event->getId();
             $inschrijvingen = $userEvents->findby(['event' => $eventId]);
