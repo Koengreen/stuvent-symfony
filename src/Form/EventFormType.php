@@ -47,6 +47,17 @@ class EventFormType extends AbstractType
             ->add('title')
             ->add('description', TextareaType::class)
             ->add('company')
+            ->add('opleiding', EntityType::class, [
+                'class' => Opleiding::class,
+                'choice_label'  =>function (Opleiding $opleiding)
+                {
+                    return $opleiding->getName();
+                }
+
+//                    'Maybe' => null,
+//                    'Yes' => true,
+//                    'No' => false,
+            ])
             ->add('niveau', ChoiceType::class, [
                 'choices' => [
                     '1' => 1,

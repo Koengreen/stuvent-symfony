@@ -29,7 +29,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class HomeController extends AbstractController
 {
     #[Route('/beheerder/addadmin', name: 'add_admin')]
-    public function addadmin(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function addadmin(
+        Request $request,
+        UserPasswordHasherInterface $userPasswordHasher,
+        EntityManagerInterface $entityManager
+    ): Response
     {
         $user = new User();
         $user->setRoles(["ROLE_ADMIN"]);
@@ -81,19 +85,69 @@ class HomeController extends AbstractController
                ->getQuery()
                ->execute();
             $total = count($totalAttendees);
-
             array_push($eventtotal, $total);
        }
-       //     $repoArticles = $em->getRepository(UserEvents::class);
-//            $totalAttendees = $repoArticles->createQueryBuilder('a')
-//            ->select('count(a.user)')
-//            ->getQuery()
-//            ->getSingleScalarResult();
-
         return $this->render('home/index.html.twig', [
             'evt' => $evt, 'totalAttendees' => $eventtotal,
         ]);
     }
+    private $myClass;
+
+    public function __construct(UserEventsRepository $myClass)
+    {
+        $this->myClass = $myClass;
+    }
+
+    #[Route('/notaccepted', name: 'shownotaccepted')]
+    public function userEventsNotAttending()
+    {
+        $userEventsNotAttending = $this->myClass->getUserEventsNotAttending();
+
+        return $this->render('home/notattending.html.twig', [
+            'queu_events' => $userEventsNotAttending,
+        ]);
+    }
+
+
+
+    #[Route('/acceptevent/{id}', name: 'eventupdateaccepted', )]
+    public function updateIsAttending(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager ): Response
+    {
+        $userEvent = $userEventsRepository->find($id);
+        if (!$userEvent) {
+            throw $this->createNotFoundException('User event not found');
+        }
+
+        $userEvent->setAccepted(true);
+        $entityManager->flush();
+        $this->addFlash(
+            'success',
+            'Evenement geaccepteerd.');
+
+        return $this->redirectToRoute('shownotaccepted');
+    }
+
+    #[Route('/deleteevent/{id}', name: 'eventdelete')]
+    public function deleteUserEvent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager ): Response
+    {
+        $userEvent = $userEventsRepository->find($id);
+        if (!$userEvent) {
+            throw $this->createNotFoundException('User event not found');
+        }
+        $entityManager->remove($userEvent);
+        $entityManager->flush();
+        $this->addFlash(
+            'success',
+            'Evenement geweigerd.'
+        );
+
+
+        return $this->redirectToRoute('shownotaccepted');
+    }
+
+
+
+
     #[Route('/myprofile/{id}', name: 'myProfile')]
     public function myProfile(ManagerRegistry $doctrine, int $id, UserEventsRepository $userEventsRepository, #[CurrentUser] $user): Response
     {
@@ -275,9 +329,13 @@ class HomeController extends AbstractController
                 $destination,
                 $newFilename
             );
+            $opleidingCollection = new ArrayCollection($form['opleiding']->getData());
+            $event->setOpleiding($opleidingCollection);
             $event->setImage($newFilename);
             $entityManager->persist($event);
             $entityManager->flush();
+
+
             // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_admin');

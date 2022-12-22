@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repository;
 
 use App\Entity\UserEvents;
@@ -7,38 +6,43 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<UserEvents>
- *
- * @method UserEvents|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserEvents|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserEvents[]    findAll()
- * @method UserEvents[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
-class UserEventsRepository extends ServiceEntityRepository
-{
-
-
+* @extends ServiceEntityRepository<UserEvents>
+    *
+    * @method UserEvents|null find($id, $lockMode = null, $lockVersion = null)
+    * @method UserEvents|null findOneBy(array $criteria, array $orderBy = null)
+    * @method UserEvents[]    findAll()
+    * @method UserEvents[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+    */
+    class UserEventsRepository extends ServiceEntityRepository
+    {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserEvents::class);
+    parent::__construct($registry, UserEvents::class);
+    }
+
+    public function getUserEventsNotAttending()
+    {
+    $userEventsNotAttending = $this->findBy(['accepted' => false]);
+
+    return $userEventsNotAttending;
     }
 
     public function save(UserEvents $entity, bool $flush = false): void
     {
-        $this->getEntityManager()->persist($entity);
+    $this->getEntityManager()->persist($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+    if ($flush) {
+    $this->getEntityManager()->flush();
+    }
     }
 
     public function remove(UserEvents $entity, bool $flush = false): void
     {
-        $this->getEntityManager()->remove($entity);
+    $this->getEntityManager()->remove($entity);
 
-        if ($flush) {
-            $this->getEntityManager()->flush();
-        }
+    if ($flush) {
+    $this->getEntityManager()->flush();
+    }
     }
 
 //    /**

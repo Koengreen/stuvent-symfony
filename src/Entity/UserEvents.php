@@ -43,6 +43,10 @@ class UserEvents
     {
         return $this->user;
     }
+    public function getAccepted(): ?Event
+    {
+        return $this->event;
+    }
 
     public function setUser(?User $user): self
     {
@@ -62,4 +66,6 @@ class UserEvents
 
         return $this;
     }
+
+
 }
