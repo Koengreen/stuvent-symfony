@@ -74,8 +74,8 @@
         <th>bedrijf</th>
         <th>Uurtype</th>
         <th>aantal uur</th>
-        <th>datum</th>
-        <th>tijd</th>
+        <th>startdatum</th>
+        <th>einddatum</th>
         <th>meer info</th>
       </tr>
 
@@ -86,8 +86,8 @@
           <td>{{ events.event.company }}</td>
           <td>{{ events.event.hourstype }}</td>
           <td class="aantalUur">{{ events.event.aantalUur }}</td>
-          <td>{{ events.event.date }}</td>
-          <td>{{ events.event.time }}</td>
+          <td>{{ events.event.date|date('d M H:i') }}</td>
+          <td>{{ events.event.enddate|date('d M H:i') }}</td>
           <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}">info</td>
         </tr>
 

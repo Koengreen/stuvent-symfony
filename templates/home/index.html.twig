@@ -23,7 +23,7 @@
                 <div class="image-border">
                     <img class="card-img-top" src="{{ events.image }}">
                 </div>
-                <h1>{{ events.title }}</h1>
+                <h1 class="card-title">{{ events.title }}</h1>
                 <h2 class="opleidingtype">{{ events.opleiding }}</h2>
                 <h3>Deelnemers {{ totalAttendees[events.id] }}/{{ events.attendees }}</h3>
                 <h3>{{ events.date|date('d M H:i') }}</h3>
