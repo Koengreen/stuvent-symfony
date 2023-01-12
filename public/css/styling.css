@@ -520,3 +520,7 @@ button.addeventsbtn:hover {
     background-color: darkblue;
 }
 
+div.alert.alert-success {
+    text-align: center;
+}
+
