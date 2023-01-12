@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 use App\Entity\About;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Exception;
 use App\Form\Aboutpageeditorform;
 use App\Repository\UserEventsRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -149,29 +151,32 @@ class HomeController extends AbstractController
 
 
     #[Route('/myprofile/{id}', name: 'myProfile')]
-    public function myProfile(ManagerRegistry $doctrine, int $id, UserEventsRepository $userEventsRepository, #[CurrentUser] $user): Response
+    public function myProfile(ManagerRegistry $doctrine, int $id, UserEventsRepository $userEventsRepository, #[CurrentUser] $user = null): Response
     {
         $i = 0;
-        $profile = $doctrine->getRepository(User::class)->find($id);
-        $event = $doctrine->getRepository(Event::class)->findAll();
-#
-        if (!$profile) {
+        try {
+            if (!$user) {
+                throw new Exception("User not found.");
+            }
+            $profile = $doctrine->getRepository(User::class)->find($id);
+            $event = $doctrine->getRepository(Event::class)->findAll();
+            if (!$profile) {
+                throw new Exception("Profile not found.");
+            }
+            $userid = $user->getId();
+            $evt = $userEventsRepository->findBy(['user' => $userid, 'accepted' => true]);
+            return $this->render('home/myprofile.html.twig', [
+                'profile' => $profile,'event' => $event,  'evt' => $evt,
+                'i' => $i,
+            ]);
+        } catch (Exception $e) {
             return $this->redirectToRoute('app_login');
-            ;
         }
-
-        $userid = $user->getId();
-        $evt = $userEventsRepository->findBy(['user' => $userid]);
-        return $this->render('home/myprofile.html.twig', [
-            'profile' => $profile,'event' => $event,  'evt' => $evt,
-            'i' => $i,
-        ]);
-
-
     }
 
 
-#[Route('/about', name: 'about')]
+
+    #[Route('/about', name: 'about')]
     public function about():Response {
         return $this->render("home/about.html.twig");
     }
