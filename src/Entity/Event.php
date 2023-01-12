@@ -28,14 +28,9 @@ class Event
     #[ORM\Column(length: 255)]
     private ?string $Hourstype = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Eventtype = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $date = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $time = null;
+    #[ORM\Column(type: "datetime")]
+    private ?\DateTime $date = null;
 
     #[ORM\Column(length: 255)]
     private ?string $image = null;
@@ -54,6 +49,9 @@ class Event
 
     #[ORM\Column(length: 255)]
     private ?string $attendees = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    private ?\DateTimeInterface $enddate = null;
 
     public function __construct()
     {
@@ -113,41 +111,22 @@ class Event
         return $this;
     }
 
-    public function getEventtype(): ?string
-    {
-        return $this->Eventtype;
-    }
-
-    public function setEventtype(string $Eventtype): self
-    {
-        $this->Eventtype = $Eventtype;
-
-        return $this;
-    }
 
     public function getDate(): ?string
     {
-        return $this->date;
+        if($this->date){
+            return $this->date->format('Y-m-d H:i:s');
+        }
+        return null;
     }
 
-    public function setDate(string $date): self
+    public function setDate(\DateTime $date): self
     {
         $this->date = $date;
-
         return $this;
     }
 
-    public function getTime(): ?string
-    {
-        return $this->time;
-    }
 
-    public function setTime(string $time): self
-    {
-        $this->time = $time;
-
-        return $this;
-    }
 
     public function getImage(): ?string
     {
@@ -235,6 +214,18 @@ class Event
     public function setAttendees(string $attendees): self
     {
         $this->attendees = $attendees;
+
+        return $this;
+    }
+
+    public function getEnddate(): ?\DateTimeInterface
+    {
+        return $this->enddate;
+    }
+
+    public function setEnddate(\DateTimeInterface $enddate): self
+    {
+        $this->enddate = $enddate;
 
         return $this;
     }

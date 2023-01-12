@@ -17,19 +17,21 @@
         <div id="grid">
 
 
-            {% for events in evt %}
-            <div class="card">
-                <div class="card-body">
-                    <div class="image-border">
-                        <img class="card-img-top" src="{{ events.image }}">
-                    </div>
-                    <h1>{{ events.title }}</h1>
-                    <h3>Deelnemers {{ totalAttendees[events.id-1] }}/{{ events.attendees }}</h3>
-                    <h3>{{ events.date }}</h3>
-                    <h5>{{ events.time }}</h5>
-                    <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }} >Meer informatie en inschrijven</a>
+    {% for events in evt %}
+        <div class="card">
+            <div class="card-body">
+                <div class="image-border">
+                    <img class="card-img-top" src="{{ events.image }}">
                 </div>
+                <h1>{{ events.title }}</h1>
+                <h2 class="opleidingtype">{{ events.opleiding }}</h2>
+                <h3>Deelnemers {{ totalAttendees[events.id] }}/{{ events.attendees }}</h3>
+                <h3>{{ events.date|date('d M H:i') }}</h3>
+                <h3>{{ events.enddate|date('d M H:i') }}</h3>
+
+                <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }} >Meer informatie en inschrijven</a>
             </div>
+        </div>
     {% endfor %}
     {% block footer %}
     {% endblock %}

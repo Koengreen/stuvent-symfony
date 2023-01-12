@@ -9,6 +9,9 @@ img.profile_img{
   width: 350px;
   object-fit: scale-down;
 }
+.opleidingtype{
+  color: #ac1424;
+}
 
 /* Style the slider container */
 .slider {

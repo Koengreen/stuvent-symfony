@@ -85,7 +85,7 @@ class HomeController extends AbstractController
                ->getQuery()
                ->execute();
             $total = count($totalAttendees);
-            array_push($eventtotal, $total);
+           $eventtotal[$eventid] = $total;
        }
         return $this->render('home/index.html.twig', [
             'evt' => $evt, 'totalAttendees' => $eventtotal,
@@ -329,8 +329,9 @@ class HomeController extends AbstractController
                 $destination,
                 $newFilename
             );
-            $opleidingCollection = new ArrayCollection($form['opleiding']->getData());
-            $event->setOpleiding($opleidingCollection);
+            $opleiding = $form['opleiding']->getData();
+            $event->setOpleiding($opleiding);
+            $event->setDate($form['date']->getData());
             $event->setImage($newFilename);
             $entityManager->persist($event);
             $entityManager->flush();

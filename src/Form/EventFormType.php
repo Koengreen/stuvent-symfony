@@ -2,6 +2,7 @@
 
 namespace App\Form;
 use App\Entity\Opleiding;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use App\Entity\User;
 use App\Repository\OpleidingRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -70,18 +71,15 @@ class EventFormType extends AbstractType
 
             ->add('hourstype')
             ->add('attendees' )
-            ->add('eventtype', EntityType::class, [
-                'class' => Opleiding::class,
-                'choice_label'  =>function (Opleiding $opleiding){
-                    return $opleiding->getName();
-                }
-
-//                    'Maybe' => null,
-//                    'Yes' => true,
-//                    'No' => false,
+            ->add('date', DateTimeType::class, [
+                'widget' => 'single_text',
+                'input' => 'datetime'
             ])
-            ->add('date')
-            ->add('time')
+            ->add('enddate', DateTimeType::class, [
+                'widget' => 'single_text',
+                'input' => 'datetime'
+            ])
+
             ->add('aantalUur')
             ->add('image', FileType::class, [
                 'mapped' => false
