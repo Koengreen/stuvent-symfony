@@ -9,10 +9,14 @@
 
 <!--Hier beginnen de events-->
     <section id="events">
-    {% for message in app.flashes('succes') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
+    {% for type, messages in app.session.flashbag.all %}
+        {% for message in messages %}
+            {% if type == 'success' %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% elseif type == 'error' %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
     {% endfor %}
         <div id="grid">
 

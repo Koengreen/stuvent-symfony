@@ -297,6 +297,11 @@ class HomeController extends AbstractController
     #[Route('/enroll/{id}', name: 'enroll')]
     public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user, UserEventsRepository $userEvents, int $id): Response
     {
+        $existingEnrollment = $userEvents->findOneBy(['event' => $event, 'user' => $user]);
+        if ($existingEnrollment) {
+            $this->addFlash('error', 'U heeft zich al ingeschreven');
+            return $this->redirectToRoute('blog_list');
+        }
             $message = 'Evenement is vol.';
             $totalAttendees = $event->getAttendees();
             $eventId = $event->getId();
@@ -309,10 +314,10 @@ class HomeController extends AbstractController
                 $userevent->setAccepted(false);
                 $entityManager->persist($userevent);
                 $entityManager->flush();
-                $this->addFlash('succes', 'inschrijving succesvol');
+                $this->addFlash('success', 'inschrijving succesvol');
             }
             else {
-                dd($message);
+                $this->addFlash('error', $message);
             }
         return $this->redirectToRoute('blog_list');
     }

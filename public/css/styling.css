@@ -344,7 +344,6 @@ form{
     margin-left: 15vw;  /* Add a left margin of 15% of the viewport width */
     margin-right: 15vw;  /* Add a right margin of 15% of the viewport width */
     text-align: center;  /* Center the text */
-    border-radius: 5%;
 }
 
 /* Change the grid item style on hover */
@@ -520,7 +519,7 @@ button.addeventsbtn:hover {
     background-color: darkblue;
 }
 
-div.alert.alert-success {
+div.alert {
     text-align: center;
 }
 
