@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 20 dec 2022 om 13:18
--- Serverversie: 10.4.24-MariaDB
--- PHP-versie: 8.1.6
+-- Gegenereerd op: 12 jan 2023 om 10:30
+-- Serverversie: 10.4.25-MariaDB
+-- PHP-versie: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,7 +50,8 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20221215123049', '2022-12-20 11:54:01', 704);
+('DoctrineMigrations\\Version20221222111422', '2022-12-22 12:14:25', 110),
+('DoctrineMigrations\\Version20230112091548', '2023-01-12 10:18:21', 33);
 
 -- --------------------------------------------------------
 
@@ -65,25 +66,20 @@ CREATE TABLE `event` (
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `company` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `hourstype` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `eventtype` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `date` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date` datetime NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aantal_uur` int(11) NOT NULL,
   `niveau` int(11) NOT NULL,
-  `attendees` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `attendees` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `enddate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `event`
 --
 
-INSERT INTO `event` (`id`, `opleiding_id`, `title`, `description`, `company`, `hourstype`, `eventtype`, `date`, `time`, `image`, `aantal_uur`, `niveau`, `attendees`) VALUES
-(1, NULL, 'reis Spanje', 'Hele leuke reis met een zon en een zwembad en een hotel Jippie ja ja Jippie jippie jee!!!', 'KLM', 'Praktijkuren', 'Travel', '18 Dec - 24 Dec', '19;00 - 21;00', 'img/event-img/spain-63a195790916f.jpg', 30, 4, '23'),
-(2, NULL, 'reis Marokko', 'Verloren !!!!!!!!!!!!!!', 'KLM', 'Praktijkuren', 'Travel', '18 Dec - 24 Dec', '19;00 - 21;00', 'img/event-img/mar-63a1959a1d75e.jpg', 30, 4, '23'),
-(3, NULL, 'Stedentrip Tokyo', 'beetje rondlopen weet je', 'KLM', 'Vlieguren', 'Travel', '18 Dec - 24 Dec', '18:00 - 22:00', 'img/event-img/tokyo-63a19665698a4.jpg', 20, 3, '12'),
-(4, NULL, 'Stedentrip London', 'jeeeej', 'KLM', 'Praktijkuren', 'Travel', '18 Dec - 24 Dec', '23:00 - 3:00', 'img/event-img/lonodn-63a1986e4d0a6.jpg', 23, 3, '11'),
-(5, NULL, 'Stedentrip Barca', 'jeeeej', 'KLM', 'Praktijkuren', 'Travel', '18 Dec - 24 Dec', '23:00 - 3:00', 'img/event-img/spain-63a19880900e4.jpg', 23, 3, '11');
+INSERT INTO `event` (`id`, `opleiding_id`, `title`, `description`, `company`, `hourstype`, `date`, `image`, `aantal_uur`, `niveau`, `attendees`, `enddate`) VALUES
+(18, 1, 'erererer', 'erererer', '23232323', '3232323', '2023-01-12 10:19:00', 'img/event-img/aleppo-63bfd0d411a66.jpg', 23, 1, '23', '2023-01-14 13:19:00');
 
 -- --------------------------------------------------------
 
@@ -228,7 +224,7 @@ ALTER TABLE `about`
 -- AUTO_INCREMENT voor een tabel `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT voor een tabel `messenger_messages`
@@ -252,7 +248,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `user_events`
 --
 ALTER TABLE `user_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=395;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
