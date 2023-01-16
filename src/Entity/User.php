@@ -52,6 +52,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'user')]
     private ?Klas $klas = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $telefoonnummer = null;
+
 
 
     public function __construct()
@@ -248,6 +251,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setKlas(?Klas $klas): self
     {
         $this->klas = $klas;
+
+        return $this;
+    }
+
+    public function getTelefoonnummer(): ?string
+    {
+        return $this->telefoonnummer;
+    }
+
+    public function setTelefoonnummer(string $telefoonnummer): self
+    {
+        $this->telefoonnummer = $telefoonnummer;
 
         return $this;
     }

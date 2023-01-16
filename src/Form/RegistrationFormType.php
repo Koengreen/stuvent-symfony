@@ -35,6 +35,7 @@ class RegistrationFormType extends AbstractType
 //                    'No' => false,
                 ])
             ->add('email')
+            ->add('telefoonnummer')
             ->add('studentNumber')
             ->add('klas', EntityType::class, [
                 'class' => Klas::class,
