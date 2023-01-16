@@ -11,19 +11,18 @@
                 let xhr = new XMLHttpRequest();
                 xhr.open('GET', '/get_users_by_klas/' + klasId, true);
                 xhr.onload = function() {
-                    if (this.status === 200) {let users = JSON.parse(this.responseText);
-                        let options = '';
-                        for (let i = 0; i < users.length; i++) {
-                            options += `<option value="${users[i].id}">${users[i].name}</option>`;
-                        }
-                        userSelect.innerHTML = options;
-                    }
-                };
-                xhr.send();
-            });
-        }
-        console.log('klasSelect:', klasSelect);
-    </script>
+                            if (this.status === 200) {let users = JSON.parse(this.responseText);
+                                let options = '';
+                                for (let i = 0; i < users.length; i++) {
+                                    options += `<option value="${users[i].id}">${users[i].name}</option>`;
+                                }
+                                userSelect.innerHTML = options;
+                            }
+                        };
+                        xhr.send();
+                    });
+                }
+            </script>
     <select id="klas-select">
         {% for klas in klasses %}
             <option value="{{ klas.id }}">{{ klas.naam }}</option>

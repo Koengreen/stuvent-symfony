@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 use App\Entity\About;
+use App\Repository\KlasRepository;
+use App\Repository\UserRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Exception;
 use App\Form\Aboutpageeditorform;
@@ -30,6 +33,28 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class HomeController extends AbstractController
 {
+
+
+
+    #[Route('/studentoverview', name: 'studentoverview')]
+    public function dropdown(KlasRepository $klasRepository)
+    {
+        $klasses = $klasRepository->findAll();
+
+        return $this->render('home/studentoverview.html.twig', [
+            'klasses' => $klasses,
+        ]);
+    }
+
+    #[Route('/get_users_by_klas/{id}', name: 'getuserbyklas')]
+    public function getUsersByKlas($id, UserRepository $userRepository)
+    {
+        $users = $userRepository->findBy(['klas' => $id]);
+
+        return $this->json($users);
+    }
+
+
     #[Route('/beheerder/addadmin', name: 'add_admin')]
     public function addadmin(
         Request $request,
@@ -92,12 +117,6 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'evt' => $evt, 'totalAttendees' => $eventtotal,
         ]);
-    }
-    private $myClass;
-
-    public function __construct(UserEventsRepository $myClass)
-    {
-        $this->myClass = $myClass;
     }
 
     #[Route('/notaccepted', name: 'shownotaccepted')]
@@ -369,6 +388,8 @@ class HomeController extends AbstractController
             'id' => $event->getId()
         ]);
     }
+
+
 }
 
 

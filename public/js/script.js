@@ -1,3 +1,4 @@
+
 var cls = document.getElementById("eventtable").getElementsByTagName("td");
 function totalsum() {
     var sum = 0;

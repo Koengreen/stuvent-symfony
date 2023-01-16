@@ -49,6 +49,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
+    #[ORM\ManyToOne(inversedBy: 'user')]
+    private ?Klas $klas = null;
+
+
+
     public function __construct()
     {
         $this->UserEvents = new ArrayCollection();
@@ -234,6 +239,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getKlas(): ?Klas
+    {
+        return $this->klas;
+    }
+
+    public function setKlas(?Klas $klas): self
+    {
+        $this->klas = $klas;
+
+        return $this;
+    }
+
+
+
 
 
 }

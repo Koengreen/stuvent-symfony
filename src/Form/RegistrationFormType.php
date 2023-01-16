@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Klas;
 use App\Entity\Opleiding;
 use App\Entity\User;
 use phpDocumentor\Reflection\Type;
@@ -35,18 +36,16 @@ class RegistrationFormType extends AbstractType
                 ])
             ->add('email')
             ->add('studentNumber')
+            ->add('klas', EntityType::class, [
+                'class' => Klas::class,
+                'choice_label'  =>function (Klas $klas){
+                    return $klas->getNaam();
+                }
+            ])
             ->add('firstName')
             ->add('lastName')
             ->add('image', FileType::class, [
                 'mapped' => false
-            ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
