@@ -50,18 +50,23 @@ class HomeController extends AbstractController
         ]);
     }
     #[Route('/studentinfo/{id}', name: 'studentinfo')]
-    public function showstudentinfo(ManagerRegistry $doctrine, int $id): Response
+    public function showstudentinfo(ManagerRegistry $doctrine, int $id, UserEventsRepository $userEventsRepository): Response
     {
-        $user = $doctrine->getRepository(User::class)->find($id);
+        $i =0;
+
+                $profile = $doctrine->getRepository(User::class)->find($id);
+                $event = $doctrine->getRepository(Event::class)->findAll();
 #
-        if (!$user) {
-            throw $this->createNotFoundException(
-                'no information found for id ' . $id
-            );
-        }
-        return $this->render('home/studentinfo.hmtl.twig', [
-            'user' => $user,
-        ]);
+                if (!$profile) {
+                    throw $this->createNotFoundException(
+                        'no information found for id ' . $id
+                    );
+                }
+                $evt = $userEventsRepository->findBy(['user' => $id, 'accepted' => true]);
+                return $this->render('home/studentinfo.hmtl.twig', [
+                    'profile' => $profile, 'event' => $event, 'evt' => $evt,
+                ]);
+
     }
     #[Route('/users/klas/{naam}', name: 'usersByKLas')]
     public function filterUsersByKlasAction(string $naam)
@@ -120,7 +125,7 @@ class HomeController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('blog_list');
+            return $this->redirectToRoute('add_admin');
         }
 
         return $this->render('beheerder/addadmins.html.twig', [
@@ -191,7 +196,7 @@ class HomeController extends AbstractController
         $entityManager->remove($userEvent);
         $entityManager->flush();
         $this->addFlash(
-            'success',
+            'danger',
             'Evenement geweigerd.'
         );
 

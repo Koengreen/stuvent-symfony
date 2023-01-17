@@ -7,6 +7,11 @@
     <div class="about-text">
     <div class="container">
         <div class="row">
+            {% for flashMessage in app.session.flashbag.get('danger') %}
+                <div class="alert alert-danger">
+                    {{ flashMessage }}
+                </div>
+            {% endfor %}
             {% for flashMessage in app.session.flashbag.get('success') %}
                 <div class="alert alert-success">
                     {{ flashMessage }}

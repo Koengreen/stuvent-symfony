@@ -9,14 +9,14 @@
                 <div class="col-lg-4">
                     <div class="card shadow-sm">
                         <div class="card-header bg-transparent text-center">
-                            <img class="profile_img" src="/{{ user.image }}" alt="student profile-picture">
+                            <img class="profile_img" src="/{{ profile.image }}" alt="student profile-picture">
                             <br>
                             <br>
-                            <h3>{{user.firstName}} {{user.lastName}} </h3>
+                            <h3>{{profile.firstName}} {{profile.lastName}} </h3>
                         </div>
                         <div class="card-body">
                             <p class="mb-0"><strong class="pr-1">
-                                </strong>{{ user.studentNumber }}</p>
+                                </strong>{{ profile.studentNumber }}</p>
                         </div>
                     </div>
                 </div>
@@ -30,14 +30,14 @@
                                 <tr>
                                     <th width="30%">Klas</th>
                                     <td width="2%"></td>
-                                    <td>{{ user.klas.naam }}</td>
+                                    <td>{{ profile.klas.naam }}</td>
                                 </tr>
                                 <tr>
                                 </tr>
                                 <tr>
                                     <th width="30%">Telefoonnummer</th>
                                     <td width="2%"></td>
-                                    <td>{{  user.telefoonnummer}}</td>
+                                    <td>{{  profile.telefoonnummer}}</td>
                                 </tr>
                                 <tr>
                                     <th width="30%">Opleiding</th>
@@ -47,23 +47,12 @@
                                 <tr>
                                     <th width="30%">Email</th>
                                     <td width="2%"></td>
-                                    <td>{{ user.email }}</td>
+                                    <td>{{ profile.email }}</td>
                                 </tr>
                             </table>
                         </div>
                     </div>
-                    <div style="height: 26px"></div>
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-transparent border-0">
-                            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Other Information</h3>
-                        </div>
-                        <div class="card-body pt-0">
-                            <p>Lorem
-                                Lorem ipsum dolor sit amet, coulla paorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <br>
             <br>
             <h1>inschrijvingen :</h1>
