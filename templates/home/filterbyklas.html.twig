@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users by KLAS{% endblock %}
+
+{% block body %}
+    <h1>Users by KLAS {{ klas }}</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Klas</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in usersByKlas %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.firstName }} {{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.klas.naam }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

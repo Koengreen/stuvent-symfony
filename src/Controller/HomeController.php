@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\About;
+use App\Entity\Klas;
 use App\Repository\KlasRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -62,6 +63,28 @@ class HomeController extends AbstractController
             'user' => $user,
         ]);
     }
+    #[Route('/users/klas/{naam}', name: 'usersByKLas')]
+    public function filterUsersByKlasAction(string $naam)
+    {
+        $klas = $this->getDoctrine()->getRepository(Klas::class)->findOneBy(['naam' => $naam]);
+        if (!$klas) {
+            throw $this->createNotFoundException('No Klas found with naam: ' . $naam);
+        }
+        $usersByKlas = $this->getDoctrine()->getRepository(User::class)->filterUsersByKlas($klas);
+        if (!$usersByKlas) {
+            throw $this->createNotFoundException('No users found for KLAS: ' . $naam);
+        }
+        return $this->render('home/filterbyklas.html.twig', [
+            'usersByKlas' => $usersByKlas,
+            'klas' => $klas,
+        ]);
+    }
+
+
+
+
+
+
 
 
 

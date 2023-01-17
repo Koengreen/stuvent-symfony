@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Klas;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -55,6 +56,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
         $this->save($user, true);
     }
+
+    public function filterUsersByKlas(Klas $klas) {
+        return $this->findBy(['klas' => $klas]);
+    }
+
+    public function filterUsersByKlasName(string $klasName) {
+        return $this->createQueryBuilder('u')
+            ->join('u.klas', 'k')
+            ->where('k.naam = :klasName')
+            ->setParameter('klasName', $klasName)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return User[] Returns an array of User objects
