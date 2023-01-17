@@ -42,22 +42,27 @@ class HomeController extends AbstractController
     }
 
     #[Route('/studentoverview', name: 'studentoverview')]
-    public function dropdown(KlasRepository $klasRepository)
-    {
-        $klasses = $klasRepository->findAll();
-
+    public function showallstudents(UserRepository $userRepository){
+        $user = $userRepository->findAll();
         return $this->render('home/studentoverview.html.twig', [
-            'klasses' => $klasses,
+            'user' => $user
+        ]);
+    }
+    #[Route('/studentinfo/{id}', name: 'studentinfo')]
+    public function showstudentinfo(ManagerRegistry $doctrine, int $id): Response
+    {
+        $user = $doctrine->getRepository(User::class)->find($id);
+#
+        if (!$user) {
+            throw $this->createNotFoundException(
+                'no information found for id ' . $id
+            );
+        }
+        return $this->render('home/studentinfo.hmtl.twig', [
+            'user' => $user,
         ]);
     }
 
-    #[Route('/get_users_by_klas/{id}', name: 'getuserbyklas')]
-    public function getUsersByKlas($id, UserRepository $userRepository)
-    {
-        $users = $userRepository->findBy(['klas' => $id]);
-
-        return $this->json($users);
-    }
 
 
     #[Route('/beheerder/addadmin', name: 'add_admin')]

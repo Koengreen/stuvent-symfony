@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stuvent{% endblock %}
+
+
+{% block body %}
+<div class="about" xmlns="http://www.w3.org/1999/html">
+    <div class="about-text">
+        <br>
+        <h1>Naam:  {{ user.firstname }} {{ user.lastname }}</h1>
+        <img class="profile_img" src="/{{ user.image }}" alt="student profile-picture">
+        <hr>
+        <br>
+        <h2>Studentnummer: {{ user.studentNumber }}</h2>
+        <h2>Klas: {{ user.klas.naam }}</h2>
+        <h2>Telefoonnummer: {{ user.telefoonnummer }}</h2>
+        <h2>Email: {{ user.email }}</h2>
+        <hr>
+
+        {% endblock %}
+        {% block footer %}
+{% endblock %}

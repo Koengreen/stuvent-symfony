@@ -1,40 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My profile{% endblock %}
+{% block title %}Stuvent{% endblock %}
+
 
 {% block body %}
-    <script>
-        window.onload = function() {
-            let klasSelect = document.querySelector('#klas-select');
-            klasSelect.addEventListener('change', function() {
-                let klasId = this.value;
-                let xhr = new XMLHttpRequest();
-                xhr.open('GET', '/get_users_by_klas/' + klasId, true);
-                xhr.onload = function() {
-                    if (this.status === 200) {let users = JSON.parse(this.responseText);
-                        let options = '';
-                        for (let i = 0; i < users.length; i++) {
-                            options += `<option value="${users[i].id}">${users[i].name}</option>`;
-                        }
-                        userSelect.innerHTML = options;
-                    }
-                };
-                xhr.send();
-            });
-        }
-        console.log('klasSelect:', klasSelect);
-    </script>
-    <select id="klas-select">
-        {% for klas in klasses %}
-            <option value="{{ klas.id }}">{{ klas.naam }}</option>
-        {% endfor %}
-    </select>
+
+    <div id="grid">
 
 
-
-    {% block javascripts %}
-        <script src={{ asset('js/script.js') }} ></script>
-
-        {{ encore_entry_script_tags('app') }}
+    {% for users in user %}
+        <div class="card">
+            <div class="card-body">
+                <div class="image-border">
+                    <img class="card-img-top" src="{{ users.image }}">
+                </div>
+                <h1>{{ users.firstName }} {{ users.lastName }}</h1>
+                <h1>{{ users.klas.naam }}</h1>
+                <h3>{{ users.opleiding}}</h3>
+                <a class="hyperlink" href={{ path("studentinfo", {id:users.id} ) }} >Meer informatie over student</a>
+            </div>
+        </div>
+    {% endfor %}
+    {% block footer %}
     {% endblock %}
+
 {% endblock %}
