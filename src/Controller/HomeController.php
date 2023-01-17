@@ -35,6 +35,11 @@ class HomeController extends AbstractController
 {
 
 
+    private $myClass;
+    public function __construct(UserEventsRepository $myClass)
+    {
+        $this->myClass=$myClass;
+    }
 
     #[Route('/studentoverview', name: 'studentoverview')]
     public function dropdown(KlasRepository $klasRepository)
