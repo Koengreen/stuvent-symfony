@@ -283,6 +283,9 @@ form{
 .buttondiv2:hover{
     background-color: #650c16;
 }
+.buttondiv3:hover{
+    background-color: #b27709;
+}
 /* Style the top image in the cards */
 .card-img-top {
     border-radius: inherit;  /* Inherit the border radius from the parent element */
@@ -506,14 +509,24 @@ button.addeventsbtn:hover {
     background-color: #2d3584;
     color: white;
     font-size: 16px;
-    border: none;
+    border: 1px solid black;
+    border-radius: 10%;
 }
 .buttondiv2{
     background-color: #ac1424 ;
     color: white;
     font-size: 16px;
-    border: none;
+    border: 1px solid black;
+    border-radius: 10%;
 }
+.buttondiv3{
+    background-color: #f09904;
+    color: white;
+    font-size: 16px;
+    border: 1px solid black;
+    border-radius: 10%;
+}
+
 
 .buttondiv:hover {
     background-color: darkblue;
