@@ -358,46 +358,36 @@ class HomeController extends AbstractController
 
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntitiesManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
-        # Create new user instance
         $user = new User();
-        # Set user role to 'ROLE_USER'
         $user->setRoles(["ROLE_USER"]);
-        # Create form based on RegistrationFormType class and bind it to the user instance
         $form = $this->createForm(RegistrationFormType::class, $user);
-        # Handle the request data and bind it to the form
         $form->handleRequest($request);
 
-        # Check if the form is submitted and valid
         if ($form->isSubmitted() && $form->isValid()) {
-            # Hash the plain password and set it as the user's password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('plainPassword')->getData()
                 )
             );
-            # Get the uploaded image file and save it to the destination folder
+            ($form['image']->getData());
             $uploadedFile = $form['image']->getData();
-            $destination = $this->getParameter('kernel.project_dir') . '/public/img/profile-img';
+            $destination = $this->getParameter('kernel.project_dir').'/public/img/profile-img';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = "img/profile-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
+            $newFilename = "img/profile-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
             $uploadedFile->move(
                 $destination,
                 $newFilename
             );
-            # Set the new filename as the user's image
             $user->setImage($newFilename);
-            # Persist the user to the database and flush the changes
             $entityManager->persist($user);
             $entityManager->flush();
 
-            # Redirect to the homepage
             return $this->redirectToRoute('blog_list');
         }
 
-        # Render the registration form
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
         ]);
