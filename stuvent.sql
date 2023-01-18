@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 12 jan 2023 om 10:30
--- Serverversie: 10.4.25-MariaDB
--- PHP-versie: 8.1.10
+-- Gegenereerd op: 18 jan 2023 om 10:14
+-- Serverversie: 10.4.24-MariaDB
+-- PHP-versie: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -50,8 +50,7 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20221222111422', '2022-12-22 12:14:25', 110),
-('DoctrineMigrations\\Version20230112091548', '2023-01-12 10:18:21', 33);
+('DoctrineMigrations\\Version20230117085735', '2023-01-18 10:06:34', 845);
 
 -- --------------------------------------------------------
 
@@ -79,7 +78,30 @@ CREATE TABLE `event` (
 --
 
 INSERT INTO `event` (`id`, `opleiding_id`, `title`, `description`, `company`, `hourstype`, `date`, `image`, `aantal_uur`, `niveau`, `attendees`, `enddate`) VALUES
-(18, 1, 'erererer', 'erererer', '23232323', '3232323', '2023-01-12 10:19:00', 'img/event-img/aleppo-63bfd0d411a66.jpg', 23, 1, '23', '2023-01-14 13:19:00');
+(1, 1, 'vliegen naar Spanje', 'vliegen naar spanje', 'KLM', 'Vlieguren', '2023-01-19 13:00:00', 'img/event-img/spanje-63c7b777de5ca.jpg', 4, 1, '23', '2023-01-19 17:00:00'),
+(2, 1, 'vliegen naar Spanje', 'vliegen naar spanje', 'KLM', 'Vlieguren', '2023-01-19 13:00:00', 'img/event-img/spanje-63c7b77de60db.jpg', 4, 1, '23', '2023-01-19 17:00:00'),
+(3, 1, 'vliegen naar Spanje', 'vliegen naar spanje', 'KLM', 'Vlieguren', '2023-01-19 13:00:00', 'img/event-img/spanje-63c7b7814cddf.jpg', 4, 1, '23', '2023-01-19 17:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Tabelstructuur voor tabel `klas`
+--
+
+CREATE TABLE `klas` (
+  `id` int(11) NOT NULL,
+  `naam` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `klas`
+--
+
+INSERT INTO `klas` (`id`, `naam`) VALUES
+(1, '1k'),
+(2, '2k\r\n'),
+(3, '1a'),
+(4, '2a');
 
 -- --------------------------------------------------------
 
@@ -125,23 +147,24 @@ INSERT INTO `opleiding` (`id`, `name`) VALUES
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `opleiding_id` int(11) DEFAULT NULL,
+  `klas_id` int(11) DEFAULT NULL,
   `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `student_number` int(11) NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `telefoonnummer` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user`
 --
 
-INSERT INTO `user` (`id`, `opleiding_id`, `email`, `roles`, `password`, `student_number`, `first_name`, `last_name`, `image`) VALUES
-(1, 1, 'beheerder@email.com', '[\"ROLE_beheerder\"]', '$2y$13$BB8hIxiBSA4TXdgVGkzed.onSEK997xIP6l3ETMOLUAG1oqg9esGe', 2147483647, 'beheerder', 'koen', 'img/profile-img/pf-63a194c518543.png'),
-(2, 1, 'user@email.com', '[\"ROLE_USER\"]', '$2y$13$8l0Bs8g4A2w8OYDUid.ZJOK79onF5N.1fR0vkNu/4ut/0l7OxOySG', 2147483647, 'user', 'Koen', 'img/profile-img/pf-63a198e184e3b.png'),
-(3, 1, 'admin@email.com', '[\"ROLE_ADMIN\"]', '$2y$13$4ZjecgrgkRo0JRL.ctHWjeW2OazrteD1lm8LiiTsedKeq46cBSpii', 2147483647, 'admin', 'docent', 'img/profile-img/pf-63a199121fa6e.png');
+INSERT INTO `user` (`id`, `opleiding_id`, `klas_id`, `email`, `roles`, `password`, `student_number`, `first_name`, `last_name`, `image`, `telefoonnummer`) VALUES
+(1, 1, 1, 'test@email.com', '[\"ROLE_USER\"]', '$2y$13$KKaYAQUtRIqYdFjZnAVZPOHdL47oMI5XlYrpLrFGR2GWGdHGk8TPO', 2147483647, 'Test', 'Account', 'img/profile-img/profielfoto-63c7b70a7b3cf.png', '39874987498034'),
+(2, 1, 1, 'koen@email.com', '[\"ROLE_USER\"]', '$2y$13$mPcPdpnQ5qkSGIcRDCQfMOzzZS6FD1RcvKLGFWGy1/zBRQih14nd2', 2147483647, 'Test', 'Account', 'img/profile-img/profielfoto-63c7b718ea4e3.png', '39874987498034');
 
 -- --------------------------------------------------------
 
@@ -180,6 +203,12 @@ ALTER TABLE `event`
   ADD KEY `IDX_3BAE0AA7844BD0B0` (`opleiding_id`);
 
 --
+-- Indexen voor tabel `klas`
+--
+ALTER TABLE `klas`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexen voor tabel `messenger_messages`
 --
 ALTER TABLE `messenger_messages`
@@ -200,7 +229,8 @@ ALTER TABLE `opleiding`
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`),
-  ADD KEY `IDX_8D93D649844BD0B0` (`opleiding_id`);
+  ADD KEY `IDX_8D93D649844BD0B0` (`opleiding_id`),
+  ADD KEY `IDX_8D93D6492F3345ED` (`klas_id`);
 
 --
 -- Indexen voor tabel `user_events`
@@ -224,7 +254,13 @@ ALTER TABLE `about`
 -- AUTO_INCREMENT voor een tabel `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT voor een tabel `klas`
+--
+ALTER TABLE `klas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT voor een tabel `messenger_messages`
@@ -242,13 +278,13 @@ ALTER TABLE `opleiding`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT voor een tabel `user_events`
 --
 ALTER TABLE `user_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=395;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
@@ -264,6 +300,7 @@ ALTER TABLE `event`
 -- Beperkingen voor tabel `user`
 --
 ALTER TABLE `user`
+  ADD CONSTRAINT `FK_8D93D6492F3345ED` FOREIGN KEY (`klas_id`) REFERENCES `klas` (`id`),
   ADD CONSTRAINT `FK_8D93D649844BD0B0` FOREIGN KEY (`opleiding_id`) REFERENCES `opleiding` (`id`);
 
 --
