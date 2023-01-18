@@ -17,8 +17,8 @@
                 </div>
                 <h1>{{ users.firstName }} {{ users.lastName }}</h1>
                 <h1>{{ users.klas.naam }}</h1>
-                <h3>{{ users.opleiding}}</h3>
-                <a class="hyperlink" href={{ path("studentinfo", {id:users.id} ) }} >Meer informatie over student</a>
+                <h3>{{ users.opleiding }}</h3>
+                <a class="hyperlink" href={{ path("studentinfo", {id:users.id} ) }}>Meer informatie over student</a>
             </div>
         </div>
     {% endfor %}

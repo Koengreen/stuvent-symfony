@@ -5,33 +5,31 @@
 
 {% block body %}
 <div class="about" xmlns="http://www.w3.org/1999/html">
-        <div class="about-text">
-                <br>
+    <div class="about-text">
+        <br>
         <h1> {{ evt.title }}</h1>
         <hr>
-                <img class="event-img img-fluid" src="{{ evt.image }}">
+        <img class="event-img img-fluid" src="{{ evt.image }}">
         <br>
         <br><br>
 
-                <h1>Over het evenement</h1> <br>
-                <h1>bedrijf</h1><br>
-                <h3>{{ evt.company }}</h3>
-                <p>{{ evt.description }}</p>
-                <hr>
-
-                <h3>{{ evt.date|date('d M H:i') }}</h3>
-                <h3>{{ evt.enddate|date('d M H:i') }}</h3>
+        <h1>Over het evenement</h1> <br>
+        <h1>bedrijf</h1><br>
+        <h3>{{ evt.company }}</h3>
+        <p>{{ evt.description }}</p>
         <hr>
-        <h1>type uren</h1><br><h3>{{ evt.hourstype }}, {{ evt.opleiding }}</h3>
 
-                <hr>
-                <h1>Inschrijven</h1>
-                <a class="enroll-button" href="/enroll/{{ evt.id }}">Klik hier om je in te schrijven</a>
+        <h3>{{ evt.date|date('d M H:i') }}</h3>
+        <h3>{{ evt.enddate|date('d M H:i') }}</h3>
+        <hr>
+        <h1>type uren</h1><br>
+        <h3>{{ evt.hourstype }}, {{ evt.opleiding }}</h3>
 
-
-
+        <hr>
+        <h1>Inschrijven</h1>
+        <a class="enroll-button" href="/enroll/{{ evt.id }}">Klik hier om je in te schrijven</a>
 
 
         {% endblock %}
-                {% block footer %}
-        {% endblock %}
+        {% block footer %}
+{% endblock %}

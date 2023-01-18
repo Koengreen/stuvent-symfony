@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\About;
 use App\Entity\Klas;
 use App\Repository\KlasRepository;
@@ -32,21 +33,24 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+
 class HomeController extends AbstractController
 {
 
 
     private $myClass;
+
     public function __construct(UserEventsRepository $myClass)
     {
-        $this->myClass=$myClass;
+        $this->myClass = $myClass;
     }
 
     #[Route('/studentoverview', name: 'studentoverview')]
     /**
      * This method retrieves all the students from the database and renders them in the studentoverview template
      */
-    public function showallstudents(UserRepository $userRepository){
+    public function showallstudents(UserRepository $userRepository)
+    {
         $user = $userRepository->findAll();
         return $this->render('home/studentoverview.html.twig', [
             'user' => $user
@@ -59,7 +63,7 @@ class HomeController extends AbstractController
      */
     public function showstudentinfo(ManagerRegistry $doctrine, int $id, UserEventsRepository $userEventsRepository): Response
     {
-        $i =0;
+        $i = 0;
         // Retrieve the student profile by ID
         $profile = $doctrine->getRepository(User::class)->find($id);
         // Retrieve all events
@@ -83,17 +87,21 @@ class HomeController extends AbstractController
     /**
      * This method filters the users by class name and returns the filtered users
      */
-    public function filterUsersByKlasAction(string $naam)
+    public function filterUsersByKlasAction(Klas $naam, UserRepository $userRepository)
     {
+        $klas = $naam->getNaam();
+
         // Retrieve the class by name
-        $klas = $this->getDoctrine()->getRepository(Klas::class)->findOneBy(['naam' => $naam]);
         if (!$klas) {
-            throw $this->createNotFoundException('No class found with name: ' . $naam);
+            throw $this->createNotFoundException('No class found with name: ' . $klas);
         }
         // Retrieve the users that belong to the class
-        $usersByKlas = $this->getDoctrine()->getRepository(User::class)->filterUsersByKlas($klas);
+        $usersByKlas = $userRepository->findBy(['klas' => $klas]);
+
+
+
         if (!$usersByKlas) {
-            throw $this->createNotFoundException('No users found for class: ' . $naam);
+            throw $this->createNotFoundException('No users found for class: ' . $klas);
         }
         // Render the filterbyklas template
         return $this->render('home/filterbyklas.html.twig', [
@@ -103,14 +111,16 @@ class HomeController extends AbstractController
     }
 
 
+
+
     #[Route('/beheerder/addadmin', name: 'add_admin')]
     /**
      * This method allows a user to add an admin user
      */
     public function addadmin(
-        Request $request,
+        Request                     $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface      $entityManager
     ): Response
     {
         $user = new User();
@@ -153,7 +163,6 @@ class HomeController extends AbstractController
     }
 
 
-
     #[Route('/', name: 'blog_list')]
     /**
      * This method shows all events and the total number of attendees for each event
@@ -169,9 +178,9 @@ class HomeController extends AbstractController
         // Get all events
         $evt = $eventRepository->findAll();
         // Loop through each event
-        foreach ($evt as $data){
+        foreach ($evt as $data) {
             // Get the event id
-            $eventid =  $data->getId();
+            $eventid = $data->getId();
             // Get the total number of attendees for the event
             $totalAttendees = $repoArticles->createQueryBuilder('a')
                 ->andWhere('a.event = :searchTerm')
@@ -206,8 +215,7 @@ class HomeController extends AbstractController
     }
 
 
-
-    #[Route('/acceptevent/{id}', name: 'eventupdateaccepted', )]
+    #[Route('/acceptevent/{id}', name: 'eventupdateaccepted',)]
     /**
      * This method updates the accepted status of a user event to true
      * @param Request $request
@@ -216,7 +224,7 @@ class HomeController extends AbstractController
      * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function updateIsAttending(Request $request, int $id, UserEventsRepository $userEventsRepository, EntitiesManagerInterface $entityManager ): Response
+    public function updateIsAttending(Request $request, int $id, UserEventsRepository $userEventsRepository, EntitiesManagerInterface $entityManager): Response
     {
         // Find the user event
         $userEvent = $userEventsRepository->find($id);
@@ -242,7 +250,7 @@ class HomeController extends AbstractController
     /**
      * This method deletes a user event based on the provided id
      */
-    public function deleteUserEvent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntitiesManagerInterface $entityManager ): Response
+    public function deleteUserEvent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntitiesManagerInterface $entityManager): Response
     {
         // Find the user event
         $userEvent = $userEventsRepository->find($id);
@@ -263,8 +271,6 @@ class HomeController extends AbstractController
     }
 
 
-
-
     #[Route('/myprofile/{id}', name: 'myProfile')]
     public function myProfile(ManagerRegistry $doctrine, int $id, UserEventsRepository $userEventsRepository, #[CurrentUser] $user = null): Response
     {
@@ -281,7 +287,7 @@ class HomeController extends AbstractController
             $userid = $user->getId();
             $evt = $userEventsRepository->findBy(['user' => $userid, 'accepted' => true]);
             return $this->render('home/myprofile.html.twig', [
-                'profile' => $profile,'event' => $event,  'evt' => $evt,
+                'profile' => $profile, 'event' => $event, 'evt' => $evt,
                 'i' => $i,
             ]);
         } catch (Exception $e) {
@@ -290,15 +296,15 @@ class HomeController extends AbstractController
     }
 
 
-
     #[Route('/about', name: 'about')]
-    public function about():Response {
+    public function about(): Response
+    {
         return $this->render("home/about.html.twig");
     }
 
 
     #[Route('/about/edit', name: 'aboutedit')]
-    public function editabout(Request $request , EntityManagerInterface $entityManager,  ManagerRegistry $doctrine): Response
+    public function editabout(Request $request, EntityManagerInterface $entityManager, ManagerRegistry $doctrine): Response
     {
 
         $about = new About();
@@ -308,9 +314,9 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             ($form['images']->getData());
             $uploadedFile = $form['images']->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/img/aboutpage';
+            $destination = $this->getParameter('kernel.project_dir') . '/public/img/aboutpage';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = "img/event-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $newFilename = "img/event-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
             $uploadedFile->move(
                 $destination,
                 $newFilename
@@ -344,8 +350,6 @@ class HomeController extends AbstractController
     }
 
 
-
-
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
@@ -376,9 +380,9 @@ class HomeController extends AbstractController
             );
             # Get the uploaded image file and save it to the destination folder
             $uploadedFile = $form['image']->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/img/profile-img';
+            $destination = $this->getParameter('kernel.project_dir') . '/public/img/profile-img';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = "img/profile-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $newFilename = "img/profile-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
             $uploadedFile->move(
                 $destination,
                 $newFilename
@@ -440,8 +444,7 @@ class HomeController extends AbstractController
             $entityManager->persist($userevent);
             $entityManager->flush();
             $this->addFlash('success', 'inschrijving succesvol');
-        }
-        else {
+        } else {
             $this->addFlash('error', $message);
         }
         #redirect to the blog list
@@ -449,7 +452,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/admin/add', name: 'add_events')]
-    public function addevents(Request $request , EntitiesManagerInterface $entityManager): Response
+    public function addevents(Request $request, EntitiesManagerInterface $entityManager): Response
     {
 # Create a new event object
         $event = new Event ();
@@ -463,11 +466,11 @@ class HomeController extends AbstractController
             # Get the uploaded file from the form
             $uploadedFile = $form['image']->getData();
             # Set the destination folder for the image
-            $destination = $this->getParameter('kernel.project_dir').'/public/img/event-img';
+            $destination = $this->getParameter('kernel.project_dir') . '/public/img/event-img';
             # Get the original file name
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
             # Create a new file name for the image
-            $newFilename = "img/event-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $newFilename = "img/event-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
             # Move the image to the destination folder
             $uploadedFile->move(
                 $destination,

@@ -5,53 +5,54 @@
 {% block body %}
 
     <div class="about-text">
-    <div class="container">
-        <div class="row">
-            {% for flashMessage in app.session.flashbag.get('danger') %}
-                <div class="alert alert-danger">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-            {% for flashMessage in app.session.flashbag.get('success') %}
-                <div class="alert alert-success">
-                    {{ flashMessage }}
-                </div>
-            {% endfor %}
-    <h1>User Events</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Event</th>
-            <th>User</th>
-            <th>Accepteren</th>
+        <div class="container">
+            <div class="row">
+                {% for flashMessage in app.session.flashbag.get('danger') %}
+                    <div class="alert alert-danger">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                {% for flashMessage in app.session.flashbag.get('success') %}
+                    <div class="alert alert-success">
+                        {{ flashMessage }}
+                    </div>
+                {% endfor %}
+                <h1>User Events</h1>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Event</th>
+                        <th>User</th>
+                        <th>Accepteren</th>
 
-        </tr>
-        </thead>
-        <tbody>
-        {% for queu_event in queu_events %}
-            <tr>
-                <td>{{ queu_event.id }}</td>
-                <td>{{ queu_event.event.Title }}</td>
-                <td>{{ queu_event.user.firstName }}</td>
-                <td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for queu_event in queu_events %}
+                        <tr>
+                            <td>{{ queu_event.id }}</td>
+                            <td>{{ queu_event.event.Title }}</td>
+                            <td>{{ queu_event.user.firstName }}</td>
+                            <td>
 
-                    <form method="POST" action="{{ path('eventupdateaccepted', {'id': queu_event.id}) }}">
-                        <input type="hidden" name="id" value="{{ queu_event.id }}">
-                        <button class="buttondiv1 decide" type="submit">{{ queu_event.accepted ? 'Ja' }}</button>
-                    </form>
-                    <form method="POST" action="{{ path('eventdelete', {'id': queu_event.id}) }}">
-                        <input type="hidden" name="id" value="{{ queu_event.id }}">
-                        <button class="buttondiv2 decide" type="submit">Nee</button>
-                    </form>
-                </td>
+                                <form method="POST" action="{{ path('eventupdateaccepted', {'id': queu_event.id}) }}">
+                                    <input type="hidden" name="id" value="{{ queu_event.id }}">
+                                    <button class="buttondiv1 decide"
+                                            type="submit">{{ queu_event.accepted ? 'Ja' }}</button>
+                                </form>
+                                <form method="POST" action="{{ path('eventdelete', {'id': queu_event.id}) }}">
+                                    <input type="hidden" name="id" value="{{ queu_event.id }}">
+                                    <button class="buttondiv2 decide" type="submit">Nee</button>
+                                </form>
+                            </td>
 
 
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-</div>
-</div>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

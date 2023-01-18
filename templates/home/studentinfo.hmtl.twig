@@ -3,114 +3,115 @@
 {% block title %}My profile{% endblock %}
 
 {% block body %}
-    <div class="about-text">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-transparent text-center">
-                            <img class="profile_img" src="/{{ profile.image }}" alt="student profile-picture">
-                            <br>
-                            <br>
-                            <h3>{{profile.firstName}} {{profile.lastName}} </h3>
-                        </div>
-                        <div class="card-body">
-                            <p class="mb-0"><strong class="pr-1">
-                                </strong>{{ profile.studentNumber }}</p>
-                        </div>
+<div class="about-text">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent text-center">
+                        <img class="profile_img" src="/{{ profile.image }}" alt="student profile-picture">
+                        <br>
+                        <br>
+                        <h3>{{ profile.firstName }} {{ profile.lastName }} </h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0"><strong class="pr-1">
+                            </strong>{{ profile.studentNumber }}</p>
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    <div class="card shadow-sm">
-                        <div class="card-header bg-transparent border-0">
-                            <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Algemene Informatie </h3>
-                        </div>
-                        <div class="card-body pt-0">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th width="30%">Klas</th>
-                                    <td width="2%"></td>
-                                    <td>{{ profile.klas.naam }}</td>
-                                </tr>
-                                <tr>
-                                </tr>
-                                <tr>
-                                    <th width="30%">Telefoonnummer</th>
-                                    <td width="2%"></td>
-                                    <td>{{  profile.telefoonnummer}}</td>
-                                </tr>
-                                <tr>
-                                    <th width="30%">Opleiding</th>
-                                    <td width="2%"></td>
-                                    <td>Leisure</td>
-                                </tr>
-                                <tr>
-                                    <th width="30%">Email</th>
-                                    <td width="2%"></td>
-                                    <td>{{ profile.email }}</td>
-                                </tr>
-                            </table>
-                        </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-transparent border-0">
+                        <h3 class="mb-0"><i class="far fa-clone pr-1"></i>Algemene Informatie </h3>
                     </div>
+                    <div class="card-body pt-0">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th width="30%">Klas</th>
+                                <td width="2%"></td>
+                                <td>{{ profile.klas.naam }}</td>
+                            </tr>
+                            <tr>
+                            </tr>
+                            <tr>
+                                <th width="30%">Telefoonnummer</th>
+                                <td width="2%"></td>
+                                <td>{{ profile.telefoonnummer }}</td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Opleiding</th>
+                                <td width="2%"></td>
+                                <td>Leisure</td>
+                            </tr>
+                            <tr>
+                                <th width="30%">Email</th>
+                                <td width="2%"></td>
+                                <td>{{ profile.email }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
 
-            <br>
-            <br>
-            <h1>inschrijvingen :</h1>
-            <table id="eventtable" class = 'event-table' style="width:100%">
+                <br>
+                <br>
+                <h1>inschrijvingen :</h1>
+                <table id="eventtable" class='event-table' style="width:100%">
 
-                <tr class="myprofile">
-                    <th>Naam</th>
-                    <th>bedrijf</th>
-                    <th>Uurtype</th>
-                    <th>aantal uur</th>
-                    <th>startdatum</th>
-                    <th>einddatum</th>
-                    <th>meer info</th>
-                </tr>
-
-                {% for events in evt %}
-
-                    <tr>
-                        <td>{{ events.event.title }}</td>
-                        <td>{{ events.event.company }}</td>
-                        <td>{{ events.event.hourstype }}</td>
-                        <td class="aantalUur">{{ events.event.aantalUur }}</td>
-                        <td>{{ events.event.date|date('d M H:i') }}</td>
-                        <td>{{ events.event.enddate|date('d M H:i') }}</td>
-                        <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}">info</td>
+                    <tr class="myprofile">
+                        <th>Naam</th>
+                        <th>bedrijf</th>
+                        <th>Uurtype</th>
+                        <th>aantal uur</th>
+                        <th>startdatum</th>
+                        <th>einddatum</th>
+                        <th>meer info</th>
                     </tr>
 
+                    {% for events in evt %}
 
-                {% endfor %}
+                        <tr>
+                            <td>{{ events.event.title }}</td>
+                            <td>{{ events.event.company }}</td>
+                            <td>{{ events.event.hourstype }}</td>
+                            <td class="aantalUur">{{ events.event.aantalUur }}</td>
+                            <td>{{ events.event.date|date('d M H:i') }}</td>
+                            <td>{{ events.event.enddate|date('d M H:i') }}</td>
+                            <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}">info</td>
+                        </tr>
 
-                <tr>
 
-                </tr>
-            </table>
-            <br>
+                    {% endfor %}
 
-            <script>
+                    <tr>
 
-                function ExportToExcel(type, fn, dl) {
-                    var elt = document.getElementById('eventtable');
-                    var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
-                    return dl ?
-                        XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }) :
-                        XLSX.writeFile(wb, fn || ('urenoverzicht.' + (type || 'xlsx')));
-                }
+                    </tr>
+                </table>
+                <br>
 
-            </script>
-            <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Export table to excel</button>
-            <br>
-            <button class="buttondiv2" onclick="totalsum()">bereken</button> <h1 id="result">.</h1>
+                <script>
+
+                    function ExportToExcel(type, fn, dl) {
+                        var elt = document.getElementById('eventtable');
+                        var wb = XLSX.utils.table_to_book(elt, {sheet: "sheet1"});
+                        return dl ?
+                            XLSX.write(wb, {bookType: type, bookSST: true, type: 'base64'}) :
+                            XLSX.writeFile(wb, fn || ('urenoverzicht.' + (type || 'xlsx')));
+                    }
+
+                </script>
+                <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Export table to excel</button>
+                <br>
+                <button class="buttondiv2" onclick="totalsum()">bereken</button>
+                <h1 id="result">.</h1>
+            </div>
         </div>
-    </div>
 
 
     </div>
     {% block javascripts %}
-        <script src={{ asset('js/script.js') }} ></script>
+        <script src={{ asset('js/script.js') }}></script>
 
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
-{% endblock %}
+    {% endblock %}

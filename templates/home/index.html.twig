@@ -1,4 +1,4 @@
-    {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block title %}Stuvent{% endblock %}
 
@@ -7,7 +7,7 @@
 
 
 
-<!--Hier beginnen de events-->
+    <!--Hier beginnen de events-->
     <section id="events">
     {% for type, messages in app.session.flashbag.all %}
         {% for message in messages %}
@@ -18,7 +18,7 @@
             {% endif %}
         {% endfor %}
     {% endfor %}
-        <div id="grid">
+    <div id="grid">
 
 
     {% for events in evt %}
@@ -33,7 +33,7 @@
                 <h3>{{ events.date|date('d M H:i') }}</h3>
                 <h3>{{ events.enddate|date('d M H:i') }}</h3>
 
-                <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }} >Meer informatie en inschrijven</a>
+                <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>Meer informatie en inschrijven</a>
             </div>
         </div>
     {% endfor %}

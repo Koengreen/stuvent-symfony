@@ -4,25 +4,26 @@
 
 {% block body %}
     <script>
-        window.onload = function() {
+        window.onload = function () {
             let klasSelect = document.querySelector('#klas-select');
-            klasSelect.addEventListener('change', function() {
+            klasSelect.addEventListener('change', function () {
                 let klasId = this.value;
                 let xhr = new XMLHttpRequest();
                 xhr.open('GET', '/get_users_by_klas/' + klasId, true);
-                xhr.onload = function() {
-                            if (this.status === 200) {let users = JSON.parse(this.responseText);
-                                let options = '';
-                                for (let i = 0; i < users.length; i++) {
-                                    options += `<option value="${users[i].id}">${users[i].name}</option>`;
-                                }
-                                userSelect.innerHTML = options;
-                            }
-                        };
-                        xhr.send();
-                    });
-                }
-            </script>
+                xhr.onload = function () {
+                    if (this.status === 200) {
+                        let users = JSON.parse(this.responseText);
+                        let options = '';
+                        for (let i = 0; i < users.length; i++) {
+                            options += `<option value="${users[i].id}">${users[i].name}</option>`;
+                        }
+                        userSelect.innerHTML = options;
+                    }
+                };
+                xhr.send();
+            });
+        }
+    </script>
     <select id="klas-select">
         {% for klas in klasses %}
             <option value="{{ klas.id }}">{{ klas.naam }}</option>
@@ -32,7 +33,7 @@
 
 
     {% block javascripts %}
-        <script src={{ asset('js/script.js') }} ></script>
+        <script src={{ asset('js/script.js') }}></script>
 
         {{ encore_entry_script_tags('app') }}
     {% endblock %}
