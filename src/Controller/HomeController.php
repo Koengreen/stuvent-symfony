@@ -114,23 +114,18 @@ class HomeController extends AbstractController
 
 
     #[Route('/beheerder/addadmin', name: 'add_admin')]
-    /**
-     * This method allows a user to add an admin user
-     */
     public function addadmin(
-        Request                     $request,
+        Request $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface      $entityManager
+        EntityManagerInterface $entityManager
     ): Response
     {
         $user = new User();
-        // Set the role of the user to admin
         $user->setRoles(["ROLE_ADMIN"]);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Hash the password
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -138,19 +133,15 @@ class HomeController extends AbstractController
                 )
             );
             ($form['image']->getData());
-            // Handle the image upload
-
             $uploadedFile = $form['image']->getData();
             $destination = $this->getParameter('kernel.project_dir') . '/public/img/profile-img';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = "img/profile-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' .
-                $uploadedFile->guessExtension();
+            $newFilename = "img/profile-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
             $uploadedFile->move(
                 $destination,
                 $newFilename
             );
             $user->setImage($newFilename);
-            // Persist the new user and flush the changes to the database
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -442,41 +433,31 @@ class HomeController extends AbstractController
     }
 
     #[Route('/admin/add', name: 'add_events')]
-    public function addevents(Request $request, EntitiesManagerInterface $entityManager): Response
+    public function addevents(Request $request , EntityManagerInterface $entityManager): Response
     {
-# Create a new event object
         $event = new Event ();
-# Create a form using the EventFormType class and the event object
         $form = $this->createForm(EventFormType::class, $event);
-# Handle the request data
         $form->handleRequest($request);
-        # Check if the form has been submitted and is valid
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            # Get the uploaded file from the form
+        if ($form->isSubmitted() && $form->isValid()) {
+            ($form['image']->getData());
             $uploadedFile = $form['image']->getData();
-            # Set the destination folder for the image
-            $destination = $this->getParameter('kernel.project_dir') . '/public/img/event-img';
-            # Get the original file name
+            $destination = $this->getParameter('kernel.project_dir').'/public/img/event-img';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            # Create a new file name for the image
-            $newFilename = "img/event-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
-            # Move the image to the destination folder
+            $newFilename = "img/event-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
             $uploadedFile->move(
                 $destination,
                 $newFilename
             );
-
-            # Get the selected opleiding from the form
             $opleiding = $form['opleiding']->getData();
-            # Set the opleiding on the event object
             $event->setOpleiding($opleiding);
-            # Set the date on the event object
-            $event->setDate
-            ($form['date']->getData());
+            $event->setDate($form['date']->getData());
             $event->setImage($newFilename);
             $entityManager->persist($event);
             $entityManager->flush();
+
+
+            // do anything else you need here, like send an email
 
             return $this->redirectToRoute('app_admin');
         }
