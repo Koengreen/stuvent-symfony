@@ -51,8 +51,10 @@ class HomeController extends AbstractController
     /**
      * This method retrieves all the students from the database and renders them in the studentoverview template
      */
-    public function showallstudents(UserRepository $userRepository)
+    public function showallstudents(Klas $klas, UserRepository $userRepository)
+        
     {
+
         $user = $userRepository->findAll();
         return $this->render('home/studentoverview.html.twig', [
             'user' => $user
