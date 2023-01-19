@@ -101,7 +101,6 @@ class HomeController extends AbstractController
         $usersByKlas = $userRepository->findBy(['klas' => $klas]);
 
 
-
         if (!$usersByKlas) {
             throw $this->createNotFoundException('No users found for class: ' . $klas);
         }
@@ -113,13 +112,11 @@ class HomeController extends AbstractController
     }
 
 
-
-
     #[Route('/beheerder/addadmin', name: 'add_admin')]
     public function addadmin(
-        Request $request,
+        Request                     $request,
         UserPasswordHasherInterface $userPasswordHasher,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface      $entityManager
     ): Response
     {
         $user = new User();
@@ -152,6 +149,28 @@ class HomeController extends AbstractController
 
         return $this->render('beheerder/addadmins.html.twig', [
             'registrationForm' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/pastevents', name: 'pastEvents')]
+    public function pastEvents(EventRepository $eventRepository)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $usereventRepository = $em->getRepository(UserEvents::class);
+        $qb = $usereventRepository->createQueryBuilder('ue');
+        $qb->select('count(ue.id)')
+            ->where('ue.accepted = false');
+        $notAccepted = $qb->getQuery()->getSingleScalarResult();
+        // Get all events sorted by date and time
+        $today = new \DateTime();
+        $qb = $eventRepository->createQueryBuilder('e');
+        $evt = $qb->where($qb->expr()->lt('e.enddate', ':enddate'))
+            ->setParameter('enddate', $today)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $this->render('admin/pastevents.html.twig', [
+            'evt' => $evt, 'notAccepted' => $notAccepted
         ]);
     }
 
@@ -200,7 +219,6 @@ class HomeController extends AbstractController
     }
 
 
-
     #[Route('/notaccepted', name: 'shownotaccepted')]
     /**
      * This method shows all events that have not been accepted by the admin
@@ -217,8 +235,8 @@ class HomeController extends AbstractController
     }
 
 
-    #[Route('/acceptevent/{id}', name: 'eventupdateaccepted', )]
-    public function updateIsAttending(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager ): Response
+    #[Route('/acceptevent/{id}', name: 'eventupdateaccepted',)]
+    public function updateIsAttending(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager): Response
     {
         $userEvent = $userEventsRepository->find($id);
         if (!$userEvent) {
@@ -235,9 +253,8 @@ class HomeController extends AbstractController
     }
 
 
-
     #[Route('/deleteevent/{id}', name: 'eventdelete')]
-    public function deleteUserEvent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager ): Response
+    public function deleteUserEvent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager): Response
     {
         $userEvent = $userEventsRepository->find($id);
         if (!$userEvent) {
@@ -358,9 +375,9 @@ class HomeController extends AbstractController
             );
             ($form['image']->getData());
             $uploadedFile = $form['image']->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/img/profile-img';
+            $destination = $this->getParameter('kernel.project_dir') . '/public/img/profile-img';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = "img/profile-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $newFilename = "img/profile-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
             $uploadedFile->move(
                 $destination,
                 $newFilename
@@ -397,6 +414,11 @@ class HomeController extends AbstractController
     #[Route('/enroll/{id}', name: 'enroll')]
     public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user, UserEventsRepository $userEvents, int $id): Response
     {
+        #check if the event is duedate
+        if ($event->getDate() < new \DateTime()) {
+            $this->addFlash('error', 'Evenement is al geweest');
+            return $this->redirectToRoute('blog_list');
+        }
         #check if the user is already enrolled in the event
         $existingEnrollment = $userEvents->findOneBy(['event' => $event, 'user' => $user]);
         if ($existingEnrollment) {
@@ -426,7 +448,7 @@ class HomeController extends AbstractController
     }
 
     #[Route('/admin/add', name: 'add_events')]
-    public function addevents(Request $request , EntityManagerInterface $entityManager): Response
+    public function addevents(Request $request, EntityManagerInterface $entityManager): Response
     {
         $event = new Event ();
         $form = $this->createForm(EventFormType::class, $event);
@@ -435,9 +457,9 @@ class HomeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             ($form['image']->getData());
             $uploadedFile = $form['image']->getData();
-            $destination = $this->getParameter('kernel.project_dir').'/public/img/event-img';
+            $destination = $this->getParameter('kernel.project_dir') . '/public/img/event-img';
             $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $newFilename = "img/event-img/".  Urlizer::urlize( $originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
+            $newFilename = "img/event-img/" . Urlizer::urlize($originalFilename) . '-' . uniqid() . '.' . $uploadedFile->guessExtension();
             $uploadedFile->move(
                 $destination,
                 $newFilename
