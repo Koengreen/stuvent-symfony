@@ -94,9 +94,6 @@ class HomeController extends AbstractController
      */
     public function filterUsersByKlasAction(int $id,Klas $naam, UserRepository $userRepository)
     {
-        $profile = $doctrine->getRepository(User::class)->find($id);
-        $event = $doctrine->getRepository(Event::class)->findAll();
-
         $klas = $naam->getNaam();
         // Retrieve the class by name
         if (!$klas) {
