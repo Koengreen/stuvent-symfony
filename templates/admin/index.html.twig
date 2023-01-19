@@ -9,19 +9,18 @@
 
     <!--Hier beginnen de events-->
     <div class="about-text">
+
+        <h1 class="outlineBold">Aankomende Events: </h1>
+        <br>
+        <hr>
         <button class="buttondiv1" onclick="window.location.href = '{{ path("add_events") }}'">voeg events toe</button>
         <button class="buttondiv3" onclick="window.location.href = '{{ path("shownotaccepted") }}'">zie verzoeken (<span
                     onclick="" class="requests">{{ notAccepted }}</span>)
         </button>
         <button class="buttondiv2" onclick="window.location.href = '{{ path("studentoverview") }}'">Studentenoverzicht
         </button>
-        <button class="buttondiv1" onclick="window.location.href = '{{ path("pastEvents") }}'">Vorige events
+        <button class="buttondiv1" onclick="window.location.href = '{{ path("pastEvents") }}'">Afgelopen events
         </button>
-        <br>
-        <br>
-        <br>
-        <h1 class="outlineBold">Aankomende Events: </h1>
-        <hr>
     </div>
 
     <div id="grid">
