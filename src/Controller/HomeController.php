@@ -88,24 +88,26 @@ class HomeController extends AbstractController
 
     }
 
-    #[Route('/users/klas/{naam}', name: 'usersByKlas')]
+    #[Route('/users/klas/{id}', name: 'usersByKlas')]
     /**
      * This method filters the users by class name and returns the filtered users
      */
-    public function filterUsersByKlasAction(Klas $naam, UserRepository $userRepository)
+    public function filterUsersByKlasAction(int $id,Klas $naam, UserRepository $userRepository)
     {
-        $klas = $naam->getNaam();
+        $profile = $doctrine->getRepository(User::class)->find($id);
+        $event = $doctrine->getRepository(Event::class)->findAll();
 
+        $klas = $naam->getNaam();
         // Retrieve the class by name
         if (!$klas) {
             throw $this->createNotFoundException('No class found with name: ' . $klas);
         }
         // Retrieve the users that belong to the class
-        $usersByKlas = $userRepository->findBy(['klas' => $klas]);
+        $usersByKlas = $userRepository->findBy(['klas' => $id]);
 
 
         if (!$usersByKlas) {
-            throw $this->createNotFoundException('No users found for class: ' . $klas);
+            return $this->render('home/noUsersforKlas.html.twig');
         }
         // Render the filterbyklas template
         return $this->render('home/filterbyklas.html.twig', [

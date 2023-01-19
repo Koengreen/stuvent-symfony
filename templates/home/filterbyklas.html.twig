@@ -1,23 +1,35 @@
+{% extends 'base.html.twig' %}
 
-{% if usersByKlas is empty %}
-    <p>No users found for class {{ naam }}.</p>
-{% else %}
-    <table>
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Class</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for user in usersByKlas %}
-            <tr>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.klas.naam }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-{% endif %}
+{% block title %}User Events{% endblock %}
+
+{% block body %}
+
+    <div class="about-text">
+        <div class="container">
+            <div class="row">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>voornaam</th>
+                        <th>achternaam</th>
+                        <th>Stageuren</th>
+                        <th>Klas</th>
+
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in usersByKlas %}
+                        <tr>
+                            <td>{{ user.firstName }}</td>
+                            <td>{{ user.lastname }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.klas.naam }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
