@@ -29,9 +29,14 @@ class AdminController extends AbstractController
     public function adminEvents(EventRepository $eventRepository)
     {
 
-        $evt = $eventRepository->findAll();
         // Get all events sorted by date and time
-        $evt = $eventRepository->findBy([], ['date' => 'ASC']);
+        $today = new \DateTime();
+        $qb = $eventRepository->createQueryBuilder('e');
+        $evt = $qb->where($qb->expr()->gte('e.enddate', ':enddate'))
+            ->setParameter('enddate', $today)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
         return $this->render('admin/index.html.twig', [
             'evt' => $evt,
         ]);

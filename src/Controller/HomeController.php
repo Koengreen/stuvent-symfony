@@ -171,8 +171,13 @@ class HomeController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         // Get the repository for the UserEvents entity
         $repoArticles = $em->getRepository(UserEvents::class);
-        // Get all events sorted by date and time
-        $evt = $eventRepository->findBy([], ['date' => 'ASC']);
+        $today = new \DateTime();
+        $qb = $eventRepository->createQueryBuilder('e');
+        $evt = $qb->where($qb->expr()->gte('e.enddate', ':enddate'))
+            ->setParameter('enddate', $today)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
         // Loop through each event
         foreach ($evt as $data) {
             // Get the event id
@@ -463,6 +468,14 @@ class HomeController extends AbstractController
 
         // Find the event with the given id
         $event = $entityManager->getRepository(Event::class)->find($id);
+
+        // Find all the user events that reference this event
+        $userEvents = $entityManager->getRepository(UserEvents::class)->findBy(['event' => $event]);
+
+// Remove all the dependent user events
+        foreach ($userEvents as $userEvent) {
+            $entityManager->remove($userEvent);
+        }
 
         // Remove the event from the database
         $entityManager->remove($event);
