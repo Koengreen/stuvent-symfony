@@ -28,7 +28,10 @@ class AdminController extends AbstractController
     #[Route('/admin', name: 'app_admin')]
     public function adminEvents(EventRepository $eventRepository)
     {
+
         $evt = $eventRepository->findAll();
+        // Get all events sorted by date and time
+        $evt = $eventRepository->findBy([], ['date' => 'ASC']);
         return $this->render('admin/index.html.twig', [
             'evt' => $evt,
         ]);

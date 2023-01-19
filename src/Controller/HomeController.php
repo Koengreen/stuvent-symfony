@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\About;
 use App\Entity\Klas;
+use Symfony\Component\Intl\Locales;
+use Symfony\Component\Intl\Intl;
 use App\Repository\KlasRepository;
 use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -158,6 +160,9 @@ class HomeController extends AbstractController
     /**
      * This method shows all events and the total number of attendees for each event
      */
+        /**
+         * This method shows all events and the total number of attendees for each event
+         */
     public function show(EventRepository $eventRepository)
     {
         // Initialize an array to store the total number of attendees for each event
@@ -166,8 +171,8 @@ class HomeController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         // Get the repository for the UserEvents entity
         $repoArticles = $em->getRepository(UserEvents::class);
-        // Get all events
-        $evt = $eventRepository->findAll();
+        // Get all events sorted by date and time
+        $evt = $eventRepository->findBy([], ['date' => 'ASC']);
         // Loop through each event
         foreach ($evt as $data) {
             // Get the event id
@@ -190,6 +195,7 @@ class HomeController extends AbstractController
     }
 
 
+
     #[Route('/notaccepted', name: 'shownotaccepted')]
     /**
      * This method shows all events that have not been accepted by the admin
@@ -206,58 +212,40 @@ class HomeController extends AbstractController
     }
 
 
-    #[Route('/acceptevent/{id}', name: 'eventupdateaccepted',)]
-    /**
-     * This method updates the accepted status of a user event to true
-     * @param Request $request
-     * @param int $id
-     * @param UserEventsRepository $userEventsRepository
-     * @param EntityManagerInterface $entityManager
-     * @return Response
-     */
-    public function updateIsAttending(Request $request, int $id, UserEventsRepository $userEventsRepository, EntitiesManagerInterface $entityManager): Response
+    #[Route('/acceptevent/{id}', name: 'eventupdateaccepted', )]
+    public function updateIsAttending(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager ): Response
     {
-        // Find the user event
         $userEvent = $userEventsRepository->find($id);
         if (!$userEvent) {
             throw $this->createNotFoundException('User event not found');
         }
 
-        // Set the accepted status to true
         $userEvent->setAccepted(true);
-        // Flush the changes to the database
         $entityManager->flush();
-        // Add a flash message
         $this->addFlash(
             'success',
             'Evenement geaccepteerd.');
 
-        // Redirect to the notaccepted route
         return $this->redirectToRoute('shownotaccepted');
     }
 
 
+
     #[Route('/deleteevent/{id}', name: 'eventdelete')]
-    /**
-     * This method deletes a user event based on the provided id
-     */
-    public function deleteUserEvent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntitiesManagerInterface $entityManager): Response
+    public function deleteUserEvent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager ): Response
     {
-        // Find the user event
         $userEvent = $userEventsRepository->find($id);
         if (!$userEvent) {
             throw $this->createNotFoundException('User event not found');
         }
-        // Remove the user event from the database
         $entityManager->remove($userEvent);
-        // Flush the changes to the database
         $entityManager->flush();
-        // Add a flash message
         $this->addFlash(
             'danger',
             'Evenement geweigerd.'
         );
-        // Redirect to the shownotaccepted route
+
+
         return $this->redirectToRoute('shownotaccepted');
     }
 
