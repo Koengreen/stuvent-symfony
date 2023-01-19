@@ -4,6 +4,9 @@
     src: url(/fonts/FilsonPro-Bold.woff2);
 }
 
+.requests {
+    color: #ac1424;
+}
 /* Style the profile image */
 img.profile_img{
     width: 350px;

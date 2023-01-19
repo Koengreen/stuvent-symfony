@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\UserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,8 +28,12 @@ class AdminController extends AbstractController
 {
     #[Route('/admin', name: 'app_admin')]
     public function adminEvents(EventRepository $eventRepository)
-    {
-
+    { $em = $this->getDoctrine()->getManager();
+        $usereventRepository = $em->getRepository(UserEvents::class);
+        $qb = $usereventRepository->createQueryBuilder('ue');
+        $qb->select('count(ue.id)')
+            ->where('ue.accepted = false');
+        $notAccepted = $qb->getQuery()->getSingleScalarResult();
         // Get all events sorted by date and time
         $today = new \DateTime();
         $qb = $eventRepository->createQueryBuilder('e');
@@ -38,9 +43,31 @@ class AdminController extends AbstractController
             ->getQuery()
             ->getResult();
         return $this->render('admin/index.html.twig', [
-            'evt' => $evt,
+            'evt' => $evt, 'notAccepted' => $notAccepted
         ]);
     }
+
+    #[Route('/admin/pastevents', name: 'pastEvents')]
+    public function pastEvents(EventRepository $eventRepository)
+    { $em = $this->getDoctrine()->getManager();
+        $usereventRepository = $em->getRepository(UserEvents::class);
+        $qb = $usereventRepository->createQueryBuilder('ue');
+        $qb->select('count(ue.id)')
+            ->where('ue.accepted = false');
+        $notAccepted = $qb->getQuery()->getSingleScalarResult();
+        // Get all events sorted by date and time
+        $today = new \DateTime();
+        $qb = $eventRepository->createQueryBuilder('e');
+        $evt = $qb->where($qb->expr()->lt('e.enddate', ':enddate'))
+            ->setParameter('enddate', $today)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $this->render('admin/pastevents.html.twig', [
+            'evt' => $evt, 'notAccepted' => $notAccepted
+        ]);
+    }
+
 
 }
 
