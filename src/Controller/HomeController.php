@@ -92,7 +92,7 @@ class HomeController extends AbstractController
     /**
      * This method filters the users by class name and returns the filtered users
      */
-    public function filterUsersByKlasAction(int $id,Klas $naam, UserRepository $userRepository)
+    public function filterUsersByKlasAction(int $id,Klas $naam, UserRepository $userRepository, EventRepository $eventRepository, UserEventsRepository $userEventsRepository)
     {
         $klas = $naam->getNaam();
         // Retrieve the class by name
@@ -101,8 +101,6 @@ class HomeController extends AbstractController
         }
         // Retrieve the users that belong to the class
         $usersByKlas = $userRepository->findBy(['klas' => $id]);
-
-
         if (!$usersByKlas) {
             return $this->render('home/noUsersforKlas.html.twig');
         }
