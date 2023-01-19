@@ -3,6 +3,10 @@
     font-family: BoldMondriaan;
     src: url(/fonts/FilsonPro-Bold.woff2);
 }
+@font-face {
+    font-family: outlinedBold;
+    src: url(/fonts/11S0BLTO.TTF);
+}
 
 .requests {
     color: #ac1424;
@@ -267,7 +271,13 @@ body {
     color: #1a191a;  /* Dark gray text color */
     font-family: BoldMondriaan;  /* Use the BoldMondriaan font family */
 }
-
+.outlineBold{
+    font-family: outlinedBold;
+    font-size: 90px;/* Use the BoldMondriaan font family */
+    background-color: #323a93;
+    color: black;
+    border: 15px solid #323a93;
+}
 /* Style the labels */
 label {
     text-decoration: underline;  /* Underline the text */

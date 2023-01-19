@@ -20,12 +20,7 @@
         {% endfor %}
     {% endfor %}
     <div class="about-text">
-        <button class="pastevents" onclick="window.location.href = '{{ path("pastEvents") }}'">Ga naar afgelopen events
-        </button>
-        <br>
-        <br>
-        <br>
-        <h1>Aankomende Events: </h1>
+        <h1 class="outlineBold">Aankomende Events: </h1>
         <hr>
 
     </div>
@@ -48,7 +43,11 @@
                 <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>Meer informatie en inschrijven</a>
             </div>
         </div>
+
     {% endfor %}
+    </div>
+        <div class="about-text">  <button class="pastevents" onclick="window.location.href = '{{ path("pastEvents") }}'">Ga naar afgelopen events
+            </button></div></div>
     {% block footer %}
     {% endblock %}
 
