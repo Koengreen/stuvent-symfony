@@ -51,13 +51,14 @@ class HomeController extends AbstractController
     /**
      * This method retrieves all the students from the database and renders them in the studentoverview template
      */
-    public function showallstudents(Klas $klas, UserRepository $userRepository)
-        
+    public function showallstudents(KlasRepository $klasRepository, UserRepository $userRepository)
+
     {
+        $klas = $klasRepository->findAll();
 
         $user = $userRepository->findAll();
         return $this->render('home/studentoverview.html.twig', [
-            'user' => $user
+            'user' => $user, 'klas' => $klas
         ]);
     }
 
@@ -417,10 +418,6 @@ class HomeController extends AbstractController
     public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user, UserEventsRepository $userEvents, int $id): Response
     {
         #check if the event is duedate
-        if ($event->getDate() < new \DateTime()) {
-            $this->addFlash('error', 'Evenement is al geweest');
-            return $this->redirectToRoute('blog_list');
-        }
         #check if the user is already enrolled in the event
         $existingEnrollment = $userEvents->findOneBy(['event' => $event, 'user' => $user]);
         if ($existingEnrollment) {

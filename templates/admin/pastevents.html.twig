@@ -33,7 +33,6 @@
                 <h3>{{ events.date|date('D d M H:i') }}</h3>
                 <h3>{{ events.enddate|date('D d M H:i') }}</h3>
                 <h5>niv. {{ events.niveau }}</h5>
-                <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>meer informatie</a>
             </div>
         </div>
     {% endfor %}

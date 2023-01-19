@@ -5,6 +5,19 @@
 
 {% block body %}
 
+    <div class="about-text">
+    <h1>KLassen:</h1>
+                {% for klassen in klas %}
+                    <a href class="hyperlink" href={{ path("usersByKlas", {naam:klassen.naam} ) }}>ga naar klas {{ klassen.naam }} <br></a>
+                {% endfor %}
+
+        </div>
+
+
+
+
+
+    </div>
     <div id="grid">
 
 
