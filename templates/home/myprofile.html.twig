@@ -74,12 +74,12 @@
 
                 <tr class="myprofile">
                     <th>Naam</th>
-                    <th>bedrijf</th>
+                    <th>Bedrijf</th>
                     <th>Uurtype</th>
-                    <th>aantal uur</th>
-                    <th>startdatum</th>
-                    <th>einddatum</th>
-                    <th>meer info</th>
+                    <th>Aantal uur</th>
+                    <th>Startdatum</th>
+                    <th>Einddatum</th>
+                    <th>Meer info</th>
                 </tr>
 
                 {% for events in evt %}
@@ -91,7 +91,7 @@
                         <td class="aantalUur">{{ events.event.aantalUur }}</td>
                         <td>{{ events.event.date|date('d M H:i') }}</td>
                         <td>{{ events.event.enddate|date('d M H:i') }}</td>
-                        <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}">info</td>
+                        <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}"></a>info</td>
                     </tr>
 
 
@@ -116,7 +116,7 @@
             </script>
             <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Export table to excel</button>
             <br>
-            <button class="buttondiv2" onclick="totalsum()">bereken</button>
+            <button class="buttondiv2" onclick="totalsum()">Bereken</button>
             <h1 id="result">.</h1>
         </div>
     </div>

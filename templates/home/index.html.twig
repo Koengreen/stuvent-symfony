@@ -10,44 +10,49 @@
     <!--Hier beginnen de events-->
     <section id="events">
 
-    {% for type, messages in app.session.flashbag.all %}
-        {% for message in messages %}
-            {% if type == 'success' %}
-                <div class="alert alert-success">{{ message }}</div>
-            {% elseif type == 'error' %}
-                <div class="alert alert-danger">{{ message }}</div>
-            {% endif %}
+        {% for type, messages in app.session.flashbag.all %}
+            {% for message in messages %}
+                {% if type == 'success' %}
+                    <div class="alert alert-success">{{ message }}</div>
+                {% elseif type == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
         {% endfor %}
-    {% endfor %}
-    <div class="about-text">
-        <h1 class="outlineBold">Aankomende Events: </h1>
-        <hr>
+        <div class="about-text">
+            <h1 class="outlineBold">Aankomende Events: </h1>
+            <hr>
 
-    </div>
-
-    <div id="grid">
-
-
-    {% for events in evt %}
-        <div class="card">
-            <div class="card-body">
-                <div class="image-border">
-                    <img class="card-img-top" src="{{ events.image }}">
-                </div>
-                <h1 class="card-title">{{ events.title }}</h1>
-                <h2 class="opleidingtype">{{ events.opleiding }}</h2>
-                <h3>Deelnemers {{ totalAttendees[events.id] }}/{{ events.attendees }}</h3>
-                <h3>{{ events.date|date('D d M H:i') }}</h3>
-                <h3>{{ events.enddate|date('D d M H:i') }}</h3>
-
-                <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>Meer informatie en inschrijven</a>
-            </div>
         </div>
 
-    {% endfor %}
-    </div>
-        <div class="about-text">  <button class="pastevents" onclick="window.location.href = '{{ path("pastEvents") }}'">Ga naar afgelopen events
-            </button></div></div>
+        <div id="grid">
+
+
+            {% for events in evt %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="image-border">
+                            <img class="card-img-top" src="{{ events.image }}">
+                        </div>
+                        <h1 class="card-title">{{ events.title }}</h1>
+                        <h2 class="opleidingtype">{{ events.opleiding }}</h2>
+                        <h3>Deelnemers {{ totalAttendees[events.id] }}/{{ events.attendees }}</h3>
+                        <h3>{{ events.date|date('D d M H:i') }}</h3>
+                        <h3>{{ events.enddate|date('D d M H:i') }}</h3>
+
+                        <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>Meer informatie en
+                            inschrijven</a>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+        <div class="about-text">
+            <button class="pastevents" onclick="window.location.href = '{{ path("pastEvents") }}'">Ga naar afgelopen
+                events
+            </button>
+        </div>
+    </section>
     {% block footer %}
     {% endblock %}
 
