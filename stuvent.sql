@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 19 jan 2023 om 09:12
--- Serverversie: 10.4.25-MariaDB
--- PHP-versie: 8.1.10
+-- Gegenereerd op: 24 jan 2023 om 10:55
+-- Serverversie: 10.4.24-MariaDB
+-- PHP-versie: 8.1.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -167,7 +167,9 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `opleiding_id`, `klas_id`, `email`, `roles`, `password`, `student_number`, `first_name`, `last_name`, `image`, `telefoonnummer`) VALUES
 (1, 1, 1, 'test@email.com', '[\"ROLE_USER\"]', '$2y$13$KKaYAQUtRIqYdFjZnAVZPOHdL47oMI5XlYrpLrFGR2GWGdHGk8TPO', 2147483647, 'Test', 'Account', 'img/profile-img/profielfoto-63c7b70a7b3cf.png', '39874987498034'),
-(2, 1, 1, 'koen@email.com', '[\"ROLE_USER\"]', '$2y$13$mPcPdpnQ5qkSGIcRDCQfMOzzZS6FD1RcvKLGFWGy1/zBRQih14nd2', 2147483647, 'Test', 'Account', 'img/profile-img/profielfoto-63c7b718ea4e3.png', '39874987498034');
+(2, 1, 1, 'koen@email.com', '[\"ROLE_USER\"]', '$2y$13$mPcPdpnQ5qkSGIcRDCQfMOzzZS6FD1RcvKLGFWGy1/zBRQih14nd2', 2147483647, 'Test', 'Account', 'img/profile-img/profielfoto-63c7b718ea4e3.png', '39874987498034'),
+(3, 1, 2, 'test@rocmondriaan.nl', '[\"ROLE_USER\"]', '$2y$13$BTWVPE3TSj5beliIzOJXdOeqYMF9z/FUX9/ZZcJzkwdgDqhvzMPqC', 3025487, 'Test', 'User', 'img/profile-img/profile-63c8f9da83989-63cfa21170565.jpg', '06457845'),
+(4, 1, 1, 'beheerder@email.com', '[\"ROLE_beheerder\"]', '$2y$13$OBmMLa9ZsXLUPPjz/AS0RO/1H0fkwXPR7vqdD0n7JPTvMRVcS/ehO', 50061561, 'beheerder', 'test', 'img/profile-img/header-465-63cfa7adf3b50-63cfaa2e7af93.jpg', '064512');
 
 -- --------------------------------------------------------
 
@@ -289,7 +291,7 @@ ALTER TABLE `opleiding`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT voor een tabel `user_events`
