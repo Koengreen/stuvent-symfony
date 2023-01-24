@@ -6,10 +6,11 @@
 {% block body %}
 
     <div class="about-text">
-    <h1>KLassen:</h1>
+    <h1>Klassen:</h1>
                 {% for klassen in klas %}
                 <a href="/users/klas/{{ klassen.id }}">{{ klassen.naam }}</a>
                 {% endfor %}
+        <hr>
 
         </div>
 
