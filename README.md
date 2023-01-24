@@ -1,2 +1,2 @@
 # stuvent-symfony 
-afblijven met je gore tengels!!!!!!!!!!!!!!!
+Hallo meneer Auerbach wat fijn dat u naar ons project kijkt :)
