@@ -362,7 +362,7 @@ class HomeController extends AbstractController
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
-        $user->setRoles(["ROLE_USER"]);
+        $user->setRoles(["ROLE_beheerder"]);
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 

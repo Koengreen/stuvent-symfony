@@ -34,12 +34,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/beheerder, roles: [IS_AUTHENTICATED_FULLY, ROLE_BEHEERDER] }
-        - { path: ^/admin, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN, ROLE_BEHEERDER] }
-        - { path: '^/admin', roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
-        # - { path: ^/profile, roles: ROLE_USER }
-# beheerder kan in /admin/blabla en in / beheerder/blablA
-# admin kan alleen in /admin/blabla en niet in /beheerder
+        - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_beheerder] }
+        - { path: ^/beheerder, roles: [ROLE_beheerder] }
 when@test:
     security:
         password_hashers:

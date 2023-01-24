@@ -68,6 +68,27 @@ class AdminController extends AbstractController
         ]);
     }
 
+    #[Route('/beheerder', name: 'app_beheerder')]
+    public function beheerderEvents(EventRepository $eventRepository)
+    { $em = $this->getDoctrine()->getManager();
+        $usereventRepository = $em->getRepository(UserEvents::class);
+        $qb = $usereventRepository->createQueryBuilder('ue');
+        $qb->select('count(ue.id)')
+            ->where('ue.accepted = false');
+        $notAccepted = $qb->getQuery()->getSingleScalarResult();
+        // Get all events sorted by date and time
+        $today = new \DateTime();
+        $qb = $eventRepository->createQueryBuilder('e');
+        $evt = $qb->where($qb->expr()->gte('e.enddate', ':enddate'))
+            ->setParameter('enddate', $today)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $this->render('beheerder/index.html.twig', [
+            'evt' => $evt, 'notAccepted' => $notAccepted
+        ]);
+    }
+
 
 }
 
