@@ -16,6 +16,15 @@ img.profile_img{
   width: 350px;
   object-fit: scale-down;
 }
+
+/*Style for profile image on laptop screen*/
+@media only screen and (min-width: 992px)
+{
+  img.profile_img {
+    width: 100%;
+  }
+}
+
 .opleidingtype{
   color: #ac1424;
 }
