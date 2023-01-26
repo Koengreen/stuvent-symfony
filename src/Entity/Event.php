@@ -50,6 +50,7 @@ class Event
     #[ORM\Column(length: 255)]
     private ?string $attendees = null;
 
+
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $enddate = null;
 

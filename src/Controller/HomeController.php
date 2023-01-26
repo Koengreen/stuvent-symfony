@@ -48,17 +48,36 @@ class HomeController extends AbstractController
     }
 
     #[Route('/studentoverview', name: 'studentoverview')]
-    /**
-     * This method retrieves all the students from the database and renders them in the studentoverview template
-     */
-    public function showallstudents(KlasRepository $klasRepository, UserRepository $userRepository)
-
+    public function showallstudents(KlasRepository $klasRepository, UserRepository $userRepository, UserEventsRepository $userEventsRepository, EventRepository $eventrepository)
     {
         $klas = $klasRepository->findAll();
+        $users = $userRepository->findAll();
+        $event = $eventrepository->findAll();
 
-        $user = $userRepository->findAll();
+
+        // Create an empty array to store the total work hours for each student
+        $totalWorkHours = [];
+
+        // Iterate over all the students
+        foreach ($users as $user) {
+            // Retrieve all the UserEvents entities that belong to the current student
+            $userEvents = $userEventsRepository->findBy(['user' => $user]);
+
+            // Initialize a variable to store the total work hours for the current student
+            $total = 0;
+
+            // Iterate over the UserEvents entities
+            foreach ($userEvents as $userEvent) {
+                // Add the "aantalUur" property of the current UserEvents entity to the total
+                $total += $userEvent->getEvent()->getAantalUur();
+            }
+
+            // Add the total work hours for the current student to the $totalWorkHours array
+            $totalWorkHours[$user->getId()] = $total;
+        }
+
         return $this->render('home/studentoverview.html.twig', [
-            'user' => $user, 'klas' => $klas
+            'users' => $users, 'klas' => $klas, 'totalWorkHours' => $totalWorkHours
         ]);
     }
 
@@ -94,6 +113,7 @@ class HomeController extends AbstractController
      */
     public function filterUsersByKlasAction(int $id,Klas $naam, UserRepository $userRepository, EventRepository $eventRepository, UserEventsRepository $userEventsRepository)
     {
+
         $klas = $naam->getNaam();
         // Retrieve the class by name
         if (!$klas) {
@@ -101,13 +121,31 @@ class HomeController extends AbstractController
         }
         // Retrieve the users that belong to the class
         $usersByKlas = $userRepository->findBy(['klas' => $id]);
-        if (!$usersByKlas) {
-            return $this->render('home/noUsersforKlas.html.twig');
-        }
         // Render the filterbyklas template
+        $totalWorkHours = [];
+
+        // Iterate over all the students
+        foreach ($usersByKlas as $user) {
+            // Retrieve all the UserEvents entities that belong to the current student
+            $userEvents = $userEventsRepository->findBy(['user' => $user]);
+
+            // Initialize a variable to store the total work hours for the current student
+            $total = 0;
+
+            // Iterate over the UserEvents entities
+            foreach ($userEvents as $userEvent) {
+                // Add the "aantalUur" property of the current UserEvents entity to the total
+                $total += $userEvent->getEvent()->getAantalUur();
+            }
+        }
+
+            // Add the total work hours for the current student to the $totalWorkHours array
+            $totalWorkHours[$user->getId()] = $total;
+
         return $this->render('home/filterbyklas.html.twig', [
             'usersByKlas' => $usersByKlas,
             'klas' => $klas,
+            'totalWorkHours' => $totalWorkHours
         ]);
     }
 

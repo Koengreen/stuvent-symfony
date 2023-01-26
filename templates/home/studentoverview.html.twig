@@ -23,16 +23,17 @@
 
 
 
-    {% for users in user %}
+    {% for user in users %}
         <div class="card">
             <div class="card-body">
                 <div class="image-border">
-                    <img class="card-img-top" src="{{ users.image }}">
+                    <img class="card-img-top" src="{{ user.image }}">
                 </div>
-                <h1>{{ users.firstName }} {{ users.lastName }}</h1>
-                <h1>{{ users.klas.naam }}</h1>
-                <h3>{{ users.opleiding }}</h3>
-                <a class="hyperlink" href={{ path("studentinfo", {id:users.id} ) }}>Meer informatie over student</a>
+                <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+                <h1>{{ user.klas.naam }}</h1>
+                <h3>{{ user.opleiding }}</h3>
+                <h3>Stage uren: {{totalWorkHours[user.id] }}</h3>
+                <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>Meer informatie over student</a>
             </div>
         </div>
     {% endfor %}
