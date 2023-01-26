@@ -7,7 +7,8 @@
     <div class="about-text">
         <div class="container">
             <div class="row">
-                <table>
+                <h1>Overzicht van {{ klas }}</h1>
+                <table id="overviewtable">
                     <thead>
                     <tr>
                         <th>voornaam</th>
@@ -31,7 +32,25 @@
                     {% endfor %}
                     </tbody>
                 </table>
+
+                <script>
+
+                    function ExportToExcel(type, fn, dl) {
+                        var elt = document.getElementById('overviewtable');
+                        var wb = XLSX.utils.table_to_book(elt, {sheet: "sheet1"});
+                        return dl ?
+                            XLSX.write(wb, {bookType: type, bookSST: true, type: 'base64'}) :
+                            XLSX.writeFile(wb, fn || ('overzicht_{{ klas }}.' + (type || 'xlsx')));
+                    }
+
+                </script>
+
+                <br>
+
             </div>
+            <br>
+            <br>
+            <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Export table to excel</button>
         </div>
     </div>
 {% endblock %}

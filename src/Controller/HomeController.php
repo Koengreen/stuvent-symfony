@@ -113,7 +113,6 @@ class HomeController extends AbstractController
      */
     public function filterUsersByKlasAction(int $id,Klas $naam, UserRepository $userRepository, EventRepository $eventRepository, UserEventsRepository $userEventsRepository)
     {
-
         $klas = $naam->getNaam();
         // Retrieve the class by name
         if (!$klas) {
@@ -137,11 +136,9 @@ class HomeController extends AbstractController
                 // Add the "aantalUur" property of the current UserEvents entity to the total
                 $total += $userEvent->getEvent()->getAantalUur();
             }
-        }
-
             // Add the total work hours for the current student to the $totalWorkHours array
             $totalWorkHours[$user->getId()] = $total;
-
+        }
         return $this->render('home/filterbyklas.html.twig', [
             'usersByKlas' => $usersByKlas,
             'klas' => $klas,
