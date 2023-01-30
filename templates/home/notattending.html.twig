@@ -17,23 +17,26 @@
                         {{ flashMessage }}
                     </div>
                 {% endfor %}
-                <h1>User Events</h1>
+                <h1>Verzoeken</h1>
                 <table>
                     <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Event</th>
-                        <th>User</th>
-                        <th>Accepteren</th>
+                        <th class="enrollTableHeader" >Event</th>
+                        <th class="enrollTableHeader" >Leerlingnummer</th>
+                        <th class="enrollTableHeader">Leerling</th>
+                        <th class="enrollTableHeader">Opleiding</th>
+                        <th class="enrollTableHeader">Accepteren</th>
 
                     </tr>
                     </thead>
                     <tbody>
                     {% for queu_event in queu_events %}
                         <tr>
-                            <td>{{ queu_event.id }}</td>
-                            <td>{{ queu_event.event.Title }}</td>
-                            <td>{{ queu_event.user.firstName }}</td>
+                            <td>{{ queu_event.event.title }}</td>
+                            <td>{{ queu_event.user.studentnumber }}</td>
+                            <td>{{ queu_event.user.lastName }} , {{ queu_event.user.firstName }}</td>
+                            <td{{ queu_event.user.lastName }} </td>
+                            <td>{{ queu_event.user.opleiding.name }}</td>
                             <td>
 
                                 <form method="POST" action="{{ path('eventupdateaccepted', {'id': queu_event.id}) }}">

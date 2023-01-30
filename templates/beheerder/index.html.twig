@@ -26,7 +26,6 @@
         <button class="buttondiv2" onclick="window.location.href = '{{ path("Showteachers") }}'">Docentenoverzicht
         </button>
     </div>
-
     <div id="grid">
 
 
@@ -42,10 +41,23 @@
                 <h3>{{ events.date|date('D d M H:i') }}</h3>
                 <h3>{{ events.enddate|date('D d M H:i') }}</h3>
                 <h5>niv. {{ events.niveau }}</h5>
-                <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>meer informatie</a>
-                <a class="gg-remove" href=/admin{{ path("more_info", {id:events.id} ) }}/remove></a>
+                <a class="hyperlink" href={{ path("adminEventInfo", {id:events.id} ) }}>meer informatie</a>
+                <a href=/admin{{ path("more_info", {id:events.id} ) }}/remove>
+                    <div class="middle trash-can tiny" >
+                        <div class="top">
+                            <div class="handle"></div>
+                            <div class="base"></div>
+                        </div>
+                        <div class="body">
+                            <div class="line"></div>
+                            <div class="line second"></div>
+                            <div class="line third"></div>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
+        <script> </script>
     {% endfor %}
 
 {% endblock %}
