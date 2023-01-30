@@ -30,7 +30,7 @@
         <h1>Inschrijvingen:</h1>
         <br>
         <div class="row">
-        <table class="event-table">
+        <table class="event-table" id="inschrijvingenTabel">
             <thead>
             <tr>
                 <th class="enrollTableHeader">Naam</th>
@@ -52,6 +52,19 @@
         </table>
         </div>
 
+        <script>
+
+            function ExportToExcel(type, fn, dl) {
+                var elt = document.getElementById('inschrijvingenTabel');
+                var wb = XLSX.utils.table_to_book(elt, {sheet: "sheet1"});
+                return dl ?
+                    XLSX.write(wb, {bookType: type, bookSST: true, type: 'base64'}) :
+                    XLSX.writeFile(wb, fn || ('Inschrijvingen {{evt.title }}.' + (type || 'xlsx')));
+            }
+
+        </script>
+        <br>
+        <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Export table to excel</button>
 
 
         {% endblock %}
