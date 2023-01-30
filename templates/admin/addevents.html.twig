@@ -5,15 +5,42 @@
 
 {% block body %}
     <div class="form-group">
-        <h1>Events toevoegen</h1>
+        <h1>Evenementen toevoegen</h1>
         <hr>
 
         {% form_theme eventform 'bootstrap_5_layout.html.twig' %}
 
         {{ form_start(eventform) }}
-        {{ form_row(eventform.title) }}
-        {{ form_row(eventform.description) }}
-        {{ form_row(eventform.image) }}
+        {{ form_row(eventform.title, {
+            label: 'Evenement Naam'
+        }) }}
+        {{ form_row(eventform.description, {
+            label: 'Beschrijving'
+        }) }}
+        {{ form_row(eventform.image, {
+                label: 'Afbeelding'
+        }) }}
+        {{ form_row(eventform.opleiding, {
+            label: 'Opleiding'
+        }) }}
+        {{ form_row(eventform.company, {
+            label: 'Stage bedrijf'
+        }) }}
+        {{ form_row(eventform.niveau, {
+            label: 'Niveau'
+        }) }}
+        {{ form_row(eventform.attendees, {
+            label: 'Deelnemers'
+        }) }}
+        {{ form_row(eventform.date, {
+            label: 'Begindatum-tijd'
+        }) }}
+        {{ form_row(eventform.enddate, {
+            label: 'Einddatum-tijd'
+        }) }}
+        {{ form_row(eventform.aantalUur, {
+            label: "Aantal uren"
+        }) }}
         {{ form_end(eventform) }}
         <br>
 

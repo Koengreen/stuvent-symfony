@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use App\Entity\About;
 use App\Entity\Klas;
 use Symfony\Component\Intl\Locales;
@@ -368,14 +369,89 @@ class HomeController extends AbstractController
             'aboutform' => $form->createView(),
         ]);
     }
+    #[Route('/admin', name: 'app_admin')]
+    public function adminEvents(EventRepository $eventRepository)
+    { $em = $this->getDoctrine()->getManager();
+        $usereventRepository = $em->getRepository(UserEvents::class);
+        $qb = $usereventRepository->createQueryBuilder('ue');
+        $qb->select('count(ue.id)')
+            ->where('ue.accepted = false');
+        $notAccepted = $qb->getQuery()->getSingleScalarResult();
+        // Get all events sorted by date and time
+        $today = new \DateTime();
+        $qb = $eventRepository->createQueryBuilder('e');
+        $evt = $qb->where($qb->expr()->gte('e.enddate', ':enddate'))
+            ->setParameter('enddate', $today)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $this->render('admin/index.html.twig', [
+            'evt' => $evt, 'notAccepted' => $notAccepted
+        ]);
+    }
+
+    #[Route('/admin/pastevents', name: 'pastEvents')]
+    public function adminpastEvents(EventRepository $eventRepository)
+    { $em = $this->getDoctrine()->getManager();
+        $usereventRepository = $em->getRepository(UserEvents::class);
+        $qb = $usereventRepository->createQueryBuilder('ue');
+        $qb->select('count(ue.id)')
+            ->where('ue.accepted = false');
+        $notAccepted = $qb->getQuery()->getSingleScalarResult();
+        // Get all events sorted by date and time
+        $today = new \DateTime();
+        $qb = $eventRepository->createQueryBuilder('e');
+        $evt = $qb->where($qb->expr()->lt('e.enddate', ':enddate'))
+            ->setParameter('enddate', $today)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $this->render('admin/pastevents.html.twig', [
+            'evt' => $evt, 'notAccepted' => $notAccepted
+        ]);
+    }
+
+    #[Route('/beheerder', name: 'app_beheerder')]
+    public function beheerderEvents(EventRepository $eventRepository)
+    { $em = $this->getDoctrine()->getManager();
+        $usereventRepository = $em->getRepository(UserEvents::class);
+        $qb = $usereventRepository->createQueryBuilder('ue');
+        $qb->select('count(ue.id)')
+            ->where('ue.accepted = false');
+        $notAccepted = $qb->getQuery()->getSingleScalarResult();
+        // Get all events sorted by date and time
+        $today = new \DateTime();
+        $qb = $eventRepository->createQueryBuilder('e');
+        $evt = $qb->where($qb->expr()->gte('e.enddate', ':enddate'))
+            ->setParameter('enddate', $today)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+        return $this->render('beheerder/index.html.twig', [
+            'evt' => $evt, 'notAccepted' => $notAccepted
+        ]);
+    }
+
 
 
     #[Route(path: '/login', name: 'app_login')]
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
+        if ($this->getUser()) {
+            $roles = $this->getUser()->getRoles();
+            $role = array_search('ROLE_ADMIN', $roles);
+
+            if ($role !== false) {
+                return $this->redirectToRoute('app_admin');
+            } else {
+                $role = array_search('ROLE_beheerder', $roles);
+                if ($role !== false) {
+                    return $this->redirectToRoute('app_beheerder');
+                } else {
+                    return $this->redirectToRoute('blog_list');
+                }
+            }
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -386,6 +462,7 @@ class HomeController extends AbstractController
     }
 
 
+
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
@@ -394,7 +471,7 @@ class HomeController extends AbstractController
 
 
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, AuthenticationUtils $authenticationUtils): Response
     {
         $user = new User();
         $user->setRoles(["ROLE_USER"]);
@@ -421,6 +498,11 @@ class HomeController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // Automatically log in the user after registering
+            $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
+            $this->get('security.token_storage')->setToken($token);
+            $this->get('session')->set('_security_main', serialize($token));
+
             return $this->redirectToRoute('blog_list');
         }
 
@@ -428,6 +510,7 @@ class HomeController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
     #[Route('/showteachers', name: 'Showteachers')]
     public function showTeachers(ManagerRegistry $doctrine): Response
     {
