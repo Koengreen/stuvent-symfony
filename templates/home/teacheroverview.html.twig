@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stuvent{% endblock %}
+
+
+{% block body %}
+
+    <div id="grid">
+
+
+
+    {% for user in users %}
+        {% if 'ROLE_ADMIN' in user.roles %}
+        <div class="card">
+            <div class="card-body">
+                <div class="image-border">
+                    <img class="card-img-top" src="{{ user.image }}">
+                </div>
+                <h1>{{ user.firstName }} {{ user.lastName }}</h1>
+                <h1>{{ user.klas.naam }}</h1>
+                <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>Meer informatie over Docent</a>
+            </div>
+        </div>
+        {% endif %}
+    {% endfor %}
+    {% block footer %}
+    {% endblock %}
+
+{% endblock %}

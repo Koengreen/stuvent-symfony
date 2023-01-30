@@ -428,6 +428,20 @@ class HomeController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+    #[Route('/showteachers', name: 'Showteachers')]
+    public function showTeachers(ManagerRegistry $doctrine): Response
+    {
+        # fetch all users from the repository
+        $users = $doctrine->getRepository(User::class)->findAll();
+
+
+
+        #render the info page with the filtered user data
+        return $this->render('home/teacheroverview.html.twig', [
+            'users' => $users
+        ]);
+    }
+
 
     #[Route('/admin/Event/{id}', name: 'adminEventInfo')]
     public function showAdminEventInfo(ManagerRegistry $doctrine, int $id): Response
