@@ -25,10 +25,6 @@ class Event
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $Company = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Hourstype = null;
-
-
     #[ORM\Column(type: "datetime")]
     private ?\DateTime $date = null;
 
@@ -96,18 +92,6 @@ class Event
     public function setCompany(?string $Company): self
     {
         $this->Company = $Company;
-
-        return $this;
-    }
-
-    public function getHourstype(): ?string
-    {
-        return $this->Hourstype;
-    }
-
-    public function setHourstype(string $Hourstype): self
-    {
-        $this->Hourstype = $Hourstype;
 
         return $this;
     }

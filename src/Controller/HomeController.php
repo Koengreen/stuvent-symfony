@@ -429,6 +429,33 @@ class HomeController extends AbstractController
         ]);
     }
 
+    #[Route('/admin/Event/{id}', name: 'adminEventInfo')]
+    public function showAdminEventInfo(ManagerRegistry $doctrine, int $id): Response
+    {
+        # fetch the event by id from the repository
+        $evt = $doctrine->getRepository(Event::class)->find($id);
+        $userEvents = $doctrine->getRepository(UserEvents::class)->findBy(['event' => $evt, 'accepted' => true]);
+
+        #if event not found, throw exception
+        if (!$evt) {
+            throw $this->createNotFoundException(
+                'No information found for id ' . $id
+            );
+        }
+
+        # get all users enrolled in the event
+        $users = [];
+        foreach ($userEvents as $userEvent) {
+            $users[] = $userEvent->getUser();
+        }
+
+        #render the info page with the event data
+        return $this->render('home/adminEventinfo.html.twig', [
+            'evt' => $evt,
+            'users' => $users
+        ]);
+    }
+
     #[Route('{id}', name: 'more_info')]
     public function showInfo(ManagerRegistry $doctrine, int $id): Response
     {

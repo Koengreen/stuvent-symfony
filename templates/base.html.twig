@@ -28,7 +28,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/register">Registreren</a></li>
                     <li><a href="/about#slide-1">Over Stuvent</a></li>
-                    <li><a href="/myprofile/{{ app.user.id|default('20') }}">My Profile</a></li>
+                    <li><a href="/myprofile/{{ app.user.id|default('20') }}">Mijn Profiel</a></li>
                     <li><a href="/{{ app.user ? 'logout' : 'login' }}"
                            @click="isOpen = false">
                             {{ app.user ? 'Logout' : 'Login' }}</a></li>

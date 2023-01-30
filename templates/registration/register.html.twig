@@ -6,15 +6,38 @@
 
     <div class="form-group">
         <br>
-        <h1>Register</h1>
+        <h1>Registreren</h1>
         <hr>
 
         {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
 
         {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
+        {{ form_row(registrationForm.email, {
+            label: 'Email'
+        }) }}
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+            label: 'Wachtwoord'
+        }) }}
+        {{ form_row(registrationForm.opleiding, {
+            label: 'Opleiding'
+        }) }}
+        {{ form_row(registrationForm.telefoonnummer, {
+            label: 'Telefoonnummer'
+        }) }}
+        {{ form_row(registrationForm.studentNumber, {
+            label: 'Studenten nummer'
+        }) }}
+        {{ form_row(registrationForm.klas, {
+            label: 'Klas'
+        }) }}
+        {{ form_row(registrationForm.firstName, {
+            label: 'Voornaam'
+        }) }}
+        {{ form_row(registrationForm.lastName, {
+            label: 'Achternaam'
+        }) }}
+        {{ form_row(registrationForm.image, {
+            label: 'Profielfoto'
         }) }}
         {{ form_end(registrationForm) }}
         <br>

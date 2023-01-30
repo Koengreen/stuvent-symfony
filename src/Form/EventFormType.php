@@ -69,7 +69,6 @@ class EventFormType extends AbstractType
                 ],
             ])
 
-            ->add('hourstype')
             ->add('attendees' )
             ->add('date', DateTimeType::class, [
                 'widget' => 'single_text',

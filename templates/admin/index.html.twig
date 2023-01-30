@@ -13,8 +13,8 @@
         <h1 class="outlineBold">Aankomende Events: </h1>
         <br>
         <hr>
-        <button class="buttondiv1" onclick="window.location.href = '{{ path("add_events") }}'">voeg events toe</button>
-        <button class="buttondiv3" onclick="window.location.href = '{{ path("shownotaccepted") }}'">zie verzoeken (<span
+        <button class="buttondiv1" onclick="window.location.href = '{{ path("add_events") }}'">Voeg evenementen toe</button>
+        <button class="buttondiv3" onclick="window.location.href = '{{ path("shownotaccepted") }}'">Zie verzoeken (<span
                     onclick="" class="requests">{{ notAccepted }}</span>)
         </button>
         <button class="buttondiv2" onclick="window.location.href = '{{ path("studentoverview") }}'">Studentenoverzicht
@@ -38,7 +38,7 @@
                 <h3>{{ events.date|date('D d M H:i') }}</h3>
                 <h3>{{ events.enddate|date('D d M H:i') }}</h3>
                 <h5>niv. {{ events.niveau }}</h5>
-                <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>meer informatie</a>
+                <a class="hyperlink" href={{ path("adminEventInfo", {id:events.id} ) }}>meer informatie</a>
                 <a class="gg-remove" href=/admin{{ path("more_info", {id:events.id} ) }}/remove></a>
             </div>
         </div>

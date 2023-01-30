@@ -11,6 +11,9 @@
 .requests {
   color: #ac1424;
 }
+.enrollTableHeader{
+  color: white;
+}
 /* Style the profile image */
 img.profile_img{
   width: 350px;
