@@ -55,17 +55,17 @@
 
                 <br>
                 <br>
-                <h1>inschrijvingen :</h1>
+                <h1>Inschrijvingen :</h1>
                 <table id="eventtable" class='event-table' style="width:100%">
 
                     <tr class="myprofile">
                         <th>Naam</th>
-                        <th>bedrijf</th>
+                        <th>Bedrijf</th>
                         <th>Uurtype</th>
-                        <th>aantal uur</th>
-                        <th>startdatum</th>
-                        <th>einddatum</th>
-                        <th>meer info</th>
+                        <th>Aantal uur</th>
+                        <th>Startdatum</th>
+                        <th>Einddatum</th>
+                        <th>Meer info</th>
                     </tr>
 
                     {% for events in evt %}
@@ -100,9 +100,9 @@
                     }
 
                 </script>
-                <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Export table to excel</button>
+                <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Exporteren naar excel</button>
                 <br>
-                <button class="buttondiv2" onclick="totalsum()">bereken</button>
+                <button class="buttondiv2" onclick="totalsum()">Bereken</button>
                 <h1 id="result">.</h1>
             </div>
         </div>

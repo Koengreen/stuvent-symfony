@@ -9,7 +9,7 @@
                 <div class="col-lg-4">
                     <div class="card shadow-sm">
                         <div class="card-header bg-transparent text-center">
-                            <img class="profile_img" src="/{{ app.user.image }}" alt="student profile-picture">
+                            <img class="profile_img" src="../{{ app.user.image }}" alt="student profile-picture">
                             <br>
                             <br>
                             <h3>{{ app.user.firstName }} {{ app.user.lastName }} </h3>
@@ -114,7 +114,7 @@
                 }
 
             </script>
-            <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Export table to excel</button>
+            <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Exporteren naar excel</button>
             <br>
             <button class="buttondiv2" onclick="totalsum()">Bereken</button>
             <h1 id="result">.</h1>

@@ -276,7 +276,7 @@ class HomeController extends AbstractController
     {
         $userEvent = $userEventsRepository->find($id);
         if (!$userEvent) {
-            throw $this->createNotFoundException('User event not found');
+            throw $this->createNotFoundException('Inschrijving niet gevonden!');
         }
 
         $userEvent->setAccepted(true);
@@ -294,7 +294,7 @@ class HomeController extends AbstractController
     {
         $userEvent = $userEventsRepository->find($id);
         if (!$userEvent) {
-            throw $this->createNotFoundException('User event not found');
+            throw $this->createNotFoundException('Inschrijving niet gevonden!');
         }
         $entityManager->remove($userEvent);
         $entityManager->flush();
@@ -314,12 +314,12 @@ class HomeController extends AbstractController
         $i = 0;
         try {
             if (!$user) {
-                throw new Exception("User not found.");
+                throw new Exception("Gebruiker niet gevonden!.");
             }
             $profile = $doctrine->getRepository(User::class)->find($id);
             $event = $doctrine->getRepository(Event::class)->findAll();
             if (!$profile) {
-                throw new Exception("Profile not found.");
+                throw new Exception("Profiel niet gevonden!.");
             }
             $userid = $user->getId();
             $evt = $userEventsRepository->findBy(['user' => $userid, 'accepted' => true]);
@@ -536,7 +536,7 @@ class HomeController extends AbstractController
         #if event not found, throw exception
         if (!$evt) {
             throw $this->createNotFoundException(
-                'No information found for id ' . $id
+                'Geen informatie gevonden voor id ' . $id
             );
         }
 
@@ -556,15 +556,15 @@ class HomeController extends AbstractController
     #[Route('{id}', name: 'more_info')]
     public function showInfo(ManagerRegistry $doctrine, int $id): Response
     {
-# fetch the event by id from the repository
+        # fetch the event by id from the repository
         $evt = $doctrine->getRepository(Event::class)->find($id);
-#if event not found, throw exception
+        #if event not found, throw exception
         if (!$evt) {
             throw $this->createNotFoundException(
                 'no information found for id ' . $id
             );
         }
-#render the info page with the event data
+        #render the info page with the event data
         return $this->render('home/info.html.twig', [
             'evt' => $evt,
         ]);
@@ -594,7 +594,7 @@ class HomeController extends AbstractController
             $userevent->setAccepted(false);
             $entityManager->persist($userevent);
             $entityManager->flush();
-            $this->addFlash('success', 'inschrijving succesvol');
+            $this->addFlash('success', 'Inschrijving succesvol!');
         } else {
             $this->addFlash('error', $message);
         }
@@ -649,7 +649,7 @@ class HomeController extends AbstractController
         // Find all the user events that reference this event
         $userEvents = $entityManager->getRepository(UserEvents::class)->findBy(['event' => $event]);
 
-// Remove all the dependent user events
+        // Remove all the dependent user events
         foreach ($userEvents as $userEvent) {
             $entityManager->remove($userEvent);
         }
