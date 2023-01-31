@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}My profile{% endblock %}
+{% block title %}Mijn Docentenprofiel{% endblock %}
 
 {% block body %}
 <div class="about-text">
@@ -59,13 +59,13 @@
                 <table id="eventtable" class='event-table' style="width:100%">
 
                     <tr class="myprofile">
-                        <th>Naam</th>
-                        <th>Bedrijf</th>
-                        <th>Uurtype</th>
-                        <th>Aantal uur</th>
-                        <th>Startdatum</th>
-                        <th>Einddatum</th>
-                        <th>Meer info</th>
+                        <th class="enrollTableHeader">Naam</th>
+                        <th class="enrollTableHeader">Bedrijf</th>
+                        <th class="enrollTableHeader">Uurtype</th>
+                        <th class="enrollTableHeader">Aantal uur</th>
+                        <th class="enrollTableHeader">Startdatum</th>
+                        <th class="enrollTableHeader">Einddatum</th>
+                        <th class="enrollTableHeader">Meer info</th>
                     </tr>
 
                     {% for events in evt %}

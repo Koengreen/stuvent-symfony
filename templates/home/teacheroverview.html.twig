@@ -4,7 +4,7 @@
 
 
 {% block body %}
-
+<div class="about-text"> <h1>Docenten:</h1></div>
     <div id="grid">
 
 
@@ -17,7 +17,6 @@
                     <img class="card-img-top" src="{{ user.image }}">
                 </div>
                 <h1>{{ user.firstName }} {{ user.lastName }}</h1>
-                <h1>{{ user.klas.naam }}</h1>
                 <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>Meer informatie over Docent</a>
             </div>
         </div>
