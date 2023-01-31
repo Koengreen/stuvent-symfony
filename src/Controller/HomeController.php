@@ -390,7 +390,7 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/pastevents', name: 'pastEvents')]
+    #[Route('/admin/pastevents', name: 'adminpastEvents')]
     public function adminpastEvents(EventRepository $eventRepository)
     { $em = $this->getDoctrine()->getManager();
         $usereventRepository = $em->getRepository(UserEvents::class);
