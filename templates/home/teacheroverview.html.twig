@@ -4,8 +4,31 @@
 
 
 {% block body %}
+
+
+    <script>
+        function searchname() {
+            let input, filter, cards, cardContainer, title, i;
+            input = document.getElementById("searchbyName");
+            filter = input.value.toUpperCase();
+            cardContainer = document.getElementById("grid");
+            cards = cardContainer.getElementsByClassName("card");
+            for (i = 0; i < cards.length; i++) {
+                title = cards[i].querySelector("h1");
+                if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+
+    </script>
+
+
     <div class="about-text"><h1>Docenten:</h1>
         <hr>
+        <input type="text" id="searchbyName" class="form-control" onkeyup="searchname()" placeholder="Zoek op Naam">
     </div>
     <div id="grid">
 
