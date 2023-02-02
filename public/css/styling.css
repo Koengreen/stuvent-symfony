@@ -148,7 +148,7 @@ img.profile_img{
 
 .opleidingtype{
     color: #ac1424;
-    font-size: smaller;
+    font-size: large;
 }
 
 /* Style the slider container */
@@ -463,6 +463,7 @@ form{
     text-align: center;  /* Center the text */
     box-shadow: 2px 2px 2px #1a191a;  /* Add a shadow to the element */
     border-radius: inherit;  /* Inherit the border radius from the parent element */
+    border-radius: 30px;
 }
 .about-text {
     width: 80vw;
