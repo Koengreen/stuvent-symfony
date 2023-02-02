@@ -148,6 +148,7 @@ img.profile_img{
 
 .opleidingtype{
   color: #ac1424;
+  font-size: large;
 }
 
 /* Style the slider container */
@@ -697,8 +698,9 @@ button.addeventsbtn:hover {
 div.alert {
   text-align: center;
 }
-.btn.btn-link {
-  background-color: red;
+
+.accordion {
+  background-color: #eee;
   color: #444;
   cursor: pointer;
   padding: 18px;
@@ -706,20 +708,17 @@ div.alert {
   border: none;
   text-align: left;
   outline: none;
-  font-size: 16px;
+  font-size: 15px;
   transition: 0.4s;
 }
 
-/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
-.btn.btn-link.active, .btn.btn-link:hover {
-  background-color: green;
+.active, .accordion:hover {
+  background-color: #ccc;
 }
 
-/* Style the accordion panel. Note: hidden by default */
-div.panel {
+.panel {
   padding: 0 18px;
-  background-color: white;
   display: none;
+  background-color: white;
   overflow: hidden;
 }
-

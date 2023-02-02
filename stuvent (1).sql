@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 19 jan 2023 om 09:12
+-- Gegenereerd op: 02 feb 2023 om 14:09
 -- Serverversie: 10.4.25-MariaDB
 -- PHP-versie: 8.1.10
 
@@ -50,7 +50,7 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230117085735', '2023-01-18 10:06:34', 845);
+('DoctrineMigrations\\Version20230202084843', '2023-02-02 09:48:46', 36);
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,6 @@ CREATE TABLE `event` (
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `company` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `hourstype` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date` datetime NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aantal_uur` int(11) NOT NULL,
@@ -77,13 +76,13 @@ CREATE TABLE `event` (
 -- Gegevens worden geëxporteerd voor tabel `event`
 --
 
-INSERT INTO `event` (`id`, `opleiding_id`, `title`, `description`, `company`, `hourstype`, `date`, `image`, `aantal_uur`, `niveau`, `attendees`, `enddate`) VALUES
-(4, 1, 'Vakantiebeurs', 'Grieks Verkeersbureau\r\n\r\nInformatie geven over een bepaalde regio of hotelketen uit Griekenland.', NULL, 'praktijkuren', '2023-01-12 09:30:00', 'img/event-img/afbeelding2-63c8f2cea0643.jpg', 8, 1, '10', '2023-01-12 17:30:00'),
-(5, 1, 'Vakantiebeurs', 'Grieks Verkeersbureau\r\n\r\nInformatie geven over een bepaalde regio of hotelketen uit Griekenland.', NULL, 'praktijkuren', '2023-01-13 09:30:00', 'img/event-img/afbeelding2-63c8f2decf4c2.jpg', 8, 1, '10', '2023-01-13 17:30:00'),
-(6, 1, 'Vakantiebeurs', 'Grieks Verkeersbureau\r\n\r\nInformatie geven over een bepaalde regio of hotelketen uit Griekenland.', NULL, 'praktijkuren', '2023-01-14 09:30:00', 'img/event-img/afbeelding2-63c8f349cf79f.jpg', 8, 1, '10', '2023-01-14 17:30:00'),
-(7, 1, 'Vakantiebeurs', 'Grieks Verkeersbureau\r\n\r\nInformatie geven over een bepaalde regio of hotelketen uit Griekenland.', NULL, 'praktijkuren', '2023-01-15 09:30:00', 'img/event-img/afbeelding2-63c8f66838e3a.jpg', 8, 1, '10', '2023-01-15 17:30:00'),
-(8, 1, 'ADO - NAC Breda', 'Host bij voetbalwedstrijd: Ontvang de gasten en wijs hen de weg. Kijk mee tijdens de wedstrijd op de tribune!', 'ADO', 'Praktijkuren', '2023-02-03 17:45:00', 'img/event-img/afbeelding3-63c8f83c7e66e.jpg', 5, 1, '10', '2023-02-03 22:45:00'),
-(11, 2, 'Open Dag school voor toerisme, recreatie en evenementen', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus euismod sodales turpis, in fermentum sem sodales ac. Ut id faucibus lacus. Vestibulum odio sapien, accumsan at turpis porta, ultricies cursus ex. Nullam id sem odio. Vivamus turpis nibh, ornare ut purus ut, placerat vulputate enim. In pellentesque vel ligula nec pulvinar. Donec sit amet interdum dolor, nec porta eros. Maecenas vitae convallis nibh, sit amet hendrerit tellus. Vestibulum ultrices lectus luctus faucibus hendrerit. Nullam non magna orci.\r\n\r\nMauris quis velit tortor. Duis porttitor nec mauris in tristique. Morbi varius dapibus sem at dictum. Nulla placerat dolor enim, nec vestibulum neque rhoncus vel. Phasellus vel eros sit amet purus suscipit sagittis. Morbi at sapien vitae purus tincidunt tincidunt in eget purus. Pellentesque sed sodales nunc. Integer tempor, odio in tincidunt viverra, justo sapien consectetur elit, id sollicitudin dolor purus eu quam. Mauris nulla tellus, fringilla ut tincidunt vel, tincidunt nec odio. Aliquam consectetur commodo elit, non pellentesque leo fringilla sed. Vestibulum euismod pretium risus, at maximus eros suscipit et.', 'ROC Mondriaan', 'Praktijkuren', '2023-02-07 13:00:00', 'img/event-img/afbeelding4-63c8f92c0cb51.jpg', 8, 1, '25', '2023-02-07 20:00:00');
+INSERT INTO `event` (`id`, `opleiding_id`, `title`, `description`, `company`, `date`, `image`, `aantal_uur`, `niveau`, `attendees`, `enddate`) VALUES
+(12, 5, 'Vakantiebeurs', 'Kom helpen op de vakantiebeurs.', 'ROC Mondriaan', '2023-01-12 09:30:00', 'img/event-img/afbeelding2-63c8f66838e3a-63db7caf320ec.jpg', 8, 1, '10', '2023-01-12 17:30:00'),
+(13, 5, 'Vakantiebeurs', 'Kom helpen op de vakantiebeurs.', 'ROC Mondriaan', '2023-01-13 09:30:00', 'img/event-img/afbeelding2-63c8f66838e3a-63db7cc0217e1.jpg', 8, 1, '10', '2023-01-13 17:30:00'),
+(14, 5, 'Vakantiebeurs', 'Kom helpen op de vakantiebeurs.', 'ROC Mondriaan', '2023-01-14 09:30:00', 'img/event-img/afbeelding2-63c8f66838e3a-63db7cc7d849d.jpg', 8, 1, '10', '2023-01-14 17:30:00'),
+(15, 5, 'Vakantiebeurs', 'Kom helpen op de vakantiebeurs.', 'ROC Mondriaan', '2023-01-15 09:30:00', 'img/event-img/afbeelding2-63c8f66838e3a-63db7cce52d99.jpg', 8, 1, '10', '2023-01-15 17:30:00'),
+(16, 5, 'ADO - NAC Breda', 'Host bij voetbalwedstrijd: ontvang de gasten en wijs hen de weg. Kijk mee tijdens de wedstrijd op de tribune!!!!', 'ADO', '2023-02-03 17:45:00', 'img/event-img/ado-6385f12b22719-63db7d471a162.png', 5, 1, '10', '2023-02-03 22:45:00'),
+(17, 9, 'Open Dag school voor toerisme, recreatie en evenementen', 'Kom helpen bij de open dag van het ROC Mondriaan in de Helenastraat', 'ROC Mondriaan', '2023-02-07 13:00:00', 'img/event-img/afbeelding4-63c8fdf7c15b9-63db7db30f650.jpg', 7, 1, '25', '2023-02-07 20:00:00');
 
 -- --------------------------------------------------------
 
@@ -101,10 +100,14 @@ CREATE TABLE `klas` (
 --
 
 INSERT INTO `klas` (`id`, `naam`) VALUES
-(1, '1k'),
-(2, '2k\r\n'),
-(3, '1a'),
-(4, '2a');
+(7, 'E1A '),
+(8, 'E1B '),
+(9, 'T1A '),
+(10, 'T1D '),
+(11, 'T2A '),
+(12, 'T2D '),
+(13, 'T2E'),
+(14, 'N.V.T.');
 
 -- --------------------------------------------------------
 
@@ -138,8 +141,12 @@ CREATE TABLE `opleiding` (
 --
 
 INSERT INTO `opleiding` (`id`, `name`) VALUES
-(1, 'Travel'),
-(2, 'Leisure');
+(5, 'Leidinggevende Travel & Hospitality'),
+(6, 'Leidinggevende  Leisure & Hospitality '),
+(7, 'Junior Event Manager'),
+(8, 'Zelfstandig Medewerker Travel en Hospitality'),
+(9, 'Zelfstandig Medewerker Leisure & Hospitality'),
+(10, 'Staf en Overig');
 
 -- --------------------------------------------------------
 
@@ -166,8 +173,22 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `opleiding_id`, `klas_id`, `email`, `roles`, `password`, `student_number`, `first_name`, `last_name`, `image`, `telefoonnummer`) VALUES
-(1, 1, 1, 'test@email.com', '[\"ROLE_USER\"]', '$2y$13$KKaYAQUtRIqYdFjZnAVZPOHdL47oMI5XlYrpLrFGR2GWGdHGk8TPO', 2147483647, 'Test', 'Account', 'img/profile-img/profielfoto-63c7b70a7b3cf.png', '39874987498034'),
-(2, 1, 1, 'koen@email.com', '[\"ROLE_USER\"]', '$2y$13$mPcPdpnQ5qkSGIcRDCQfMOzzZS6FD1RcvKLGFWGy1/zBRQih14nd2', 2147483647, 'Test', 'Account', 'img/profile-img/profielfoto-63c7b718ea4e3.png', '39874987498034');
+(10, 10, 14, 'koen@email.com', '[\"ROLE_beheerder\"]', '$2y$13$Wwr049KdKRP3gNYfU8D.Z.j1aR4wvf6eKazWd5YlW/oCwyRifHurK', 302261150, 'Koen', 'Green', 'img/profile-img/bran-castle-romania-525975996-emicristea-63db75aacb610.jpg', '0626075765'),
+(11, 10, 14, 'p.vd.weide@rocmondriaan.nl', '[\"ROLE_ADMIN\"]', '$2y$13$lBm3qr.R3ZkB0ta6ZCppFe4/vYNxTcV1q1Oum.w4YJJOS89F9byDm', 2147483647, 'Mariska', 'van der Weide', 'img/profile-img/logo-rocm-rgb-63db7731642f0.jpg', '0611754108'),
+(12, 10, 14, 'Manish@email.com', '[\"ROLE_beheerder\"]', '$2y$13$3LB0uEYQxCThIk9sNPi5aut45NO4HpsX8RhQbgrrXPlkIzIWQcsPa', 302261278, 'Manish', 'Mahadew', 'img/profile-img/profile-63c8f9da83989-63cfa21170565-63db7e3b54dab.jpg', '06484754857'),
+(13, 5, 7, 'Aegon@email.com', '[\"ROLE_USER\"]', '$2y$13$ouRkFSMQON903c4tnwvZy.rjCOXhR6.5RWV4aPS4Qu//bvPct/w4i', 304563546, 'Aegon', 'Vijfwinkel', 'img/profile-img/aegon-vijfwinkel-63db8058d8e30.jpg', '06353563356'),
+(14, 5, 7, 'Anna@email.com', '[\"ROLE_USER\"]', '$2y$13$E.tyvshk6MvIZXhwdlso6O.TIrb67BjdyU9gQQXh8dTYz97RNttkO', 304563547, 'Anna', 'Frankenburg', 'img/profile-img/anna-frankenbrug-63db80798c882.jpg', '06353943949'),
+(15, 6, 8, 'Arthur@email.com', '[\"ROLE_USER\"]', '$2y$13$DPYQXJXdUSAazQ1H8EZGK.mrnM8BoagZFlizSlLeKQDnK81TJ6/2K', 304563550, 'Arthur', 'de Bas', 'img/profile-img/arthur-de-bas-63db80a39af6d.jpg', '06353943949'),
+(16, 6, 8, 'Cas@email.com', '[\"ROLE_USER\"]', '$2y$13$js.gc7Vsy4ILz7XsdOKvfuyZxe7eAkdOy7XWDAISmec4mbeW3VF/y', 304563555, 'Cas', 'Caspasius', 'img/profile-img/cas-caspasius-63db80cc90689.jpg', '06353943949'),
+(17, 7, 9, 'Crystal@email.com', '[\"ROLE_USER\"]', '$2y$13$jJ16OmeRjN6lYXuEo4P9nuM9/MDQEEGHM.dYF.UPq75S/xxsyHk.K', 304563521, 'Crystal', 'McQueen', 'img/profile-img/crystal-mcqueen-63db80f80a62a.jpg', '06353943912'),
+(18, 8, 10, 'Evelien@email.com', '[\"ROLE_USER\"]', '$2y$13$yIu4rApz5FUudoM35TLiYufxvTUSo01JSTBJMAfvW8O3IAj5ulx.u', 304563541, 'Evelien', 'de Wit', 'img/profile-img/evelien-de-wit-63db81210ee0b.jpg', '063539439145'),
+(19, 8, 10, 'Fleur@email.com', '[\"ROLE_USER\"]', '$2y$13$Zt4upS6Lbg8Yh/zG8mxceOWyGmJWml3UgAglRDIjiZH9eKmtr2H9i', 304564541, 'Fleur', 'Naaktgeboren', 'img/profile-img/fleur-naaktgeboren-63db8145e9367.jpg', '063539439145'),
+(20, 9, 11, 'Hikaru@email.com', '[\"ROLE_USER\"]', '$2y$13$uGk/f11/AwIH2feXZXb5FOWfzhc7Vu5/CLR5p4l.ZGneYQ.DK15cy', 2147483647, 'Hikaru', 'Nakamura', 'img/profile-img/hikaru-nakamura-63db81744ccf8.jpg', '063539439145'),
+(21, 9, 12, 'Mark@email.com', '[\"ROLE_USER\"]', '$2y$13$ReXnHwgtQbzjUwGKWLrZZuy4ViB2lXDyDypEs8I.KYoBDnWda.vHC', 2147483647, 'Mark', 'van Geest', 'img/profile-img/mark-van-geest-63db8197ba78c.jpg', '063539439145'),
+(22, 9, 13, 'Sam', '[\"ROLE_USER\"]', '$2y$13$v6PmF/4tVRuUWgYt6reZAuZ9iqaweS4kixoSm3UAufs1GOV2FEY2u', 2147483647, 'Sam', 'Hert', 'img/profile-img/sam-hert-63db81c9599d3.jpg', '063539439145'),
+(23, 8, 13, 'Sem', '[\"ROLE_USER\"]', '$2y$13$YEi7BpgVMTnlgIZzKHldWe85enc1ry0Ps6.uOFVz8.kiMh1RtgwdW', 2147483647, 'Sem', 'van Harte', 'img/profile-img/sem-van-harte-63db81ed12955.jpg', '063539439145'),
+(24, 8, 13, 'Zamara', '[\"ROLE_USER\"]', '$2y$13$eifOGEouqZqtTyd7SK/C6uPJGLfl/rxeiXAGFk.rdE46Sgb42Sy4.', 2147483647, 'Zamara', 'de Jong', 'img/profile-img/zamara-de-jong-63db820796b28.jpg', '0635394391452'),
+(25, 8, 12, 'Michiel@email.com', '[\"ROLE_USER\"]', '$2y$13$Ijo.Yc7Z3z4t453IzPPVsuG/.XPLCe604wz9BKOsTYTDXXdpJNh6a', 2147483647, 'Michiel', 'Auerbach', 'img/profile-img/michiel-auerbach-63dbade2c9456.jpg', '0674363746');
 
 -- --------------------------------------------------------
 
@@ -179,16 +200,16 @@ CREATE TABLE `user_events` (
   `id` int(11) NOT NULL,
   `user_id` int(11) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
-  `accepted` tinyint(1) NOT NULL
+  `accepted` tinyint(1) NOT NULL,
+  `presence` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Gegevens worden geëxporteerd voor tabel `user_events`
 --
 
-INSERT INTO `user_events` (`id`, `user_id`, `event_id`, `accepted`) VALUES
-(1, 2, 6, 1),
-(3, 2, 11, 1);
+INSERT INTO `user_events` (`id`, `user_id`, `event_id`, `accepted`, `presence`) VALUES
+(9, 10, 17, 1, 1);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -265,13 +286,13 @@ ALTER TABLE `about`
 -- AUTO_INCREMENT voor een tabel `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT voor een tabel `klas`
 --
 ALTER TABLE `klas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT voor een tabel `messenger_messages`
@@ -283,19 +304,19 @@ ALTER TABLE `messenger_messages`
 -- AUTO_INCREMENT voor een tabel `opleiding`
 --
 ALTER TABLE `opleiding`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT voor een tabel `user_events`
 --
 ALTER TABLE `user_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Beperkingen voor geëxporteerde tabellen

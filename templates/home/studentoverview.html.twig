@@ -5,43 +5,61 @@
 
 {% block body %}
 
+        <script>
+            function searchname() {
+                let input, filter, cards, cardContainer, title, i;
+                input = document.getElementById("searchbyName");
+                filter = input.value.toUpperCase();
+                cardContainer = document.getElementById("grid");
+                cards = cardContainer.getElementsByClassName("card");
+                for (i = 0; i < cards.length; i++) {
+                    title = cards[i].querySelector("h1");
+                    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                        cards[i].style.display = "";
+                    } else {
+                        cards[i].style.display = "none";
+                    }
+                }
+            }
+
+    </script>
+
     <div class="about-text">
-    <h1>Klassen:</h1>
-                {% for klassen in klas %}
-                <a href="/users/klas/{{ klassen.id }}">{{ klassen.naam }}</a>
-                {% endfor %}
+        <h1>Klassen:</h1>
+        {% for klassen in klas %}
+            <a href="/users/klas/{{ klassen.id }}">{{ klassen.naam }}</a>
+        {% endfor %}
         <hr>
-
-        </div>
-
-
-
-
-
+        <input type="text" id="searchbyName" class="form-control" onkeyup="searchname()" placeholder="Search for card name...">
     </div>
+
+
+
+
+
     <div id="grid">
 
 
-
-    {% for user in users %}
-        {% if 'ROLE_ADMIN' not in user.roles %}
-        {% if 'ROLE_beheerder' not in user.roles %}
-        <div class="card">
-            <div class="card-body">
-                <div class="image-border">
-                    <img class="card-img-top" src="{{ user.image }}">
-                </div>
-                <h1>{{ user.firstName }} {{ user.lastName }}</h1>
-                <h1>{{ user.klas.naam }}</h1>
-                <h3>{{ user.opleiding }}</h3>
-                <h3>Stage uren: {{totalWorkHours[user.id] }}</h3>
-                <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>Meer informatie over student</a>
-            </div>
-        </div>
+        {% for user in users %}
+            {% if 'ROLE_ADMIN' not in user.roles %}
+                {% if 'ROLE_beheerder' not in user.roles %}
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="image-border">
+                                <img class="card-img-top" src="{{ user.image }}">
+                            </div>
+                            <h1 class="card-title">{{ user.firstName }} {{ user.lastName }}</h1>
+                            <h1>{{ user.klas.naam }}</h1>
+                            <h3>{{ user.opleiding }}</h3>
+                            <h3>Stage uren: {{ totalWorkHours[user.id] }}</h3>
+                            <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>Meer informatie over
+                                student</a>
+                        </div>
+                    </div>
+                {% endif %}
             {% endif %}
-        {% endif %}
-    {% endfor %}
-    {% block footer %}
-    {% endblock %}
+        {% endfor %}
+        {% block footer %}
+        {% endblock %}
 
 {% endblock %}

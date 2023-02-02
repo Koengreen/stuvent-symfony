@@ -10,7 +10,7 @@
 
         {% for event, userEventsByEvent in userEvents %}
     <button class="accordion"> {{ userEventsByEvent.event.title }}</button>
-    
+
     <div class="panel">
         <table>
             <thead>
@@ -24,28 +24,26 @@
             </tr>
             </thead>
             <tbody>
-            {% for userevents in userEvents %}
                 <tr>
-                    <td>{{ userevents.user.studentnumber }}</td>
-                    <td>{{ userevents.user.lastName }} , {{ userevents.user.firstName }}</td>
+                    <td>{{ userEventsByEvent.user.studentnumber }}</td>
+                    <td>{{ userEventsByEvent.user.lastName }} , {{ userEventsByEvent.user.firstName }}</td>
 
-                    <td{{ userevents.user.lastName }} </td>
-                    <td>{{ userevents.user.opleiding.name }}</td>
+                    <td{{ userEventsByEvent.user.lastName }} </td>
+                    <td>{{ userEventsByEvent.user.opleiding.name }}</td>
                     <td>
 
-                        <form method="POST" action="{{ path('present', {'id': userevents.id}) }}">
-                            <input type="hidden" name="id" value="{{ userevents.id }}">
+                        <form method="POST" action="{{ path('present', {'id': userEventsByEvent.id}) }}">
+                            <input type="hidden" name="id" value="{{ userEventsByEvent.id }}">
                             <button class="buttondiv1 decide" type="submit">Ja</button>
                         </form>
-                        <form method="POST" action="{{ path('absent', {'id': userevents.id}) }}">
-                            <input type="hidden" name="id" value="{{ userevents.id }}">
+                        <form method="POST" action="{{ path('absent', {'id': userEventsByEvent.id}) }}">
+                            <input type="hidden" name="id" value="{{ userEventsByEvent.id }}">
                             <button class="buttondiv2 decide" type="submit">Nee</button>
                         </form>
                     </td>
 
 
                 </tr>
-            {% endfor %}
             </tbody>
         </table>
 
