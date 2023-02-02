@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\UserEventsRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 
 #[ORM\Entity(repositoryClass: UserEventsRepository::class)]
 class UserEvents
@@ -21,6 +23,9 @@ class UserEvents
 
     #[ORM\ManyToOne(inversedBy: 'UserEvents')]
     private ?Event $event = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $presence = null;
 
     public function getId(): ?int
     {
@@ -65,6 +70,23 @@ class UserEvents
         $this->event = $event;
 
         return $this;
+    }
+
+    public function isPresence(): ?bool
+    {
+        return $this->presence;
+    }
+
+    public function setPresence(?bool $presence): self
+    {
+        $this->presence = $presence;
+
+        return $this;
+    }
+
+    public static function getUncheckedPresences(EntityManagerInterface $em)
+    {
+        return $em->getRepository(UserEvents::class)->findBy(['presence' => null]);
     }
 
 

@@ -146,6 +146,17 @@ class HomeController extends AbstractController
             'totalWorkHours' => $totalWorkHours
         ]);
     }
+    #[Route('/admin/unchecked-presences', name: 'unchecked_presences')]
+    public function uncheckedPresences(EntityManagerInterface $em)
+    {
+        $userEvents = UserEvents::getUncheckedPresences($em);
+
+        return $this->render('admin/unchecked_presences.html.twig', [
+            'userEvents' => $userEvents
+        ]);
+    }
+
+
 
 
     #[Route('/beheerder/addadmin', name: 'add_admin')]
@@ -166,6 +177,7 @@ class HomeController extends AbstractController
                     $user,
                     $form->get('plainPassword')->getData()
                 )
+
             );
             ($form['image']->getData());
             $uploadedFile = $form['image']->getData();
@@ -253,6 +265,46 @@ class HomeController extends AbstractController
             'evt' => $evt, 'totalAttendees' => $eventtotal,
         ]);
     }
+    #[Route('/absent/{id}', name: 'absent')]
+    public function absent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager): Response
+    {
+        $userEvent = $userEventsRepository->find($id);
+        if (!$userEvent) {
+            throw $this->createNotFoundException('Inschrijving niet gevonden!');
+        }
+        $entityManager->remove($userEvent);
+        $entityManager->flush();
+        $this->addFlash(
+            'danger',
+            'Deze student was niet aanwezig'
+        );
+
+
+
+
+        return $this->redirectToRoute('unchecked_presences');
+    }
+    #[Route('/present/{id}', name: 'present',)]
+    public function present(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager): Response
+    {
+        $userEvent = $userEventsRepository->find($id);
+        if (!$userEvent) {
+            throw $this->createNotFoundException('Inschrijving niet gevonden!');
+        }
+
+        $userEvent->setPresence(true);
+        $entityManager->flush();
+        $this->addFlash(
+            'success',
+            'Aanwezigheid goedgekeurd');
+
+        return $this->redirectToRoute('unchecked_presences');
+    }
+
+
+
+
+
 
 
     #[Route('/notaccepted', name: 'shownotaccepted')]
