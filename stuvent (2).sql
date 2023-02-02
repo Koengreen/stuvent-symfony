@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 02 feb 2023 om 14:09
+-- Gegenereerd op: 02 feb 2023 om 16:06
 -- Serverversie: 10.4.25-MariaDB
 -- PHP-versie: 8.1.10
 
@@ -82,7 +82,8 @@ INSERT INTO `event` (`id`, `opleiding_id`, `title`, `description`, `company`, `d
 (14, 5, 'Vakantiebeurs', 'Kom helpen op de vakantiebeurs.', 'ROC Mondriaan', '2023-01-14 09:30:00', 'img/event-img/afbeelding2-63c8f66838e3a-63db7cc7d849d.jpg', 8, 1, '10', '2023-01-14 17:30:00'),
 (15, 5, 'Vakantiebeurs', 'Kom helpen op de vakantiebeurs.', 'ROC Mondriaan', '2023-01-15 09:30:00', 'img/event-img/afbeelding2-63c8f66838e3a-63db7cce52d99.jpg', 8, 1, '10', '2023-01-15 17:30:00'),
 (16, 5, 'ADO - NAC Breda', 'Host bij voetbalwedstrijd: ontvang de gasten en wijs hen de weg. Kijk mee tijdens de wedstrijd op de tribune!!!!', 'ADO', '2023-02-03 17:45:00', 'img/event-img/ado-6385f12b22719-63db7d471a162.png', 5, 1, '10', '2023-02-03 22:45:00'),
-(17, 9, 'Open Dag school voor toerisme, recreatie en evenementen', 'Kom helpen bij de open dag van het ROC Mondriaan in de Helenastraat', 'ROC Mondriaan', '2023-02-07 13:00:00', 'img/event-img/afbeelding4-63c8fdf7c15b9-63db7db30f650.jpg', 7, 1, '25', '2023-02-07 20:00:00');
+(19, 5, 'Open Dag school voor Toerisme', 'Open dag school voor toerisme, recreatie en evenementen.', 'ROC Mondriaan', '2023-02-07 13:00:00', 'img/event-img/afbeelding4-63c8fdf7c15b9-63db7db30f650-63dbb97c70d75.jpg', 7, 1, '25', '2023-02-07 20:00:00'),
+(20, 10, 'Ocean Race The Hague', 'Eventmakers is het landelijke platform voor vrijwilligers in sport evenemten. Wij zijn ervan overtuigd dat vrijwilligers van onmisbare waarde zijn in de organisatie van sportevenemten en daarom zijn wij op zoek naar vrijwilligers voor The Ocean race The Hague van 11 t/m 15 Juni! De haven van Schevening wordt de plek waar zeilen, watersport en duurzaamheid samenkomen. Zonder vrijwiller is er geen Ocean Race! Daarom zijn wij op zoek naar enthousiaste vrijwilligers die een steentje willen bijdragen aan dit evenement en jij kan deel uitmaken van dit team! Alle vrijwilligers meldden zich aan via eventmakers: Het landelijke platform voor vrijwilligers in sportevenement. \r\n\r\nVrijwilligersfuncties:\r\n\r\nOperations duurzaamheid\r\n\r\n*uitgebreide omschrijvingen van de bovenstaande vrijwilligers zijn te vinden op de evenementenpagina van The Ocean Race.\r\n\r\nWat Vragen we van jou? \r\n- Een beschikbaarheid van minimaal 3 dagen;\r\n- Minimale leeftijd van 16 jaar of ouder op 10 juni 2023;\r\n- Het beheersen van in elk geval Nederlands of Engels;\r\n- Een akkoord op onze vrijwilligers overeenkomst;\r\n- Een enthousiasme, Gastvrijheid, inzet met passie voor het evenement;\r\n- Reis en verblijfkosten zijn voor eigen rekening;\r\n\r\nWat krijg je van ons? \r\nHet ontmoeten  van veel nieuwe mensen en een uniek kijkje achter de schermen van een groot internationaal sportevenemt;\r\n- Een gaaf en uniek kledingpakket in de stijl van het evenement;\r\n- Goed eten en drinken tijdens het evenement;\r\n- Een persoonlijke kennismaking en het benutten van jouw talenten door te kijken waar we jou het beste kunnen inzetten;\r\n- En wij verzorgen een inspirerende kick-off voor alle eventmakers van de Ocean Race;', 'EventMakers', '2023-06-11 09:00:00', 'img/event-img/ocean-race-63dbd12ce2418.jpg', 20, 1, '20', '2023-06-15 17:00:00');
 
 -- --------------------------------------------------------
 
@@ -209,7 +210,8 @@ CREATE TABLE `user_events` (
 --
 
 INSERT INTO `user_events` (`id`, `user_id`, `event_id`, `accepted`, `presence`) VALUES
-(9, 10, 17, 1, 1);
+(11, 10, 19, 1, NULL),
+(12, 10, 16, 1, NULL);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -286,7 +288,7 @@ ALTER TABLE `about`
 -- AUTO_INCREMENT voor een tabel `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT voor een tabel `klas`
@@ -316,7 +318,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT voor een tabel `user_events`
 --
 ALTER TABLE `user_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
