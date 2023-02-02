@@ -24,6 +24,7 @@
 
 
     {% for user in users %}
+        {% if 'ROLE_ADMIN' not in user.roles %}
         <div class="card">
             <div class="card-body">
                 <div class="image-border">
@@ -36,6 +37,7 @@
                 <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>Meer informatie over student</a>
             </div>
         </div>
+        {% endif %}
     {% endfor %}
     {% block footer %}
     {% endblock %}
