@@ -101,6 +101,7 @@
 
 .trash-can:hover .top {
     transform: rotate(50deg) skew(0deg) translate(2px, -7px);
+    transition: 1.45s;
 }
 
 .bounce {
