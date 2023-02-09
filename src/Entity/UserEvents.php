@@ -27,6 +27,10 @@ class UserEvents
     #[ORM\Column(nullable: true)]
     private ?bool $presence = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $rating = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +92,19 @@ class UserEvents
     {
         return $em->getRepository(UserEvents::class)->findBy(['presence' => null]);
     }
+
+    public function getRating(): ?string
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?string $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
 
 
 }

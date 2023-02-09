@@ -9,46 +9,47 @@
         <hr>
 
         {% for event, userEventsByEvent in userEvents %}
-    <button class="accordion"> {{ userEventsByEvent.event.title }}</button>
+            <button class="accordion"> {{ userEventsByEvent.event.title }}</button>
 
-    <div class="panel">
-        <table>
-            <thead>
-            <tr>
+            <div class="panel">
+                <form method="POST" action="{{ path('save', {'event_id': userEventsByEvent.event.id}) }}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th class="enrollTableHeader">Studentnummer</th>
+                            <th class="enrollTableHeader">Naam</th>
+                            <th class="enrollTableHeader">Opleiding</th>
+                            <th class="enrollTableHeader">Presentie</th>
+                            <th class="enrollTableHeader">Rating</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>{{ userEventsByEvent.user.studentnumber }}</td>
+                            <td>{{ userEventsByEvent.user.lastName }} , {{ userEventsByEvent.user.firstName }}</td>
+                            <td>{{ userEventsByEvent.user.opleiding.name }}</td>
+                            <td>
+                                <select name="present[{{ userEventsByEvent.user.id }}]">
+                                    <option value="present">Present</option>
+                                    <option value="absent">Absent</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select name="rating[{{ userEventsByEvent.user.id }}]">
+                                    <option value="">Select</option>
+                                    <option value="O">O</option>
+                                    <option value="V">V</option>
+                                    <option value="G">G</option>
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        {% endfor %}
 
-                <th class="enrollTableHeader">Studentnummer</th>
-                <th class="enrollTableHeader">Naam</th>
-                <th class="enrollTableHeader">Opleiding</th>
-                <th class="enrollTableHeader">Presentie</th>
-
-            </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ userEventsByEvent.user.studentnumber }}</td>
-                    <td>{{ userEventsByEvent.user.lastName }} , {{ userEventsByEvent.user.firstName }}</td>
-
-                    <td{{ userEventsByEvent.user.lastName }} </td>
-                    <td>{{ userEventsByEvent.user.opleiding.name }}</td>
-                    <td>
-
-                        <form method="POST" action="{{ path('present', {'id': userEventsByEvent.id}) }}">
-                            <input type="hidden" name="id" value="{{ userEventsByEvent.id }}">
-                            <button class="buttondiv1 decide" type="submit">Ja</button>
-                        </form>
-                        <form method="POST" action="{{ path('absent', {'id': userEventsByEvent.id}) }}">
-                            <input type="hidden" name="id" value="{{ userEventsByEvent.id }}">
-                            <button class="buttondiv2 decide" type="submit">Nee</button>
-                        </form>
-                    </td>
-
-
-                </tr>
-            </tbody>
-        </table>
-
-    </div>
-{% endfor %}
     </div>
     <script>
         var acc = document.getElementsByClassName("accordion");

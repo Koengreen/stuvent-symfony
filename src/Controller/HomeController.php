@@ -269,31 +269,48 @@ class HomeController extends AbstractController
             'evt' => $evt, 'totalAttendees' => $eventtotal,
         ]);
     }
-    #[Route('/absent/{id}', name: 'absent')]
-    public function absent(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager): Response
+    #[Route("/save/{event_id}", name: "save")]
+    public function save(Request $request, $event_id, EntityManagerInterface $em)
     {
-        $userEvent = $userEventsRepository->find($id);
-        if (!$userEvent) {
-            throw $this->createNotFoundException('Inschrijving niet gevonden!');
+        $presentData = $request->request->get('present');
+        $ratingData = $request->request->get('rating');
+
+        // loop through the data and update the presence and rating for each student
+        foreach ($presentData as $userId => $present) {
+            // retrieve the UserEvent record from the database
+            $userEvent = $em->getRepository(UserEvents::class)->findOneBy([
+                'event' => $event_id,
+                'user' => $userId,
+            ]);
+
+            // update the presence and rating
+            $userEvent->setPresence($present);
+            $userEvent->setRating($ratingData[$userId]);
+
+            // persist the changes to the database
+            $em->persist($userEvent);
         }
-        $entityManager->remove($userEvent);
-        $entityManager->flush();
-        $this->addFlash(
-            'danger',
-            'Deze student was niet aanwezig'
-        );
 
+        // flush the changes to the database
+        $em->flush();
 
-
-
+        // Redirect to another page or display a success message
         return $this->redirectToRoute('unchecked_presences');
     }
+
+
+
     #[Route('/present/{id}', name: 'present',)]
     public function present(Request $request, int $id, UserEventsRepository $userEventsRepository, EntityManagerInterface $entityManager): Response
     {
         $userEvent = $userEventsRepository->find($id);
         if (!$userEvent) {
             throw $this->createNotFoundException('Inschrijving niet gevonden!');
+        }
+
+        if ($request->isMethod('POST')) {
+            $rating = $request->request->get('rating');
+            $userEvent->setRating($rating);
         }
 
         $userEvent->setPresence(true);

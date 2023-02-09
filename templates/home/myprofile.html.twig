@@ -79,6 +79,7 @@
                     <th class="enrollTableHeader">Aantal uur</th>
                     <th class="enrollTableHeader">Startdatum</th>
                     <th class="enrollTableHeader">Einddatum</th>
+                    <th class="enrollTableHeader">Beoordeling</th>
                     <th class="enrollTableHeader">Meer info</th>
                 </tr>
 
@@ -91,6 +92,7 @@
                         <td class="aantalUur">{{ events.event.aantalUur }}</td>
                         <td>{{ events.event.date|date('d M H:i') }}</td>
                         <td>{{ events.event.enddate|date('d M H:i') }}</td>
+                        <td>{{ events.rating }}</td>
                         <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}"></a>info</td>
                     </tr>
 

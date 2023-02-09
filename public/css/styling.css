@@ -102,7 +102,6 @@
 
 .trash-can:hover .top {
     transform: rotate(50deg) skew(0deg) translate(2px, -7px);
-<<<<<<< HEAD
     transition: 1.46s;
 }
 .container-fluid{
