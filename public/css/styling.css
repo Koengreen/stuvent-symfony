@@ -102,7 +102,6 @@
 
 .trash-can:hover .top {
     transform: rotate(50deg) skew(0deg) translate(2px, -7px);
-<<<<<<< HEAD
     transition: 1.46s;
 }
 .container-fluid{
@@ -474,7 +473,7 @@ form{
     background: #b9dcff;  /* Light blue background color */
     text-align: center;  /* Center the text */
     box-shadow: 2px 2px 2px #1a191a;  /* Add a shadow to the element */
-    border-radius: inherit;  /* Inherit the border radius from the parent element */
+    border-radius: 0px;  /* Inherit the border radius from the parent element */
 }
 .about-text {
     width: 80vw;
