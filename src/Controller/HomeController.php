@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use phpDocumentor\Reflection\Types\Nullable;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use App\Entity\About;
 use App\Entity\Klas;
@@ -41,12 +42,15 @@ class HomeController extends AbstractController
 {
 
 
+
     private $myClass;
 
     public function __construct(UserEventsRepository $myClass)
     {
         $this->myClass = $myClass;
     }
+
+
 
     #[Route('/studentoverview', name: 'studentoverview')]
     public function showallstudents(KlasRepository $klasRepository, UserRepository $userRepository, UserEventsRepository $userEventsRepository, EventRepository $eventrepository)
@@ -608,6 +612,7 @@ class HomeController extends AbstractController
     #[Route('{id}', name: 'more_info')]
     public function showInfo(ManagerRegistry $doctrine, int $id): Response
     {
+        $i = 0;
         # fetch the event by id from the repository
         $evt = $doctrine->getRepository(Event::class)->find($id);
         #if event not found, throw exception
@@ -623,36 +628,39 @@ class HomeController extends AbstractController
     }
 
     #[Route('/enroll/{id}', name: 'enroll')]
-    public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user, UserEventsRepository $userEvents, int $id): Response
+    public function enroll(ManagerRegistry $doctrine, Event $event, #[CurrentUser] $user = null, UserEventsRepository $userEvents, int $id): Response
     {
-        #check if the event is duedate
-        #check if the user is already enrolled in the event
-        $existingEnrollment = $userEvents->findOneBy(['event' => $event, 'user' => $user]);
-        if ($existingEnrollment) {
-            $this->addFlash('error', 'U heeft zich al ingeschreven');
+            #check if the user is already enrolled in the event
+            $existingEnrollment = $userEvents->findOneBy(['event' => $event, 'user' => $user]);
+            if ($existingEnrollment) {
+                $this->addFlash('error', 'U heeft zich al ingeschrijven');
+                return $this->redirectToRoute('blog_list');
+            }
+            #check if the event is full
+            $message = 'Evenement is vol.';
+            $totalAttendees = $event->getAttendees();
+            $eventId = $event->getId();
+            $inschrijvingen = $userEvents->findby(['event' => $eventId]);
+            #if there is space in the event, enroll user
+            if (count($inschrijvingen) < $totalAttendees) {
+                $entityManager = $doctrine->getManager();
+                $userevent = new UserEvents();
+                $userevent->setEvent($event);
+                $userevent->setUser($user);
+                $userevent->setAccepted(false);
+                $entityManager->persist($userevent);
+                $entityManager->flush();
+                $this->addFlash('success', 'Inschrijving succesvol!');
+            } else {
+                $this->addFlash('error', $message);
+            }
+
+
+            #redirect to the blog list
             return $this->redirectToRoute('blog_list');
-        }
-        #check if the event is full
-        $message = 'Evenement is vol.';
-        $totalAttendees = $event->getAttendees();
-        $eventId = $event->getId();
-        $inschrijvingen = $userEvents->findby(['event' => $eventId]);
-        #if there is space in the event, enroll user
-        if (count($inschrijvingen) < $totalAttendees) {
-            $entityManager = $doctrine->getManager();
-            $userevent = new UserEvents();
-            $userevent->setEvent($event);
-            $userevent->setUser($user);
-            $userevent->setAccepted(false);
-            $entityManager->persist($userevent);
-            $entityManager->flush();
-            $this->addFlash('success', 'Inschrijving succesvol!');
-        } else {
-            $this->addFlash('error', $message);
-        }
-        #redirect to the blog list
-        return $this->redirectToRoute('blog_list');
+
     }
+
 
     #[Route('/admin/add', name: 'add_events')]
     public function addevents(Request $request, EntityManagerInterface $entityManager): Response

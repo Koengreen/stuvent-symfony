@@ -10,4 +10,6 @@ return function (RoutingConfigurator $routes) {
             'token' => '.+',
         ])
     ;
+
 };
+

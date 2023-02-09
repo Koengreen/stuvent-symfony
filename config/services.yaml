@@ -6,6 +6,9 @@
 parameters:
 
 services:
+    App\Controller\ErrorController:
+        tags:
+            - { name: controller.exception_handler, method: enrollErrorAction, priority: 0 }
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

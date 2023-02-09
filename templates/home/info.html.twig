@@ -29,7 +29,13 @@
         <hr>
         <h1>Inschrijven:</h1>
                 <br>
-        <a class="enroll-button" href="/enroll/{{ evt.id }}">Klik hier om je in te schrijven</a>
+
+        {% if is_granted('ROLE_USER') %}
+        <a class="pastevents" href="/enroll/{{ evt.id }}">Klik hier om je in te schrijven</a>
+        {% else %}
+            <button class="pastevents" onclick="window.location.href = '{{ path("app_login") }}'">Log eerst in als student</button>
+        {% endif %}
+
 
 
         {% endblock %}

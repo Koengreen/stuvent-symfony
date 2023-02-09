@@ -18,6 +18,7 @@
 
 .trash-can.tiny {
     transform: scale(1.7);
+    transition: 2s;
 
 }
 
@@ -101,8 +102,13 @@
 
 .trash-can:hover .top {
     transform: rotate(50deg) skew(0deg) translate(2px, -7px);
+    transition: 1.46s;
 }
-
+.container-fluid{
+    margin-left: -12px;
+    margin-right: -12px;
+    width: auto;
+}
 .bounce {
     -webkit-animation-name: bounce;
     -moz-animation-name: bounce;
@@ -438,6 +444,8 @@ form{
     max-height: 200px;  /* Set the maximum height to 200px */
 }
 
+
+
 /* Style the grid container */
 #grid {
     display: grid;  /* Enable grid layout */
@@ -463,13 +471,13 @@ form{
     text-align: center;  /* Center the text */
     box-shadow: 2px 2px 2px #1a191a;  /* Add a shadow to the element */
     border-radius: inherit;  /* Inherit the border radius from the parent element */
-    border-radius: 30px;
 }
 .about-text {
     width: 80vw;
     background-color: #f09904;  /* Orange background color */
     margin-left: 9vw;  /* Add a left margin of 10% of the viewport width */
     margin-right: 9vw;  /* Add a right margin of 10% of the viewport width */
+    text-align: center;  /* Center the text */
     text-align: center;  /* Center the text */
     border: 2vw solid #f09904;  /* Add a border with a width of 2% of the viewport width */
 }
@@ -499,6 +507,7 @@ form{
     transform-origin: center;  /* Transform the element around its center */
     transform: scale(1.1);  /* Increase the size of the element */
     transition: 1.5s;  /* Add a transition effect */
+    border-radius: 45px;
 }
 
 /* Style the "enroll" button */
