@@ -8,7 +8,7 @@
     <h2>Aanwezigheid</h2>
         <hr>
 
-        {% for event, userEventsByEvent in userEvents %}
+        {% for event, userEventsByEvent in userEvents  %}
             <button class="accordion"> {{ userEventsByEvent.event.title }}</button>
 
             <div class="panel">
@@ -30,9 +30,11 @@
                             <td>{{ userEventsByEvent.user.opleiding.name }}</td>
                             <td>
                                 <select name="present[{{ userEventsByEvent.user.id }}]">
-                                    <option value="present">Present</option>
-                                    <option value="absent">Absent</option>
+                                    <option value="Present">Present</option>
+                                    <option value="Absent">Absent</option>
                                 </select>
+                            </td>
+
                             </td>
                             <td>
                                 <select name="rating[{{ userEventsByEvent.user.id }}]">

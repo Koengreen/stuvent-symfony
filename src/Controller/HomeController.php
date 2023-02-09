@@ -284,7 +284,13 @@ class HomeController extends AbstractController
             ]);
 
             // update the presence and rating
-            $userEvent->setPresence($present);
+            if ($present == "Present" ){
+                $userEvent->setPresence(true);
+            }
+            if ($present == "Absent"){
+                $userEvent->setPresence(false);
+
+            }
             $userEvent->setRating($ratingData[$userId]);
 
             // persist the changes to the database
