@@ -108,9 +108,6 @@
     margin-left: -12px;
     margin-right: -12px;
     width: auto;
-=======
-    transition: 1.45s;
->>>>>>> 89c18fa8418a10c39c44172caa97a2a208e5b5d9
 }
 .bounce {
     -webkit-animation-name: bounce;
@@ -473,7 +470,7 @@ form{
     background: #b9dcff;  /* Light blue background color */
     text-align: center;  /* Center the text */
     box-shadow: 2px 2px 2px #1a191a;  /* Add a shadow to the element */
-    border-radius: inherit;  /* Inherit the border radius from the parent element */
+    border-radius: 0px;  /* Inherit the border radius from the parent element */
 }
 .about-text {
     width: 80vw;
