@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Gegenereerd op: 07 feb 2023 om 11:10
+-- Gegenereerd op: 13 feb 2023 om 14:35
 -- Serverversie: 10.4.25-MariaDB
 -- PHP-versie: 8.1.10
 
@@ -50,7 +50,8 @@ CREATE TABLE `doctrine_migration_versions` (
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20230202084843', '2023-02-02 09:48:46', 36);
+('DoctrineMigrations\\Version20230209110443', '2023-02-09 12:04:47', 37),
+('DoctrineMigrations\\Version20230209110751', '2023-02-09 12:07:55', 29);
 
 -- --------------------------------------------------------
 
@@ -84,13 +85,12 @@ INSERT INTO `event` (`id`, `opleiding_id`, `title`, `description`, `company`, `d
 (16, 5, 'ADO - NAC Breda', 'Host bij voetbalwedstrijd: ontvang de gasten en wijs hen de weg. Kijk mee tijdens de wedstrijd op de tribune!!!!', 'ADO', '2023-02-03 17:45:00', 'img/event-img/ado-6385f12b22719-63db7d471a162.png', 5, 1, '10', '2023-02-03 22:45:00'),
 (19, 5, 'Open Dag school voor Toerisme', 'Open dag school voor toerisme, recreatie en evenementen.', 'ROC Mondriaan', '2023-02-07 13:00:00', 'img/event-img/afbeelding4-63c8fdf7c15b9-63db7db30f650-63dbb97c70d75.jpg', 7, 1, '25', '2023-02-07 20:00:00'),
 (20, 10, 'Ocean Race The Hague', 'Eventmakers is het landelijke platform voor vrijwilligers in sport evenemten. Wij zijn ervan overtuigd dat vrijwilligers van onmisbare waarde zijn in de organisatie van sportevenemten en daarom zijn wij op zoek naar vrijwilligers voor The Ocean race The Hague van 11 t/m 15 Juni! De haven van Schevening wordt de plek waar zeilen, watersport en duurzaamheid samenkomen. Zonder vrijwiller is er geen Ocean Race! Daarom zijn wij op zoek naar enthousiaste vrijwilligers die een steentje willen bijdragen aan dit evenement en jij kan deel uitmaken van dit team! Alle vrijwilligers meldden zich aan via eventmakers: Het landelijke platform voor vrijwilligers in sportevenement. \n\nVrijwilligersfuncties:\n\nOperations duurzaamheid\n\n*uitgebreide omschrijvingen van de bovenstaande vrijwilligers zijn te vinden op de evenementenpagina van The Ocean Race.\n\nWat Vragen we van jou? \n- Een beschikbaarheid van minimaal 3 dagen;\n- Minimale leeftijd van 16 jaar of ouder op 10 juni 2023;\n- Het beheersen van in elk geval Nederlands of Engels;\n- Een akkoord op onze vrijwilligers overeenkomst;\n- Een enthousiasme, Gastvrijheid, inzet met passie voor het evenement;\n- Reis en verblijfkosten zijn voor eigen rekening;\n\nWat krijg je van ons? \nHet ontmoeten  van veel nieuwe mensen en een uniek kijkje achter de schermen van een groot internationaal sportevenemt;\n- Een gaaf en uniek kledingpakket in de stijl van het evenement;\n- Goed eten en drinken tijdens het evenement;\n- Een persoonlijke kennismaking en het benutten van jouw talenten door te kijken waar we jou het beste kunnen inzetten;\n- En wij verzorgen een inspirerende kick-off voor alle eventmakers van de Ocean Race;', 'EventMakers', '2023-06-11 09:00:00', 'img/event-img/ocean-race-63dbd12ce2418.jpg', 20, 1, '20', '2023-06-15 17:00:00'),
-(21, 5, 'ADO - PEC Zwolle', 'Op 17 februari 2022 vindt de wedstrijd ADO Den Haag tegen PEC Zwolle plaats. Helpen bij dit evenement kan betekenen verschillende taken uit te voeren, zoals het ondersteunen bij de organisatie, het verlenen van hulp aan bezoekers. Het precieze takenpakket hangt af van de specifieke behoeften van het evenement en de rol die jij erin vervult. Het belangrijkste doel is echter om ervoor te zorgen dat het evenement soepel verloopt en iedereen een geweldige tijd heeft.', 'ADO Den Haag', '2023-02-17 17:45:00', 'img/event-img/wedstrijd-site-63e20a7fb7994.jpg', 5, 1, '10', '2023-02-17 22:45:00'),
 (23, 5, 'ADO - Heracles Almelo', 'Op 3 maart 2022 vindt de wedstrijd ADO Den Haag tegen Heracles Almelo plaats. Helpen bij dit evenement kan betekenen verschillende taken uit te voeren, zoals het ondersteunen bij de organisatie, het verlenen van hulp aan bezoekers. Het precieze takenpakket hangt af van de specifieke behoeften van het evenement en de rol die jij erin vervult. Het belangrijkste doel is echter om ervoor te zorgen dat het evenement soepel verloopt en iedereen een geweldige tijd heeft.', 'ADO Den Haag', '2023-03-03 17:45:00', 'img/event-img/c8247ce5ad041b0877187d9d01040ca0-w835-63e20af134caa.jpg', 5, 1, '10', '2023-03-03 22:45:00'),
 (25, 5, 'ADO - Sc Telstar', 'Op 31 maart 2022 vindt de wedstrijd ADO Den Haag tegen Sc Telstar plaats. Helpen bij dit evenement kan betekenen verschillende taken uit te voeren, zoals het ondersteunen bij de organisatie, het verlenen van hulp aan bezoekers. Het precieze takenpakket hangt af van de specifieke behoeften van het evenement en de rol die jij erin vervult. Het belangrijkste doel is echter om ervoor te zorgen dat het evenement soepel verloopt en iedereen een geweldige tijd heeft.', 'ADO Den Haag', '2023-03-31 17:45:00', 'img/event-img/1280x720-20220304200516-63e20bbd56dda.jpg', 5, 1, '10', '2023-03-31 22:45:00'),
 (26, 5, 'ADO - Willem II', 'Op 17 maart 2022 vindt de wedstrijd ADO Den Haag tegen Willem II plaats. Helpen bij dit evenement kan betekenen verschillende taken uit te voeren, zoals het ondersteunen bij de organisatie, het verlenen van hulp aan bezoekers. Het precieze takenpakket hangt af van de specifieke behoeften van het evenement en de rol die jij erin vervult. Het belangrijkste doel is echter om ervoor te zorgen dat het evenement soepel verloopt en iedereen een geweldige tijd heeft.', 'ADO Den Haag', '2023-03-17 17:45:00', 'img/event-img/w2-ado-site-63e20bf85bc94.jpg', 5, 1, '10', '2023-03-17 22:45:00'),
 (27, 5, 'ADO - Almere City FC', 'Op 16 april 2022 vindt de wedstrijd ADO Den Haag tegen Almere City FC plaats. Helpen bij dit evenement kan betekenen verschillende taken uit te voeren, zoals het ondersteunen bij de organisatie, het verlenen van hulp aan bezoekers. Het precieze takenpakket hangt af van de specifieke behoeften van het evenement en de rol die jij erin vervult. Het belangrijkste doel is echter om ervoor te zorgen dat het evenement soepel verloopt en iedereen een geweldige tijd heeft.', 'ADO Den Haag', '2023-04-16 17:45:00', 'img/event-img/download-63e20c70f1952.jpg', 5, 1, '10', '2023-04-16 22:45:00'),
 (28, 5, 'ADO - Helmond Sport', 'Op 16 april 2022 vindt de wedstrijd ADO Den Haag tegen Helmond Sport plaats. Helpen bij dit evenement kan betekenen verschillende taken uit te voeren, zoals het ondersteunen bij de organisatie, het verlenen van hulp aan bezoekers. Het precieze takenpakket hangt af van de specifieke behoeften van het evenement en de rol die jij erin vervult. Het belangrijkste doel is echter om ervoor te zorgen dat het evenement soepel verloopt en iedereen een geweldige tijd heeft.', 'ADO Den Haag', '2023-04-28 17:45:00', 'img/event-img/helmonf-63e20d63e909e.jpg', 5, 1, '10', '2023-04-28 22:45:00'),
-(30, 5, 'ADO - FC Dordrecht', 'Op 16 april 2022 vindt de wedstrijd ADO Den Haag tegen FC Dordrecht plaats. Helpen bij dit evenement kan betekenen verschillende taken uit te voeren, zoals het ondersteunen bij de organisatie, het verlenen van hulp aan bezoekers. Het precieze takenpakket hangt af van de specifieke behoeften van het evenement en de rol die jij erin vervult. Het belangrijkste doel is echter om ervoor te zorgen dat het evenement soepel verloopt en iedereen een geweldige tijd heeft.', 'ADO Den Haag', '2023-05-12 17:45:00', 'img/event-img/helmonf-63e20e45e0306.jpg', 5, 1, '10', '2023-05-12 22:45:00');
+(31, 5, 'kjekljrko`jlwkj', 'jwhdflhkfjdhkjdfdf', 'kjdshkjlsdfdfjlks', '2023-02-09 13:30:00', 'img/event-img/afbeelding1-63e4e6b63e001.jpg', 1, 1, '93843', '2023-02-09 13:32:00');
 
 -- --------------------------------------------------------
 
@@ -196,7 +196,8 @@ INSERT INTO `user` (`id`, `opleiding_id`, `klas_id`, `email`, `roles`, `password
 (22, 9, 13, 'Sam', '[\"ROLE_USER\"]', '$2y$13$v6PmF/4tVRuUWgYt6reZAuZ9iqaweS4kixoSm3UAufs1GOV2FEY2u', 2147483647, 'Sam', 'Hert', 'img/profile-img/sam-hert-63db81c9599d3.jpg', '063539439145'),
 (23, 8, 13, 'Sem', '[\"ROLE_USER\"]', '$2y$13$YEi7BpgVMTnlgIZzKHldWe85enc1ry0Ps6.uOFVz8.kiMh1RtgwdW', 2147483647, 'Sem', 'van Harte', 'img/profile-img/sem-van-harte-63db81ed12955.jpg', '063539439145'),
 (24, 8, 13, 'Zamara', '[\"ROLE_USER\"]', '$2y$13$eifOGEouqZqtTyd7SK/C6uPJGLfl/rxeiXAGFk.rdE46Sgb42Sy4.', 2147483647, 'Zamara', 'de Jong', 'img/profile-img/zamara-de-jong-63db820796b28.jpg', '0635394391452'),
-(25, 8, 12, 'Michiel@email.com', '[\"ROLE_USER\"]', '$2y$13$Ijo.Yc7Z3z4t453IzPPVsuG/.XPLCe604wz9BKOsTYTDXXdpJNh6a', 2147483647, 'Michiel', 'Auerbach', 'img/profile-img/michiel-auerbach-63dbade2c9456.jpg', '0674363746');
+(25, 8, 12, 'Michiel@email.com', '[\"ROLE_USER\"]', '$2y$13$Ijo.Yc7Z3z4t453IzPPVsuG/.XPLCe604wz9BKOsTYTDXXdpJNh6a', 2147483647, 'Michiel', 'Auerbach', 'img/profile-img/michiel-auerbach-63dbade2c9456.jpg', '0674363746'),
+(26, 5, 7, 'test@email.com', '[\"ROLE_USER\"]', '$2y$13$nZjROKikQrzWQiBnGlIxPO8qEuWEZH0vqCXDdQaiCOfTXbWeZJVNO', 2147483647, 'TEst', 'account', 'img/profile-img/afbeelding1-63e29234ca9a0.jpg', '87349083409387');
 
 -- --------------------------------------------------------
 
@@ -209,8 +210,21 @@ CREATE TABLE `user_events` (
   `user_id` int(11) DEFAULT NULL,
   `event_id` int(11) DEFAULT NULL,
   `accepted` tinyint(1) NOT NULL,
-  `presence` tinyint(1) DEFAULT NULL
+  `presence` tinyint(1) DEFAULT NULL,
+  `rating` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Gegevens worden geëxporteerd voor tabel `user_events`
+--
+
+INSERT INTO `user_events` (`id`, `user_id`, `event_id`, `accepted`, `presence`, `rating`) VALUES
+(1, 13, 28, 1, 0, 'G'),
+(2, 26, 25, 1, 1, 'V'),
+(3, 26, 27, 1, 1, 'V'),
+(4, 26, 20, 1, 0, 'O'),
+(5, 26, 26, 1, NULL, NULL),
+(6, 26, 23, 1, NULL, NULL);
 
 --
 -- Indexen voor geëxporteerde tabellen
@@ -287,7 +301,7 @@ ALTER TABLE `about`
 -- AUTO_INCREMENT voor een tabel `event`
 --
 ALTER TABLE `event`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT voor een tabel `klas`
@@ -311,13 +325,13 @@ ALTER TABLE `opleiding`
 -- AUTO_INCREMENT voor een tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT voor een tabel `user_events`
 --
 ALTER TABLE `user_events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Beperkingen voor geëxporteerde tabellen
