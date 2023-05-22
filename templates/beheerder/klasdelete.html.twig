@@ -1,0 +1,25 @@
+{# templates/klas/delete.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Verwijder klas{% endblock %}
+
+{% block body %}
+    <div class="about-text">
+    <h1>Verwijder klas</h1>
+    <hr>
+
+    {% if klasList|length == 0 %}
+        <p>Er zijn geen klassen om te verwijderen.</p>
+    {% else %}
+        <p>Kies een klas om te verwijderen:</p>
+
+        {{ form_start(form) }}
+        {{ form_widget(form.klas_id, {'attr': {'class': 'form-select mb-3'}}|sort) }}
+        <button type="submit" class="btn btn-danger buttondiv1">Verwijder klas</button>
+        {{ form_end(form) }}
+
+
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block title %}klas toevoegen{% endblock %}
+
+{% block body %}
+    <div class="about-text">
+    <h1>Klas toevoegen</h1>
+        <hr>
+    {{ form_start(form) }}
+    {{ form_row(form.naam) }}
+        <button type="submit" class="btn btn-primary buttondiv1">Toevoegen</button>
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Events{% endblock %}
+
+{% block body %}
+    <style>
+        /* CSS to hide the navbar when printing */
+        @media print {
+            .form-group {
+                display: none;
+            }
+            .navbar-center{
+                display:none;
+            }
+            .buttondiv1{
+                display: none;
+            }
+        }
+    </style>
+    <div class="about-text">
+        <div class="form-group">
+            <h1>Evenementen per datum</h1>
+            <hr>
+            {% form_theme form 'bootstrap_5_layout.html.twig' %}
+            {{ form_start(form) }}
+            {{ form_widget(form.startDate) }}
+            {{ form_widget(form.endDate) }}
+            <br>
+            <button class="buttondiv1" type="submit">Filter evenementen</button>
+            {{ form_end(form) }}
+        </div>
+        <hr>
+
+        <div class="row">
+            {% if events|length > 0 %}
+                {% for event in events %}
+                    <h2>{{ event.Title }} {{ event.date|date('Y-m-d H:i') }}</h2>
+                    <table id="overviewtable">
+                        <thead>
+                        </thead>
+                        <th class="enrollTableHeader">Naam</th>
+                        <th class="enrollTableHeader">klas</th>
+                        <th class="enrollTableHeader">Opleiding</th>
+                        <th class="enrollTableHeader">Aantal uur</th>
+
+                        {% for userEvent in event.UserEvents %}
+                            <tr>
+                                <td style="width: 20%">{{ userEvent.user.firstName }} {{ userEvent.user.lastname }}</td>
+                                <td style="width: 5%;">{{ userEvent.user.klas.naam }} </td>
+                                <td style="width: 50%">{{ userEvent.user.opleiding.name }} </td>
+                                <td style="width: 25%">{{ userEvent.event.Aantaluur }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    <hr>
+                {% endfor %}
+
+                <!-- Add a button for saving the page as a PDF -->
+                <br>
+
+
+            {% else %}
+                <p>Voor de gekozen datums zijn er geen evenemten gevonden<br> Probeer een andere datum.</p>
+            {% endif %}
+        </div>
+        <button class="buttondiv1" onclick="savePageAsPDF()">Als PDF Opslaan</button>
+    </div>
+
+    <script>
+        function savePageAsPDF() {
+            // Open the print dialog
+            window.print();
+
+            // Add a delay to ensure the print dialog opens before executing the save PDF code
+            setTimeout(function() {
+                // Save the page as PDF
+                window.print();
+
+                // Close the window/tab if desired
+                // window.close();
+            }, 2000); // Adjust the delay as needed
+        }
+    </script>
+{% endblock %}

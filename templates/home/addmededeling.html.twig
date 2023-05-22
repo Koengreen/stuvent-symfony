@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Example Form{% endblock %}
+
+{% block body %}
+    <div class="about-text">
+    <h1>Mededeling toevoegen</h1>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="buttondiv1" type="submit">Mededeling toevoegen</button>
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

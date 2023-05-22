@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stuvent{% endblock %}
+{% block title %}Overzicht{% endblock %}
 
 
 {% block body %}
@@ -21,7 +21,11 @@
         </button>
         <button class="buttondiv1" onclick="window.location.href = '{{ path("adminpastEvents") }}'">Afgelopen events
         </button>
-        <button class="buttondiv3" onclick="window.location.href = '{{ path("unchecked_presences") }}'">Aanwezigheid
+        <button class="buttondiv3" onclick="window.location.href = '{{ path("aanwezigheid") }}'">Aanwezigheid
+        </button>
+        <button class="buttondiv2" onclick="window.location.href = '{{ path("enrollstudents") }}'">Schrijf studenten in</button>
+        <button class="buttondiv1" onclick="window.location.href = '{{ path("enrollklas") }}'">Klas Inschrijven</button>
+        <button class="buttondiv3" onclick="window.location.href = '{{ path("eventsbydate") }}'">Evenementen per datum
         </button>
     </div>
 
@@ -31,6 +35,7 @@
 
     {% for events in evt %}
         <div class="card">
+<a class="hyperlink" href={{ path("adminEventInfo", {id:events.id} ) }}>
             <div class="card-body">
                 <div class="image-border">
                     <img class="card-img-top" src="{{ events.image }}">
@@ -39,7 +44,7 @@
                 <h2 class="opleidingtype">{{ events.opleiding }}</h2>
                 <h3>{{ events.date|date('D d M H:i') }}</h3>
                 <h3>{{ events.enddate|date('D d M H:i') }}</h3>
-                <a class="hyperlink" href={{ path("adminEventInfo", {id:events.id} ) }}>Meer informatie</a>
+                </a>
                 <a href=/admin{{ path("more_info", {id:events.id} ) }}/remove>
                     <div class="middle trash-can tiny" >
                         <div class="top">
@@ -53,9 +58,9 @@
                         </div>
                     </div>
                 </a>
+
             </div>
         </div>
-        <script> </script>
     {% endfor %}
 
 {% endblock %}

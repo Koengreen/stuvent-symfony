@@ -4,71 +4,13 @@
 
 
 {% block body %}
-    <div class="about-text" >
-    <h2>Aanwezigheid</h2>
+    <div class="about-text">
+    <h1>Aanwezigheid</h1>
         <hr>
 
-        {% for event, userEventsByEvent in userEvents  %}
-            <button class="accordion"> {{ userEventsByEvent.event.title }}</button>
-
-            <div class="panel">
-                <form method="POST" action="{{ path('save', {'event_id': userEventsByEvent.event.id}) }}">
-                    <table>
-                        <thead>
-                        <tr>
-                            <th class="enrollTableHeader">Studentnummer</th>
-                            <th class="enrollTableHeader">Naam</th>
-                            <th class="enrollTableHeader">Opleiding</th>
-                            <th class="enrollTableHeader">Presentie</th>
-                            <th class="enrollTableHeader">Rating</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>{{ userEventsByEvent.user.studentnumber }}</td>
-                            <td>{{ userEventsByEvent.user.lastName }} , {{ userEventsByEvent.user.firstName }}</td>
-                            <td>{{ userEventsByEvent.user.opleiding.name }}</td>
-                            <td>
-                                <select name="present[{{ userEventsByEvent.user.id }}]">
-                                    <option value="Present">Present</option>
-                                    <option value="Absent">Absent</option>
-                                </select>
-                            </td>
-
-                            </td>
-                            <td>
-                                <select name="rating[{{ userEventsByEvent.user.id }}]">
-                                    <option value="">Select</option>
-                                    <option value="O">O</option>
-                                    <option value="V">V</option>
-                                    <option value="G">G</option>
-                                </select>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <button type="submit">Save</button>
-                </form>
-            </div>
-        {% endfor %}
+    {% for event in evt %}
+        <h3><a href="/admin/presences/event/{{ event.id }}">{{ event.title }} - {{ event.date|date(' d M H:i') }} tot {{ event.enddate|date(' d M H:i') }}</a></h3><br>
+    {% endfor %}
 
     </div>
-    <script>
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-            acc[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var panel = this.nextElementSibling;
-                if (panel.style.display === "block") {
-                    panel.style.display = "none";
-                } else {
-                    panel.style.display = "block";
-                }
-            });
-        }
-    </script>
-
-
 {% endblock %}

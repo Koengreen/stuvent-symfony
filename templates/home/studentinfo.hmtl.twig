@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mijn Docentenprofiel{% endblock %}
+{% block title %}Studenten informatie {% endblock %}
 
 {% block body %}
 <div class="about-text">
@@ -30,7 +30,15 @@
                             <tr>
                                 <th width="30%">Klas</th>
                                 <td width="2%"></td>
-                                <td>{{ profile.klas.naam }}</td>
+                            <td>
+                                {% if profile.klas is not null %}
+                                {{ profile.klas.naam }}
+                                {% else %}
+                                    Selecteer een klas
+                                {% endif %}
+
+
+                            </td>
                             </tr>
                             <tr>
                             </tr>
@@ -42,12 +50,31 @@
                             <tr>
                                 <th width="30%">Opleiding</th>
                                 <td width="2%"></td>
-                                <td>Leisure</td>
+                                <td>{{ profile.opleiding }}</td>
                             </tr>
                             <tr>
                                 <th width="30%">Email</th>
                                 <td width="2%"></td>
                                 <td>{{ profile.email }}</td>
+                            </tr>
+
+                            <tr>
+                                <th width="30%">Wachtwoord</th>
+                                <td width="2%"></td>
+                                <td>
+                                    <button class="buttondiv2"><a class="editprofile"
+                                                                  href="/change-mypassword/{{ profile.id }}">
+                                            Aanpassen</a></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th width="30%"></th>
+                                <td width="2%"></td>
+                                <td>
+                                    <button class="buttondiv1"><a class="editprofile"
+                                                                  href="/editprofile/{{ profile.id }}">
+                                            Gegevens aanpassen</a></button>
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -55,15 +82,17 @@
 
                 <br>
                 <br>
+
                 <h1>Inschrijvingen :</h1>
                 <table id="eventtable" class='event-table' style="width:100%">
 
                     <tr class="myprofile">
                         <th class="enrollTableHeader">Naam</th>
                         <th class="enrollTableHeader">Bedrijf</th>
-                        <th class="enrollTableHeader">Aantal uur</th>
                         <th class="enrollTableHeader">Startdatum</th>
                         <th class="enrollTableHeader">Einddatum</th>
+                        <th class="enrollTableHeader">Uren</th>
+                        <th class="enrollTableHeader">Aanwezigheid</th>
                         <th class="enrollTableHeader">Beoordeling</th>
                         <th class="enrollTableHeader">Meer info</th>
                     </tr>
@@ -73,11 +102,16 @@
                         <tr>
                             <td>{{ events.event.title }}</td>
                             <td>{{ events.event.company }}</td>
-                            <td class="aantalUur">{{ events.event.aantalUur }}</td>
                             <td>{{ events.event.date|date('d M H:i') }}</td>
                             <td>{{ events.event.enddate|date('d M H:i') }}</td>
-                            <td>{{ events.rating }}</td>
-                            <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}">info</td>
+                            <td>{{ events.event.aantaluur }}</td>
+                            {% if events.presence == false %}
+                                <td> <a style="color: black" href="{{ path('edit_userevents_presence', {'id': events.id}) }}">Afwezig </a></td>
+                            {% else %}
+                                <td> <a style="color: black" href="{{ path('edit_userevents_presence', {'id': events.id}) }}">Aanwezig </a></td>
+                            {% endif %}
+                            <td> <a style="color: black" href="{{ path('edit_userevents_rating', {'id': events.id}) }}">{{ events.rating }} </a></td>
+                            <td id=""><a class="moreinfolinks" href="/{{ events.event.id }}">info</a></td>
                         </tr>
 
 
@@ -102,8 +136,9 @@
                 </script>
                 <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Exporteren naar excel</button>
                 <br>
-                <button class="buttondiv2" onclick="totalsum()">Bereken</button>
-                <h1 id="result">.</h1>
+
+                <br>
+                <h1 id="result">Aantal uur: {{ totalWorkHours }}</h1>
             </div>
         </div>
 

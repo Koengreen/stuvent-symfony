@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stuvent{% endblock %}
+{% block title %}Afgelopen evenementen{% endblock %}
 
 
 {% block body %}
@@ -32,6 +32,21 @@
                 <h2 class="opleidingtype">{{ events.opleiding }}</h2>
                 <h3>{{ events.date|date('D d M H:i') }}</h3>
                 <h3>{{ events.enddate|date('D d M H:i') }}</h3>
+                {% if is_granted('ROLE_beheerder') %}
+                <a href=/admin{{ path("more_info", {id:events.id} ) }}/remove>
+                    <div class="middle trash-can tiny" >
+                        <div class="top">
+                            <div class="handle"></div>
+                            <div class="base"></div>
+                        </div>
+                        <div class="body">
+                            <div class="line"></div>
+                            <div class="line second"></div>
+                            <div class="line third"></div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </a>
             </div>
         </div>
     {% endfor %}

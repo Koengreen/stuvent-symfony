@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Leerling inschrijven{% endblock %}
+{% block body %}
+    <div class="about-text">
+    <h1>Student inschrijven</h1>
+        <hr>
+
+    {{ form_start(form) }}
+    {{ form_row(form.user, {
+        label: 'Student'
+    }) }}
+    {{ form_row(form.event , {
+        label: 'Evenement'
+    }) }}
+        {{ form_row(form.save, {
+            'attr': {'class': 'buttondiv1'}
+        }) }}
+    {{ form_end(form) }}
+</div>
+{% endblock %}
+

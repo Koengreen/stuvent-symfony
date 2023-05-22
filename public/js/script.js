@@ -2,7 +2,7 @@ var cls = document.getElementById("eventtable").getElementsByTagName("td");
 function totalsum() {
     var sum = 0;
     for (var i = 0; i < cls.length; i++) {
-        if (cls[i].className == "aantalUur") {
+        if (cls[i].className === "aantalUur") {
             sum += isNaN(cls[i].innerHTML) ? 0 : parseInt(cls[i].innerHTML);
         }
     }
@@ -24,13 +24,19 @@ function carousel() {
     setTimeout(carousel, 2000);
 }
 
-function exportReportToExcel() {
-    {
-        TableToExcel.convert(cls[0], {
-            name: `file.xlsx`,
-            sheet: {
-                name: 'Sheet 1'
-            }
-        });
+function ExportToExcel(type, fn, dl) {
+    var elt = document.getElementById('inschrijvingenTabel');
+    var wb = XLSX.utils.table_to_book(elt, {sheet: "sheet1"});
+    return dl ?
+        XLSX.write(wb, {bookType: type, bookSST: true, type: 'base64'}) :
+        XLSX.writeFile(wb, fn || ('Inschrijvingen {{evt.title }}.' + (type || 'xlsx')));
+}
+
+function JeachterlijkeJavascriptmoeder() {
+    if (confirm("Weet u zeker dat u dit item wilt verwijderen??")) {
+        // Code to delete the item goes here
+        return true;
+    } else {
+        return false;
     }
 }

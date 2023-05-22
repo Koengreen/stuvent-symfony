@@ -83,7 +83,7 @@ class UserEvents
 
     public function setPresence(?bool $presence): self
     {
-        $this->presence = $presence;
+        $this->presence  = $presence;
 
         return $this;
     }

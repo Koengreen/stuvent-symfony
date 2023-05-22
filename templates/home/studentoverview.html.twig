@@ -1,65 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stuvent{% endblock %}
-
+{% block title %}Studenten overzicht{% endblock %}
 
 {% block body %}
 
-        <script>
-            function searchname() {
-                let input, filter, cards, cardContainer, title, i;
-                input = document.getElementById("searchbyName");
-                filter = input.value.toUpperCase();
-                cardContainer = document.getElementById("grid");
-                cards = cardContainer.getElementsByClassName("card");
-                for (i = 0; i < cards.length; i++) {
-                    title = cards[i].querySelector("h1");
-                    if (title.innerText.toUpperCase().indexOf(filter) > -1) {
-                        cards[i].style.display = "";
-                    } else {
-                        cards[i].style.display = "none";
-                    }
+    <script>
+        function searchname() {
+            let input, filter, cards, cardContainer, title, i;
+            input = document.getElementById("searchbyName");
+            filter = input.value.toUpperCase();
+            cardContainer = document.getElementById("grid");
+            cards = cardContainer.getElementsByClassName("card");
+            for (i = 0; i < cards.length; i++) {
+                title = cards[i].querySelector("h1");
+                if (title.innerText.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
                 }
             }
-
+        }
     </script>
 
     <div class="about-text">
         <h1>Klassen:</h1>
         {% for klassen in klas %}
-            <a href="/users/klas/{{ klassen.id }}">{{ klassen.naam }}</a>
+            <a style="color: black" href="/users/klas/{{ klassen.id }}">{{ klassen.naam }}</a>
         {% endfor %}
+        <button class="buttondiv1" onclick="window.location.href = '{{ path("add_klas") }}'">Klas toevoegen</button>
+
+        <button class="buttondiv2" onclick="window.location.href = '{{ path("klas_delete") }}'">Klas Verwijderen</button>
         <hr>
         <input type="text" id="searchbyName" class="form-control" onkeyup="searchname()" placeholder="Zoek op Naam">
     </div>
 
-
-
-
-
     <div id="grid">
-
-
         {% for user in users %}
             {% if 'ROLE_ADMIN' not in user.roles %}
                 {% if 'ROLE_beheerder' not in user.roles %}
                     <div class="card">
                         <div class="card-body">
+                            <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>
                             <div class="image-border">
-                                <img class="card-img-top" src="{{ user.image }}">
+                                <img class="card-img-top" src="/{{ user.image }}">
                             </div>
                             <h1 class="card-title">{{ user.firstName }} {{ user.lastName }}</h1>
-                            <h1>{{ user.klas.naam }}</h1>
+                            {% if user.klas is not null %}
+                                <h1>{{ user.klas.naam }}</h1>
+                            {% endif %}
                             <h3>{{ user.opleiding }}</h3>
                             <h3>Stage uren: {{ totalWorkHours[user.id] }}</h3>
-                            <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>Meer informatie over
-                                student</a>
+                           </a><br>
+                            {# hieronder een knop met rechten aanpassen #}
+                             {#  <form method="post" action="{{ path('set_role_admin', {'userId': user.id}) }}">
+                                <input type="hidden" name="_token" value="{{ csrf_token('set_role_admin') }}" />
+                                <button type="submit" class="buttondiv1">Maak Docent</button>
+                            </form>#}
+                            <form onclick="return JeachterlijkeJavascriptmoeder()" action="{{ path('delete_user', { 'id': user.id }) }}" method="post">
+                                <button type="submit" class="buttondiv2">Verwijder</button>
+                            </form>
                         </div>
                     </div>
                 {% endif %}
             {% endif %}
         {% endfor %}
-        {% block footer %}
-        {% endblock %}
+    </div>
+
+    {% block footer %}
+    {% endblock %}
 
 {% endblock %}

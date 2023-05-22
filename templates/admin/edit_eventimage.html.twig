@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Event Image{% endblock %}
+
+{% block body %}
+    <div class="about-text">
+    <h1>Afbeelding wijzigen</h1>
+    <hr>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button class="buttondiv1" type="submit">Bewaar</button>
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

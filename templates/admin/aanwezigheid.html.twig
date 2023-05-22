@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aanwezigheid{% endblock %}
+
+{% block content %}
+    <div class="about-text">
+    <h1>Events with False Presence</h1>
+
+    {% if userEvents is not empty %}
+        <h1>Aanwezigheid</h1>
+        <ul>
+            {% for userEvent in userEvents %}
+                <li>{{ userEvent.event.title }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No events found.</p>
+    {% endif %}
+    </div>
+{% endblock %}

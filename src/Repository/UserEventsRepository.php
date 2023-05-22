@@ -27,6 +27,15 @@ use Doctrine\Persistence\ManagerRegistry;
     return $userEventsNotAttending;
     }
 
+        public function getUserEventspresence()
+        {
+            $qb = $this->createQueryBuilder('e');
+            $qb->where('e.presence IS NULL');
+            $userEventsNotAttending = $qb->getQuery()->getResult();
+
+            return $userEventsNotAttending;
+        }
+
     public function save(UserEvents $entity, bool $flush = false): void
     {
     $this->getEntityManager()->persist($entity);

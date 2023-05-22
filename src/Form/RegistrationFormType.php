@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Entity\Klas;
 use App\Entity\Opleiding;
 use App\Entity\User;
@@ -34,7 +36,15 @@ class RegistrationFormType extends AbstractType
 //                    'Yes' => true,
 //                    'No' => false,
                 ])
-            ->add('email')
+                ->add('email', EmailType::class, [
+                    'constraints' => [
+                        new Assert\Email(),
+                        new Assert\Regex([
+                            'pattern' => '/@(student\.)?rocmondriaan\.nl$/',
+                            'message' => 'Gebruik uw school email.',
+                        ]),
+                    ],
+                ])
             ->add('telefoonnummer')
             ->add('studentNumber')
             ->add('klas', EntityType::class, [

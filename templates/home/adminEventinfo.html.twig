@@ -1,68 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stuvent{% endblock %}
+{% block title %}Admin evenement info{% endblock %}
 
 
 {% block body %}
-<div class="about" xmlns="http://www.w3.org/1999/html">
+<div class="about">
     <div class="about-text">
         <br>
         <h1> {{ evt.title }}</h1>
+        <a href="{{ path('edit_event', {'id': evt.id, 'field': 'title'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
         <hr>
         <img class="event-img img-fluid" src="/{{ evt.image }}">
         <br>
-        <br><br>
 
-        <h1>Over het evenement</h1> <br>
-        <h1>Bedrijf:</h1><br>
-        <h3>{{ evt.company }}</h3>
-        <hr>
-        <h1>Beschrijving:</h1>
-        <p>{{ evt.description }}</p>
-        <hr>
-        <h1>Datum:</h1>
-        <h3>{{ evt.date|date('d M H:i') }}</h3>
-        <h3>{{ evt.enddate|date('d M H:i') }}</h3>
-        <hr>
-        <h1>Opleiding:</h1><br>
-        <h3>{{ evt.opleiding }}</h3>
-        <hr>
+        <br>
+        <button class="buttondiv1"><a class="editprofile"
+                                      href="/edit/eventimage/{{ evt.id }}">
+                Afbeelding wijzigen</a></button>
+        <br>
+        <br>
+        <br>
+
+        <div class="editable">
+            <h1>Over het evenement</h1>
+            <hr>
+            <br>
+            <h1>Bedrijf:</h1>
+            <br>
+            <h3>{{ evt.company }}</h3>
+            <a href="{{ path('edit_event', {'id': evt.id, 'field': 'company'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
+            <hr>
+            <h1>Deelnemers:</h1>
+
+            <h3>Aantal deelnemers: {{ evt.attendees }}</h3>
+            <a href="{{ path('edit_event', {'id': evt.id, 'field': 'attendees'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
+            <hr>
+            <h1>Beschrijving:</h1>
+            <p>{{ evt.description }}</p>
+            <a href="{{ path('edit_beschrijving', {'id': evt.id, 'field': 'description'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
+            <hr>
+            <h1>Datum:</h1>
+            <h3>{{ evt.date|date('d M H:i') }}</h3>
+            <h3>{{ evt.enddate|date('d M H:i') }}</h3>
+            <a href="{{ path('edit_datum', {'id': evt.id, 'field': 'description'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
+            <hr>
+            <h1>Opleiding:</h1>
+            <br>
+            <h3>{{ evt.opleiding }}</h3>
+            <a href="{{ path('edit_opleiding', {'id': evt.id, 'field': 'opleiding'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
+            <hr>
+            <h1>Begeleider:</h1>
+            <h3>{{ evt.concomitance }}</h3>
+            <a href="{{ path('edit_event', {'id': evt.id, 'field': 'concomitance'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
+            <hr>
+            <h1>Mededeling:</h1>
+            {% for mededeling in evt.Mededelings %}
+                <div style="background-color: white; border:2px solid black" class="mededeling">
+                    <br>
+                    <h3 style="text-decoration: underline">{{ mededeling.date|date('d m Y h:s')  }} {{ mededeling.title }}</h3>
+                    <p>{{ mededeling.text }}</p>
+                </div>
+            {% endfor %}
+            <hr>
         <h1>Inschrijvingen:</h1>
         <br>
         <div class="row">
-        <table class="event-table" id="inschrijvingenTabel">
-            <thead>
-            <tr>
-                <th class="enrollTableHeader">Naam</th>
-                <th class="enrollTableHeader">Email</th>
-                <th class="enrollTableHeader">Student nummer</th>
-                <th class="enrollTableHeader" >Telefoonnummer</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for user in users %}
+            <table class="event-table" id="inschrijvingenTabel">
+                <thead>
                 <tr>
-                    <td>{{ user.firstName }} {{ user.lastName }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.studentNumber }}</td>
-                    <td>{{ user.Telefoonnummer }}</td>
+                    <th class="enrollTableHeader">Naam</th>
+                    <th class="enrollTableHeader">Email</th>
+                    <th class="enrollTableHeader">Student nummer</th>
+                    <th class="enrollTableHeader">Telefoonnummer</th>
+                    <th class="enrollTableHeader">Acties</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.firstName }} {{ user.lastName }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.studentNumber }}</td>
+                        <td>{{ user.telefoonnummer }}</td>
+                            <td><a onclick="return JeachterlijkeJavascriptmoeder()" href="{{ path('delete_user_from_event', { 'event_id': evt.id, 'user_id': user.id }) }}" class="btn btn-danger">&#10060;</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
 
-        <script>
-
-            function ExportToExcel(type, fn, dl) {
-                var elt = document.getElementById('inschrijvingenTabel');
-                var wb = XLSX.utils.table_to_book(elt, {sheet: "sheet1"});
-                return dl ?
-                    XLSX.write(wb, {bookType: type, bookSST: true, type: 'base64'}) :
-                    XLSX.writeFile(wb, fn || ('Inschrijvingen {{evt.title }}.' + (type || 'xlsx')));
-            }
-
-        </script>
         <br>
         <button class="buttondiv1" onclick="ExportToExcel('xlsx')">Export table to excel</button>
 

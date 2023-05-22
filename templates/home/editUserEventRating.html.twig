@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="about-text">
+    <h1>Beoordeling wijzigen</h1>
+        <hr>
+
+    {{ form_start(form) }}
+
+    {{ form_label(form.rating, 'Beoordeling') }}
+    {{ form_widget(form.rating) }}
+
+        <br>
+    {{ form_widget(form.save, { 'label': 'Bewaar' }) }}
+
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

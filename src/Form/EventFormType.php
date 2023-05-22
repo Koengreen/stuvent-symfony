@@ -2,6 +2,7 @@
 
 namespace App\Form;
 use App\Entity\Opleiding;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use App\Entity\User;
 use App\Repository\OpleidingRepository;
@@ -61,11 +62,9 @@ class EventFormType extends AbstractType
             ])
             ->add('niveau', ChoiceType::class, [
                 'choices' => [
-                    '1' => 1,
-                    '2' => 2,
-                    '3' => 3,
-                    '4' => 4,
-                    '5' => 5,
+                    'Beginner' => 'Beginner',
+                    'Intermediate' => 'Intermediate',
+                    'Advanced' => "Advanced",
                 ],
             ])
 
@@ -78,6 +77,8 @@ class EventFormType extends AbstractType
                 'widget' => 'single_text',
                 'input' => 'datetime'
             ])
+
+            ->add('concomitance')
 
             ->add('aantalUur')
             ->add('image', FileType::class, [

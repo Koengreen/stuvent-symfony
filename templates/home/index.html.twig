@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stuvent{% endblock %}
+{% block title %}Overzicht{% endblock %}
 
 
 {% block body %}
@@ -30,19 +30,19 @@
 
             {% for events in evt %}
 
+
                 <div class="card ">
+                    <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>
                     <div class="card-body">
                         <div class="image-border">
-                            <img class="card-img-top" data-toggle="collapse" src="{{ events.image }}">
+                            <img class="card-img-top" data-toggle="collapse" src="/{{ events.image }}">
                         </div>
                         <h1 class="card-title">{{ events.title }}</h1>
                         <h2 class="opleidingtype">{{ events.opleiding }}</h2>
                         <h3>Deelnemers {{ totalAttendees[events.id] }}/{{ events.attendees }}</h3>
                         <h3>{{ events.date|date('D d M H:i') }}</h3>
                         <h3>{{ events.enddate|date('D d M H:i') }}</h3>
-
-                        <a class="hyperlink" href={{ path("more_info", {id:events.id} ) }}>Meer informatie en
-                            inschrijven</a>
+                    </a>
                     </div>
                 </div>
 
@@ -54,7 +54,8 @@
             </button>
         </div>
     </section>
-    {% block footer %}
-    {% endblock %}
+
 
 {% endblock %}
+    {% block footer %}
+    {% endblock %}

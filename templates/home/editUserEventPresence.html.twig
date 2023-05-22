@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit User Event Presence{% endblock %}
+
+{% block body %}
+    <div class="about-text">
+    <h1>Presentie aanpassen</h1>
+        <hr>
+    {{ form_start(form) }}
+    {{ form_row(form.presence, { 'label': 'Presentie' }) }}
+        <br>
+    {{ form_row(form.save) }}
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

@@ -41,7 +41,7 @@ class Event
     private ?Opleiding $opleiding = null;
 
     #[ORM\Column]
-    private ?int $niveau = null;
+    private ?string $niveau = null;
 
     #[ORM\Column(length: 255)]
     private ?string $attendees = null;
@@ -50,9 +50,16 @@ class Event
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $enddate = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $concomitance = null;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: Mededeling::class)]
+    private Collection $mededelings;
+
     public function __construct()
     {
         $this->UserEvents = new ArrayCollection();
+        $this->mededelings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,12 +186,12 @@ class Event
         return $this;
     }
 
-    public function getNiveau(): ?int
+    public function getNiveau(): ?string
     {
         return $this->niveau;
     }
 
-    public function setNiveau(int $niveau): self
+    public function setNiveau(string $niveau): self
     {
         $this->niveau = $niveau;
 
@@ -211,6 +218,48 @@ class Event
     public function setEnddate(\DateTimeInterface $enddate): self
     {
         $this->enddate = $enddate;
+
+        return $this;
+    }
+
+    public function getConcomitance(): ?string
+    {
+        return $this->concomitance;
+    }
+
+    public function setConcomitance(string $concomitance): self
+    {
+        $this->concomitance = $concomitance;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mededeling>
+     */
+    public function getMededelings(): Collection
+    {
+        return $this->mededelings;
+    }
+
+    public function addMededeling(Mededeling $mededeling): self
+    {
+        if (!$this->mededelings->contains($mededeling)) {
+            $this->mededelings->add($mededeling);
+            $mededeling->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMededeling(Mededeling $mededeling): self
+    {
+        if ($this->mededelings->removeElement($mededeling)) {
+            // set the owning side to null (unless already changed)
+            if ($mededeling->getEvent() === $this) {
+                $mededeling->setEvent(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Evenement aanpassen{% endblock %}
+
+{% block body %}
+    <h1>Edit Event</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-primary">Save changes</button>
+    {{ form_end(form) }}
+
+    <a href="{{ path('more_info', {'id': evt.id}) }}">Cancel</a>
+{% endblock %}

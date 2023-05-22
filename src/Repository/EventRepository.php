@@ -38,6 +38,16 @@ class EventRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public function getEventsByDateRange(\DateTimeInterface $startDate, \DateTimeInterface $endDate): array
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.date BETWEEN :start_date AND :end_date')
+            ->setParameter('start_date', $startDate)
+            ->setParameter('end_date', $endDate)
+            ->orderBy('e.date', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 
 //    /**
 //     * @return Event[] Returns an array of Event objects

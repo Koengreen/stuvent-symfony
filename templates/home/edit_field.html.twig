@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aanpassen veld{% endblock %}
+{% block body %}
+    <div class="about-text">
+    <h1>Aanpassen Veld</h1>
+    <hr>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

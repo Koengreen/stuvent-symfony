@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stuvent{% endblock %}
+{% block title %}Beheerderpagina{% endblock %}
 
 
 {% block body %}
@@ -13,18 +13,25 @@
         <h1 class="outlineBold">Aankomende Events: </h1>
         <br>
         <hr>
-        <button class="buttondiv1" onclick="window.location.href = '{{ path("add_events") }}'">Voeg events toe</button>
-        <button class="buttondiv3" onclick="window.location.href = '{{ path("shownotaccepted") }}'">Zie verzoeken (<span
+        <button style="width: 15%" class="buttondiv1" onclick="window.location.href = '{{ path("add_events") }}'">Voeg events toe</button>
+        <button style="width: 15%" class="buttondiv3" onclick="window.location.href = '{{ path("shownotaccepted") }}'">Zie verzoeken (<span
                     onclick="" class="requests">{{ notAccepted }}</span>)
         </button>
-        <button class="buttondiv2" onclick="window.location.href = '{{ path("studentoverview") }}'">Studentenoverzicht
+        <button style="width: 15%" class="buttondiv2" onclick="window.location.href = '{{ path("studentoverview") }}'">Studentenoverzicht
         </button>
-        <button class="buttondiv1" onclick="window.location.href = '{{ path("adminpastEvents") }}'">Afgelopen evenementen
+        <button style="width: 15%" class="buttondiv1" onclick="window.location.href = '{{ path("adminpastEvents") }}'">Afgelopen evenementen
         </button>
-        <button class="buttondiv3" onclick="window.location.href = '{{ path("add_admin") }}'">Docenten toevoegen
+        <button style="width: 15%" class="buttondiv3" onclick="window.location.href = '{{ path("add_admin") }}'">Docenten toevoegen
         </button>
-        <button class="buttondiv2" onclick="window.location.href = '{{ path("Showteachers") }}'">Docentenoverzicht
+        <br>
+        <button style="width: 15%" class="buttondiv2" onclick="window.location.href = '{{ path("Showteachers") }}'">Docentenoverzicht
         </button>
+        <button style="width: 15%" class="buttondiv1" onclick="window.location.href = '{{ path("enrollstudents") }}'">Schrijf studenten in</button>
+        <button style="width: 15%" class="buttondiv3" onclick="window.location.href = '{{ path("enrollklas") }}'">Klas Inschrijven</button>
+        <button style="width: 15%" class="buttondiv2" onclick="window.location.href = '{{ path("aanwezigheid") }}'">Aanwezigheid</button>
+            <button style="width: 15%" class="buttondiv1" onclick="window.location.href = '{{ path("eventsbydate") }}'">Evenementen per datum</button>
+
+
     </div>
     <div id="grid">
 
@@ -32,6 +39,7 @@
 
     {% for events in evt %}
         <div class="card">
+<a class="hyperlink" href={{ path("adminEventInfo", {id:events.id} ) }}>
             <div class="card-body">
                 <div class="image-border">
                     <img class="card-img-top" src="{{ events.image }}">
@@ -40,8 +48,8 @@
                 <h2 class="opleidingtype">{{ events.opleiding }}</h2>
                 <h3>{{ events.date|date('D d M H:i') }}</h3>
                 <h3>{{ events.enddate|date('D d M H:i') }}</h3>
-                <a class="hyperlink" href={{ path("adminEventInfo", {id:events.id} ) }}>Meer informatie</a>
-                <a href=/admin{{ path("more_info", {id:events.id} ) }}/remove>
+                </a>
+                <a onclick="return confirmDelete()" href=/admin{{ path("more_info", {id:events.id} ) }}/remove>
                     <div class="middle trash-can tiny" >
                         <div class="top">
                             <div class="handle"></div>
@@ -54,9 +62,10 @@
                         </div>
                     </div>
                 </a>
+
+
             </div>
         </div>
-        <script> </script>
     {% endfor %}
 
 {% endblock %}

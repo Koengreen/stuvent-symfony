@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Klas inschrijven{% endblock %}
+
+{% block body %}
+    <div class="about-text">
+    <h1>Klas Inschrijven</h1>
+    <hr>
+    {{ form_start(form) }}
+    {{ form_row(form.klas) }}
+    {{ form_row(form.event) }}
+    {{ form_row(form.submit) }}
+    {{ form_end(form) }}
+    </div>
+{% endblock %}

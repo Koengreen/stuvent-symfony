@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Stuvent{% endblock %}
+{% block title %}Evenement toevoegen{% endblock %}
 
 
 {% block body %}
@@ -15,11 +15,15 @@
         {{ form_row(eventform.title, {
             label: 'Evenement Naam'
         }) }}
+
         {{ form_row(eventform.description, {
             label: 'Beschrijving'
         }) }}
         {{ form_row(eventform.image, {
                 label: 'Afbeelding'
+        }) }}
+        {{ form_row(eventform.concomitance, {
+            label: "Begeleider"
         }) }}
         {{ form_row(eventform.opleiding, {
             label: 'Opleiding'

@@ -39,10 +39,18 @@
             <div class="card">
                 <div class="card-body">
                     <div class="image-border">
-                        <img class="card-img-top" src="{{ user.image }}">
+                        <img class="card-img-top" src="/{{ user.image }}">
                     </div>
                     <h1>{{ user.firstName }} {{ user.lastName }}</h1>
                     <a class="hyperlink" href={{ path("studentinfo", {id:user.id} ) }}>Meer informatie over Docent</a>
+                    {# hieronder een knop met rechten aanpassen #}
+                    {# <form method="post" action="{{ path('set_role_user', {'userId': user.id}) }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('set_role_user') }}" />
+                        <button class="buttondiv1" type="submit" class="btn btn-primary">Maak leerling </button><br>
+                    </form> #}
+            <form onclick="return confirmDelete()" action="{{ path('delete_user', { 'id': user.id }) }}" method="post">
+                <button class="buttondiv2" type="submit" >Verwijderen</button>
+            </form>
                 </div>
             </div>
         {% endif %}

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% block title %} Profiel aanpassen{% endblock %}
+
+{% block body %}
+    <div class="about-text">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <h2 class="text-center mb-4">Profiel aanpassen</h2>
+                    <hr>
+                    <form method="post">
+
+                        {{ form_start(form) }}
+                        {{ form_label(form.firstName, 'Voornaam') }}
+                        {{ form_widget(form.firstName, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_label(form.lastName, 'Achternaam') }}
+                        {{ form_widget(form.lastName, {'attr': {'class': 'form-control'}}) }}
+
+
+                        {{ form_label(form.telefoonnummer, 'Telefoonnummer') }}
+                        {{ form_widget(form.telefoonnummer, {'attr': {'class': 'form-control'}}) }}
+
+
+                        {{ form_label(form.opleiding, 'Opleiding') }}
+                        {{ form_widget(form.opleiding, {'attr': {'class': 'form-control'}}) }}
+
+
+                        {{ form_label(form.email, 'Email') }}
+                        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+
+
+
+                        {{ form_label(form.studentNumber, 'Studentennummer') }}
+                        {{ form_widget(form.studentNumber, {'attr': {'class': 'form-control'}}) }}
+
+
+                        {{ form_label(form.klas, 'Klas') }}
+                        {{ form_widget(form.klas, {'attr': {'class': 'form-control'}}) }}
+
+                        <br>
+
+                        <button type="submit" class="btn btn-primary btn-block">Aanpassen</button>
+
+                        {{ form_end(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
