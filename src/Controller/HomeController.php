@@ -22,6 +22,9 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
@@ -59,6 +62,7 @@ use App\Form\RegistrationFormType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -95,29 +99,57 @@ class HomeController extends AbstractController
         $this->myClass = $myClass;
     }
 
+    #[Route('/download/{filename}', name: 'download_medelink')]
+    public function downloadMedelink(string $filename): BinaryFileResponse
+    {
+        $filePath = $this->getParameter('kernel.project_dir') . '/public/img/profile-img/' . $filename;
+
+        return new BinaryFileResponse($filePath, 200, [], true, ResponseHeaderBag::DISPOSITION_ATTACHMENT);
+    }
+
     #[Route('/add/Mededeling', name: 'createMededeling')]
-    public function createMededeling(Request $request, EntityManagerInterface $entityManager): Response
+    public function createMededeling(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $today = new \DateTime();
         $mededeling = new Mededeling();
         $mededeling->setDate($today);
-        $form = $this->createForm(MededelingformType::class, $mededeling);
 
+        $form = $this->createForm(MededelingFormType::class, $mededeling);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
+            // Handle file upload
+            $uploadedFile = $form->get('file')->getData();
+            if ($uploadedFile instanceof UploadedFile) {
+                $destination = $this->getParameter('kernel.project_dir') . '/public/img/profile-img';
+                $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$uploadedFile->guessExtension();
+
+                try {
+                    $uploadedFile->move(
+                        $destination,
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // Handle file upload error
+                    // You can add appropriate error handling based on your application's needs
+                }
+
+                $mededeling->setFile($newFilename);
+            }
+
             $entityManager->persist($mededeling);
             $entityManager->flush();
 
             // Redirect to the student overview page
-            return $this->redirectToRoute('studentoverview');
-
+            return $this->redirectToRoute('blog_list');
         }
 
         return $this->render('home/addmededeling.html.twig', [
             'form' => $form->createView(),
         ]);
     }
-
 
 
     #[Route('/enrollklas', name: 'enrollklas')]
@@ -1214,7 +1246,7 @@ class HomeController extends AbstractController
         $userEventRepo = $doctrine->getRepository(UserEvents::class);
         $userEvent = $userEventRepo->findOneBy(['event' => $event_id, 'user' => $user_id]);
 
-        if (!$userEvent) {
+        if ($userEvent === null) {
             throw $this->createNotFoundException('User event not found.');
         }
 
@@ -1226,6 +1258,18 @@ class HomeController extends AbstractController
     }
 
 
+    #[Route('/admin/user/{event_id}/event/{user_id}/delete', name: 'delete_event_from_user')]
+    public function delete_event_from_user(Request $request, EntityManagerInterface $entityManager, int $user_id, int $event_id): Response
+    {
+        $userEventRepo = $entityManager->getRepository(UserEvents::class);
+        $userEvent = $userEventRepo->findOneBy(['event' => $event_id, 'user' => $user_id]);
+        dd($userEvent);
+
+        $entityManager->remove($userEvent);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('studentinfo', ['id' => $user_id]);
+    }
 
 
     #[Route('/{id}', name: 'more_info')]

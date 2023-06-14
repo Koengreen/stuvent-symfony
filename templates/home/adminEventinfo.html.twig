@@ -24,9 +24,7 @@
         <div class="editable">
             <h1>Over het evenement</h1>
             <hr>
-            <br>
             <h1>Bedrijf:</h1>
-            <br>
             <h3>{{ evt.company }}</h3>
             <a href="{{ path('edit_event', {'id': evt.id, 'field': 'company'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
             <hr>
@@ -45,7 +43,6 @@
             <a href="{{ path('edit_datum', {'id': evt.id, 'field': 'description'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
             <hr>
             <h1>Opleiding:</h1>
-            <br>
             <h3>{{ evt.opleiding }}</h3>
             <a href="{{ path('edit_opleiding', {'id': evt.id, 'field': 'opleiding'}) }}" class="edit-btn buttondiv2">Aanpassen</a>
             <hr>
@@ -55,11 +52,16 @@
             <hr>
             <h1>Mededeling:</h1>
             {% for mededeling in evt.Mededelings %}
-                <div style="background-color: white; border:2px solid black" class="mededeling">
-                    <br>
-                    <h3 style="text-decoration: underline">{{ mededeling.date|date('d m Y h:s')  }} {{ mededeling.title }}</h3>
-                    <p>{{ mededeling.text }}</p>
-                </div>
+            <div style="background-color: white; border:2px solid black" class="mededeling">
+                <br>
+                <h3 style="text-decoration: underline">{{ mededeling.date|date('d m Y h:s')  }} {{ mededeling.title }}</h3>
+                <p>{{ mededeling.text }}</p>
+                {% if mededeling.file is not null %}
+                    <h3>Bijlagen:</h3>
+                    <a class="jemoeder" href="{{ path('download_medelink', {'filename': mededeling.file}) }}"> {{ mededeling.file }}</a>
+                {% endif %}
+            </div>
+                <br>
             {% endfor %}
             <hr>
         <h1>Inschrijvingen:</h1>

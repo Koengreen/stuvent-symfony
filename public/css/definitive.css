@@ -13,7 +13,13 @@
     background-color: DarkSalmon;
     color: white;
 }
-s
+.downloadFile{
+    color: blueviolet;
+    text-decoration: underline;
+}
+.downloadFile:hover{
+    color:red;
+}
 
     /*nav bar*/
 img.aboutimg {

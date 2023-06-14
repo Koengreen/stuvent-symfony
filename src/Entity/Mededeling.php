@@ -26,6 +26,9 @@ class Mededeling
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $date = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $File = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Mededeling
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->File;
+    }
+
+    public function setFile(?string $File): self
+    {
+        $this->File = $File;
 
         return $this;
     }

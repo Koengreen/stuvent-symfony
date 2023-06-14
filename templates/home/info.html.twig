@@ -14,7 +14,7 @@
         <br><br>
 
         <h1>Over het evenement</h1> <br>
-        <h1>Bedrijf:</h1><br>
+        <h1>Bedrijf:</h1>
         <h3>{{ evt.company }}</h3>
         <hr>
         <h1>Beschrijving:</h1>
@@ -27,7 +27,7 @@
         <h1>Level:</h1>
         <h3>{{ evt.niveau }}</h3>
         <hr>
-        <h1>Opleiding:</h1><br>
+        <h1>Opleiding:</h1>
         <h3>{{ evt.opleiding }}</h3>
         <hr>
 
@@ -36,7 +36,7 @@
         <h3>{{ evt.concomitance }}</h3>
         <hr>
         <h1>Inschrijven:</h1>
-        <br>
+
 
         {% if is_granted('ROLE_USER') %}
             <a class="pastevents" href="/enroll/{{ evt.id }}">Klik hier om je in te schrijven</a>
@@ -52,7 +52,13 @@
                 <br>
             <h3 style="text-decoration: underline">{{ mededeling.date|date('d m Y h:s')  }} {{ mededeling.title }}</h3>
             <p>{{ mededeling.text }}</p>
+                {% if mededeling.file is not null %}
+                    <h2>Bijlagen</h2>
+                    <a style="color: blueviolet;" class="downloadFile" href="{{ path('download_medelink', {'filename': mededeling.file}) }}"
+                       onmouseover="this.style.color='red'" onmouseout="this.style.color='blueviolet'">Download File</a>
+                {% endif %}
             </div>
+
         {% endfor %}
         <hr>
 
