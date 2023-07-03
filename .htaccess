@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+    Options -MultiViews +Indexes
+    RewriteEngine On
+    RewriteBase /
+
+    # Rewrite requests for images and CSS files in the "public" directory
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} \.(jpg|jpeg|webp|gif|png|css|ttf|woff|woff2)$
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    # Rewrite all other requests to the "public/index.php" file
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ public/index.php [QSA,L]
+</IfModule>
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteCond %{REQUEST_URI} !^/sites-admin [NC]
+RewriteCond %{REQUEST_URI} !^/.cm4all [NC]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,QSA]
